@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="color-scheme" content="light only">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Study Smart — Pharmaceutical Solvents</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -27,7 +26,6 @@
     --serif: 'Fraunces', serif;
     --sans: 'Inter', sans-serif;
   }
-  html{color-scheme:light only;}
   *{box-sizing:border-box;}
   html{scroll-behavior:smooth;}
   body{
@@ -217,7 +215,7 @@
   /* ---------- Mind map ---------- */
   .map-wrap{display:flex; gap:26px; align-items:stretch; flex-wrap:wrap;}
   .map-canvas{
-    position:relative; flex:1 1 420px; min-width:320px; aspect-ratio:1/1; max-width:520px;
+    position:relative; flex:1 1 440px; min-width:320px; aspect-ratio:1/1; max-width:640px;
     background:var(--card); border:1px solid var(--line); border-radius:50%;
   }
   .map-canvas svg{position:absolute; inset:0; width:100%; height:100%;}
@@ -229,11 +227,13 @@
   }
   .map-node{
     position:absolute; transform:translate(-50%,-50%);
-    background:var(--paper); border:1.5px solid var(--ink-soft); color:var(--ink);
+    background:var(--paper); border:1.5px solid var(--g,var(--ink-soft)); color:var(--ink);
     font-family:var(--sans); font-weight:600; font-size:12px; padding:8px 10px; border-radius:14px;
     cursor:pointer; white-space:nowrap; z-index:2; transition:background .15s, color .15s, border-color .15s;
   }
-  .map-node:hover{border-color:var(--forest);}
+  .map-node:hover{filter:brightness(.95); box-shadow:0 0 0 2px var(--line);}
+  .map-node.seen::after{content:' ✓'; color:var(--forest);}
+  .map-node.active.seen::after{color:var(--paper);}
   .map-node.active{background:var(--rust); border-color:var(--rust); color:var(--paper);}
   .map-detail{
     flex:1 1 300px; min-width:280px; background:var(--card); border:1px solid var(--line);
@@ -241,6 +241,12 @@
   }
   .map-detail h3{font-family:var(--serif); font-size:20px; margin:0 0 10px; color:var(--forest-deep);}
   .map-detail p{font-size:14.5px; margin:0 0 8px;}
+  .map-detail .grp{font-size:11.5px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; margin:0 0 4px;}
+  .map-detail ul,.map-detail ol{font-size:14.5px; margin:0 0 10px; padding-left:20px;}
+  .map-detail li{margin-bottom:4px;}
+  .map-detail .tip{background:var(--paper); border-left:3px solid var(--amber); padding:8px 12px; font-size:13.5px;}
+  .map-detail .q{background:var(--paper); border-left:3px solid var(--rust); padding:8px 12px; font-size:13.5px;}
+  .map-count{font-size:12.5px; color:var(--ink-soft); margin:0 0 10px;}
   .map-detail .placeholder{color:var(--ink-soft); font-style:italic;}
 
   /* ---------- Flash cards ---------- */
@@ -305,19 +311,6 @@
   .quiz-done h3{font-family:var(--serif); font-size:26px; margin:0 0 8px;}
   .quiz-done p{color:var(--ink-soft); margin:0 0 20px;}
 
-
-  /* ---------- Credits ---------- */
-  .credit-bar{
-    display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px 18px;
-    padding:12px 0; border-bottom:1px solid var(--line);
-    font-size:12.5px; color:var(--ink-soft);
-  }
-  .credit-bar a, .colophon a{color:var(--forest-deep); font-weight:600; text-decoration:none; border-bottom:1px dotted var(--forest);}
-  .credit-bar a:hover, .colophon a:hover{color:var(--rust); border-bottom-color:var(--rust);}
-  .credit-links{display:flex; gap:16px; flex-wrap:wrap;}
-  .colophon .credit-block{display:flex; flex-direction:column; gap:4px;}
-  .colophon .credit-links{margin-top:2px;}
-
   /* ---------- Footer ---------- */
   .colophon{
     margin-top:60px; padding-top:18px; border-top:1px solid var(--line);
@@ -329,17 +322,12 @@
     .panel-head{flex-direction:column; align-items:flex-start;}
     .panel-head p{text-align:left;}
     .flow-branch{margin-left:0;}
-    .map-canvas{border-radius:12px; aspect-ratio:auto; min-height:520px;}
+    .map-canvas{border-radius:12px; aspect-ratio:auto; min-height:760px;}
   }
 </style>
 </head>
 <body>
 <div class="page">
-
-  <div class="credit-bar">
-    <span>© <span class="yr"></span> Anmar Taha. All rights reserved.</span>
-    <span class="credit-links"><a href="https://t.me/AnmarTaha" target="_blank" rel="noopener">Telegram: @AnmarTaha</a><a href="https://instagram.com/a.za18" target="_blank" rel="noopener">Instagram: a.za18</a></span>
-  </div>
 
   <header class="masthead">
     <p class="mast-eyebrow">Pharmaceutical Technology I · Lecture 4</p>
@@ -459,7 +447,7 @@
     <section id="map" class="panel">
       <div class="panel-head">
         <h2>Mind Map</h2>
-        <p>Click a solvent to read it here, in place.</p>
+        <p>Click any node to read its full explanation here, in place. Covers every topic in the lecture.</p>
       </div>
       <div class="map-wrap">
         <div class="map-canvas" id="mapCanvas">
@@ -468,7 +456,7 @@
         </div>
         <div class="map-detail" id="mapDetail">
           <h3>Pick a term</h3>
-          <p class="placeholder">Click any node on the wheel to load its details into this panel.</p>
+          <p class="placeholder">Click any node on the wheel to load its details into this panel. Visited nodes get a ✓.</p>
         </div>
       </div>
     </section>
@@ -520,16 +508,13 @@
   </main>
 
   <footer class="colophon">
-    <div class="credit-block">
-      <span>© <span class="yr"></span> Anmar Taha. All rights reserved.</span>
-      <span class="credit-links"><a href="https://t.me/AnmarTaha" target="_blank" rel="noopener">Telegram: @AnmarTaha</a><a href="https://instagram.com/a.za18" target="_blank" rel="noopener">Instagram: a.za18</a></span>
-    </div>
+    <span>© <span id="year"></span> Anmar Taha. All rights reserved.</span>
     <span>Pharmaceutical Technology I — Solvents used in pharmaceutical preparation</span>
   </footer>
 </div>
 
 <script>
-document.querySelectorAll('.yr').forEach(e=>e.textContent = new Date().getFullYear());
+document.getElementById('year').textContent = new Date().getFullYear();
 
 /* ---------------- Tabs ---------------- */
 const jars = document.querySelectorAll('.jar');
@@ -692,38 +677,120 @@ renderMatrix();
    MIND MAP
    ============================================================ */
 const mapNodes = [
-  {label:'Water', title:'Water', text:'A good solvent for most inorganic salts and many organic compounds. Its miscibility with alcohol and glycerin makes it a widely used pharmaceutical vehicle.'},
-  {label:'Alcohol USP', title:'Alcohol USP (Ethyl alcohol, 94.9–96%)', text:'Dissolves drugs insoluble in water — resins, volatile oils, alkaloids, glycosides. Also functions as an antimicrobial preservative, alone or with parabens. Pediatric alcohol-content limits apply: 0.5% under 6 years, 5% for 6–12 years, 10% over 12 years and for adults.'},
-  {label:'Diluted Alcohol', title:'Diluted Alcohol NF (49–50%)', text:'Prepared by mixing equal volumes of Alcohol USP and Purified Water USP. This hydroalcoholic solvent dissolves both alcohol-soluble and water-soluble substances.'},
-  {label:'Dehydrated Alcohol', title:'Dehydrated Alcohol USP (99.5%, absolute alcohol)', text:'Practically free from water. Its chief pharmacy use is in research and analytic work, and in preparing synthetic organic medicinals.'},
-  {label:'Isopropyl Alcohol', title:'Isopropyl Alcohol (70%)', text:'Used in cosmetic and dermatologic formulations.'},
-  {label:'Chloroform', title:'Chloroform', text:'Miscible with alcohol, ether, benzene, hexane, and both fixed and volatile oils. Dissolves in 200 volumes of water. Not flammable, but its vapor decomposes near naked flames, producing harmful gases. A solvent for many alkaloids.'},
-  {label:'Glycerin', title:'Glycerin USP (Glycerol)', text:'A clear syrupy liquid with a sweet taste. Miscible with water and alcohol, but not with chloroform. An excellent solvent for tannins, phenol, and boric acid. Must be heated to reduce viscosity before use as a solvent. Used as a stabilizer and auxiliary solvent, and in many internal preparations.'},
-  {label:'Propylene Glycol', title:'Propylene Glycol', text:'Miscible with water, acetone, alcohol, and chloroform. Dissolves many essential oils but is immiscible with fixed oils. Used as a modern replacement for glycerin in pharmaceutical and cosmetic formulations.'},
-  {label:'Polyethylene Glycol', title:'Polyethylene Glycol', text:'Miscible with water, acetone, alcohol, and other glycols. Dissolves many water-soluble organic compounds as well as certain water-insoluble substances, such as acetylsalicylic acid.'}
-];
-const positions = [
-  [50,12],[74.4,20.9],[87.4,43.4],[82.9,69],[63,85.7],[37,85.7],[17.1,69],[12.6,43.4],[25.6,20.9]
+ {
+  "label": "USP-NF",
+  "color": "#3F5A34",
+  "group": "Basics",
+  "title": "Reference: USP-NF",
+  "html": "<p>Before preparing a product you need to know how soluble the drug is in each solvent. This information is not guessed.</p><ul><li>Solubilities of many medicinal agents in the usual solvents are stated in the <b>United States Pharmacopeia–National Formulary (USP-NF)</b>.</li><li>Other reference books also list them.</li></ul><p class='tip'><b>Remember:</b> USP-NF = the official source for solubility data and for the grades of each solvent (Alcohol USP, Diluted Alcohol NF…).</p>"
+ },
+ {
+  "label": "Solvent Properties",
+  "color": "#3F5A34",
+  "group": "Basics",
+  "title": "Properties of a pharmaceutical solvent",
+  "html": "<p>Every pharmaceutical solvent should be:</p><ol><li><b>Not toxic</b> — no harmful effect on the body.</li><li><b>Not volatile</b> — it should not evaporate easily.</li><li><b>Stable</b> — does not interact with the active ingredient or added substances, stays stable in storage, and helps keep the active ingredient stable.</li></ol><p class='q'><b>Slide question: if a solvent is volatile, what does that mean?</b><br>It evaporates, so solvent is lost during preparation and storage. The drug concentration then rises and the dose becomes inaccurate, and the product may lose stability or change in volume.</p>"
+ },
+ {
+  "label": "Water",
+  "color": "#2F6F8F",
+  "group": "Water",
+  "title": "Water",
+  "html": "<p>The most widely used solvent.</p><ul><li>Good solvent for <b>most inorganic salts</b> and <b>many organic compounds</b>.</li><li>Miscible with other solvents such as <b>alcohol and glycerin</b>, so it is a useful vehicle for many preparations.</li></ul><p class='tip'><b>Remember:</b> water + alcohol + glycerin mix freely, which allows mixed (co-solvent) systems.</p>"
+ },
+ {
+  "label": "Types of Water",
+  "color": "#2F6F8F",
+  "group": "Water",
+  "title": "Types of water and their steps",
+  "html": "<p>Each type is the previous one plus one more step:</p><ol><li><b>Crude water</b> → clarification → <b>Tap water</b></li><li>Tap water → distillation → <b>Distilled water</b></li><li>Tap water → deionization → <b>Deionized water</b></li><li>Distilled + Deionized → <b>Purified water</b></li><li>Purified → sterilization → <b>Sterile water</b> (for injection)</li><li>Sterile → removal of pyrogen → <b>Pyrogen-free water</b> (for injection)</li><li>Pyrogen-free → preservative addition → <b>Bacteriostatic water</b> (for injection)</li></ol><p class='q'><b>Slide question: difference between the steps?</b><br>Purified water: removal of dissolved impurities. Sterile: kills microbes. Pyrogen-free: removes fever-causing substances. Bacteriostatic: preservative added to stop microbial growth.</p>"
+ },
+ {
+  "label": "Ethyl Alcohol",
+  "color": "#AD7A2C",
+  "group": "Alcohols",
+  "title": "Alcohol USP — Ethyl alcohol (94.9–96% v/v, C₂H₅OH)",
+  "html": "<p>Solvent for drugs that are <b>insoluble in water</b> (natural and synthetic organic substances).</p><ul><li>Dissolves plant constituents: <b>resins, volatile oils, alkaloids, glycosides</b>.</li><li>Used in liquid products as an <b>antimicrobial preservative</b>, alone or as a <b>co-preservative</b> with others such as <b>parabens</b>.</li><li>Combined with <b>glycols and glycerin</b> to reduce the amount of alcohol needed, because it has undesired pharmacologic and toxic effects when ingested.</li></ul>"
+ },
+ {
+  "label": "Diluted Alcohol",
+  "color": "#AD7A2C",
+  "group": "Alcohols",
+  "title": "Diluted Alcohol NF (49–50%)",
+  "html": "<p>Prepared by mixing <b>equal volumes</b> of Alcohol USP and Purified Water USP.</p><ul><li>A <b>hydroalcoholic</b> solvent.</li><li>Dissolves <b>both alcohol-soluble and water-soluble</b> substances, so it is useful in many processes and preparations.</li></ul><p class='tip'><b>Remember:</b> 1 part alcohol + 1 part purified water ≈ 50%.</p>"
+ },
+ {
+  "label": "Dehydrated Alcohol",
+  "color": "#AD7A2C",
+  "group": "Alcohols",
+  "title": "Dehydrated Alcohol USP (99.5%, absolute alcohol)",
+  "html": "<p>Practically <b>free from water</b>.</p><ul><li>Chief use in pharmacy: <b>research and analytic work</b>.</li><li>Also used in the preparation of <b>synthetic organic medicinals</b>.</li></ul>"
+ },
+ {
+  "label": "Isopropyl Alcohol",
+  "color": "#AD7A2C",
+  "group": "Alcohols",
+  "title": "Isopropyl alcohol 70%",
+  "html": "<p>Used in <b>cosmetic and dermatologic</b> formulations (external use).</p><p class='tip'><b>Remember:</b> structure is (CH₃)₂CH–OH, a secondary alcohol.</p>"
+ },
+ {
+  "label": "Alcohol Limits",
+  "color": "#A2402B",
+  "group": "Alcohols",
+  "title": "Recommended alcohol limits in oral products",
+  "html": "<p>Alcohol can cause undesired pharmacologic and toxic effects, especially in children, so limits are recommended:</p><ul><li>OTC oral products for children <b>under 6 years</b>: <b>0.5%</b></li><li>Children <b>6 to 12 years</b>: <b>5%</b></li><li>Children <b>over 12</b> and adults: <b>10%</b></li></ul><p class='tip'><b>Remember:</b> 0.5 → 5 → 10 as age goes up.</p>"
+ },
+ {
+  "label": "Chloroform",
+  "color": "#7A5C8E",
+  "group": "Other solvents",
+  "title": "Chloroform",
+  "html": "<ul><li>Miscible with <b>alcohol, ether, benzene, hexane</b> and both <b>fixed and volatile oils</b>.</li><li>Dissolves in <b>200 volumes of water</b> (mL of water needed to dissolve 1 g).</li><li><b>Not flammable</b>, but its vapor decomposes in naked flames producing <b>harmful gases</b>.</li><li>A solvent for <b>many alkaloids</b>.</li></ul>"
+ },
+ {
+  "label": "Glycerin",
+  "color": "#AD7A2C",
+  "group": "Glycols & glycerin",
+  "title": "Glycerin USP (Glycerol)",
+  "html": "<ul><li>Clear <b>syrupy</b> liquid, <b>sweet</b> taste.</li><li>Miscible with <b>water and alcohol</b>, but <b>not with chloroform</b>.</li><li>Excellent solvent for <b>tannins, phenol and boric acid</b>.</li><li>Preservative qualities: used as a <b>stabilizer</b> for solutions made with other solvents.</li><li>Must be <b>heated to reduce viscosity</b> when used as a solvent, otherwise substances are hard to dissolve.</li><li>Also an <b>auxiliary solvent</b> with water or alcohol, used in many <b>internal</b> preparations.</li></ul>"
+ },
+ {
+  "label": "Propylene Glycol",
+  "color": "#4B7F6F",
+  "group": "Glycols & glycerin",
+  "title": "Propylene glycol",
+  "html": "<ul><li>Miscible with <b>water, acetone, alcohol, chloroform</b>.</li><li>Dissolves many <b>essential oils</b> but is <b>immiscible with fixed oils</b>.</li><li>Wide range of use as a solvent; used as a <b>replacement for glycerin</b> in modern pharmaceutical and cosmetic formulations.</li></ul>"
+ },
+ {
+  "label": "PEG",
+  "color": "#4B7F6F",
+  "group": "Glycols & glycerin",
+  "title": "Polyethylene glycol (PEG)",
+  "html": "<ul><li>Miscible with <b>water, acetone, alcohol</b> and other glycols.</li><li>Dissolves many water-soluble organic compounds <b>and</b> certain water-insoluble ones such as <b>acetylsalicylic acid</b>.</li></ul>"
+ }
 ];
 const mapCanvas = document.getElementById('mapCanvas');
 const mapSvg = document.getElementById('mapSvg');
 const mapDetail = document.getElementById('mapDetail');
+const mapSeen = new Set();
+function mapCount(){ return `<p class="map-count">Reviewed ${mapSeen.size} / ${mapNodes.length}</p>`; }
 mapNodes.forEach((n,i)=>{
-  const [x,y] = positions[i];
+  const a = i/mapNodes.length*2*Math.PI, x = 50+40*Math.sin(a), y = 50-40*Math.cos(a);
   const line = document.createElementNS('http://www.w3.org/2000/svg','line');
   line.setAttribute('x1',50); line.setAttribute('y1',50);
   line.setAttribute('x2',x); line.setAttribute('y2',y);
-  line.setAttribute('stroke','#C9BC96'); line.setAttribute('stroke-width','0.6');
+  line.setAttribute('stroke',n.color); line.setAttribute('stroke-width','0.5'); line.setAttribute('stroke-opacity','0.6');
   mapSvg.appendChild(line);
 
   const node = document.createElement('button');
   node.className='map-node'; node.type='button';
-  node.style.left = x+'%'; node.style.top = y+'%';
+  node.style.left = x+'%'; node.style.top = y+'%'; node.style.setProperty('--g',n.color);
   node.textContent = n.label;
   node.addEventListener('click', ()=>{
     document.querySelectorAll('.map-node').forEach(m=>m.classList.remove('active'));
-    node.classList.add('active');
-    mapDetail.innerHTML = `<h3>${n.title}</h3><p>${n.text}</p>`;
+    node.classList.add('active','seen'); mapSeen.add(i);
+    mapDetail.innerHTML = `${mapCount()}<p class="grp" style="color:${n.color}">${n.group}</p><h3>${n.title}</h3>${n.html}`;
+    if(window.innerWidth<=900) mapDetail.scrollIntoView({behavior:'smooth',block:'nearest'});
   });
   mapCanvas.appendChild(node);
 });
@@ -732,63 +799,163 @@ mapNodes.forEach((n,i)=>{
    FLASH CARDS
    ============================================================ */
 const flashData = [
-  {"level": 1, "cat": "general", "f": "Which reference source states the solubilities of many medicinal agents in the usual solvents?", "b": "The United States Pharmacopeia–National Formulary (USP-NF), as well as other reference books."},
-  {"level": 1, "cat": "general", "f": "Pharmaceutical solvent property 1: \"Not toxic\" means…", "b": "No harmful effect on the body."},
-  {"level": 1, "cat": "general", "f": "Pharmaceutical solvent property 2: what must a solvent NOT be?", "b": "Volatile — it should be non-volatile."},
-  {"level": 1, "cat": "general", "f": "Pharmaceutical solvent property 3: \"Stable\" means…", "b": "It must not interact with the active ingredient or the added substances, must stay stable under storage conditions, and must keep the active ingredient stable."},
-  {"level": 1, "cat": "water", "f": "Water is a good solvent for which kinds of substances?", "b": "Most inorganic salts and many organic compounds."},
-  {"level": 1, "cat": "water", "f": "Water is miscible with which solvents (named in the lecture), making it a useful vehicle?", "b": "Alcohol and glycerin."},
-  {"level": 1, "cat": "water", "f": "Crude Water → Tap Water: which process?", "b": "Clarification."},
-  {"level": 1, "cat": "water", "f": "Tap Water → Distilled Water: which process?", "b": "Distillation."},
-  {"level": 1, "cat": "water", "f": "Tap Water → Deionized Water: which process?", "b": "Deionization."},
-  {"level": 1, "cat": "water", "f": "Purified Water is…", "b": "Water that is both distilled and deionized."},
-  {"level": 1, "cat": "water", "f": "Purified Water → Sterile Water (for injection): which process?", "b": "Sterilization."},
-  {"level": 1, "cat": "water", "f": "Sterile Water → Pyrogen-free Water (for injection): which process?", "b": "Removal of pyrogen."},
-  {"level": 1, "cat": "water", "f": "Pyrogen-free Water → Bacteriostatic Water (for injection): which process?", "b": "Preservative addition."},
-  {"level": 1, "cat": "alcohol", "f": "Alcohol USP (ethyl alcohol): concentration and formula?", "b": "94.9–96% by volume C2H5OH."},
-  {"level": 1, "cat": "alcohol", "f": "Name the plant constituents that Alcohol USP dissolves.", "b": "Resins, volatile oils, alkaloids and glycosides."},
-  {"level": 1, "cat": "alcohol", "f": "Besides being a solvent, what role can alcohol play in liquid products?", "b": "Antimicrobial preservative — alone or as a co-preservative with others such as parabens."},
-  {"level": 1, "cat": "alcohol", "f": "Recommended alcohol limit in OTC oral products for children under 6 years?", "b": "0.5%."},
-  {"level": 1, "cat": "diluted", "f": "Diluted Alcohol NF: concentration?", "b": "49–50%."},
-  {"level": 1, "cat": "dehydrated", "f": "Dehydrated Alcohol USP (absolute alcohol): concentration?", "b": "99.5% C2H5OH — practically free from water."},
-  {"level": 1, "cat": "isopropyl", "f": "Isopropyl alcohol 70%: where is it used?", "b": "In cosmetic and dermatologic formulations."},
-  {"level": 1, "cat": "chloroform", "f": "Chloroform is a solvent for which class of drugs?", "b": "Many alkaloids."},
-  {"level": 1, "cat": "glycerin", "f": "Physical description of Glycerin USP (glycerol)?", "b": "A clear, syrupy liquid with a sweet taste."},
-  {"level": 1, "cat": "glycerin", "f": "Glycerin is an excellent solvent for which three substances?", "b": "Tannins, phenol and boric acid."},
-  {"level": 1, "cat": "pg", "f": "Propylene glycol is used in modern formulations as a replacement for which solvent?", "b": "Glycerin (in pharmaceutical and cosmetic formulations)."},
-  {"level": 1, "cat": "peg", "f": "Name the water-insoluble drug the lecture says polyethylene glycol can dissolve.", "b": "Acetyl salicylic acid (aspirin)."},
-  {"level": 2, "cat": "alcohol", "f": "State the recommended alcohol limits for children 6–12 years and for those over 12 years and adults.", "b": "6–12 years: 5%. Over 12 years and adults: 10%."},
-  {"level": 2, "cat": "alcohol", "f": "Why is alcohol combined with glycols and glycerin, and why does its content need limiting?", "b": "The co-solvents reduce the amount of alcohol required, because alcohol has undesired pharmacologic and toxic effects when ingested, particularly by children."},
-  {"level": 2, "cat": "diluted", "f": "How is Diluted Alcohol NF prepared, and why is it useful?", "b": "By mixing equal volumes of Alcohol USP and Purified Water USP. It dissolves both alcohol-soluble and water-soluble substances."},
-  {"level": 2, "cat": "dehydrated", "f": "What is the chief use of Dehydrated Alcohol USP in pharmacy?", "b": "Research and analytic work, and the preparation of synthetic organic medicinals."},
-  {"level": 2, "cat": "chloroform", "f": "Chloroform \"dissolves in 200 volumes of water\" — what does that mean?", "b": "200 mL of water is required to dissolve 1 g of compound (volumes = mL of water per gram)."},
-  {"level": 2, "cat": "chloroform", "f": "Is chloroform flammable? What hazard does it pose near a flame?", "b": "Not flammable, but its vapor decomposes in naked flames and produces harmful gases."},
-  {"level": 2, "cat": "chloroform", "f": "Chloroform is miscible with which liquids?", "b": "Alcohol, ether, benzene, hexane, and both fixed and volatile oils."},
-  {"level": 2, "cat": "glycerin", "f": "Glycerin is miscible with which solvents and NOT miscible with which?", "b": "Miscible with water and alcohol; not miscible with chloroform."},
-  {"level": 2, "cat": "glycerin", "f": "Why must glycerin be heated when used as a solvent?", "b": "Heating reduces its viscosity; otherwise it is difficult to dissolve substances in it."},
-  {"level": 2, "cat": "glycerin", "f": "What two supporting roles does glycerin play besides acting as a main solvent?", "b": "A stabilizer (because of its preservative qualities) and an auxiliary solvent used together with water or alcohol."},
-  {"level": 2, "cat": "pg", "f": "Propylene glycol: miscible with which solvents, and immiscible with what?", "b": "Miscible with water, acetone, alcohol and chloroform (dissolves many essential oils); immiscible with fixed oils."},
-  {"level": 2, "cat": "peg", "f": "Polyethylene glycol is miscible with which solvents, and what does it dissolve?", "b": "Miscible with water, acetone, alcohol and other glycols; dissolves many water-soluble organic compounds and certain water-insoluble ones such as acetyl salicylic acid."},
-  {"level": 2, "cat": "water", "f": "In the water flow diagram, which water types are labelled \"for injection\"?", "b": "Sterile Water, Pyrogen-free Water and Bacteriostatic Water (Purified Water is distilled and deionized, but not labelled for injection)."},
-  {"level": 2, "cat": "general", "f": "The lecture asks: \"If the solvent were volatile, what would that mean?\" Give the logical answer.", "b": "It would evaporate easily, so the volume/concentration of the preparation would change during storage and use, making the dose unreliable."},
-  {"level": 2, "cat": "alcohol", "f": "Contrast Alcohol USP with Dehydrated Alcohol USP in concentration and use.", "b": "Alcohol USP is 94.9–96% and serves as a general solvent and preservative; Dehydrated Alcohol is 99.5% (practically water-free) and is used mainly in research, analysis and synthesis of organic medicinals."},
-  {"level": 3, "cat": "alcohol", "f": "An OTC oral syrup for a 4-year-old contains 3% alcohol. Is it acceptable? What must be done?", "b": "No. The recommended limit for OTC oral products for children under 6 is 0.5%. Alcohol must be cut to ≤0.5%, e.g. by using glycols or glycerin as co-solvents to reduce the alcohol required."},
-  {"level": 3, "cat": "peg", "f": "A formulator must dissolve aspirin, which is water-insoluble. Which solvent from the lecture is suitable, and why not simply use water?", "b": "Polyethylene glycol — it dissolves certain water-insoluble substances such as acetyl salicylic acid. Water alone is a poor solvent for such organic compounds."},
-  {"level": 3, "cat": "pg", "f": "Propylene glycol replaces glycerin in many modern formulations. Give one solubility difference between them relevant to chloroform.", "b": "Propylene glycol is miscible with chloroform, whereas glycerin is not. (Propylene glycol is also immiscible with fixed oils.)"},
-  {"level": 3, "cat": "glycerin", "f": "A tannin solution in glycerin dissolves very slowly. What is the cause and the remedy?", "b": "Glycerin is highly viscous, which hinders dissolving. Heat the glycerin to reduce its viscosity."},
-  {"level": 3, "cat": "diluted", "f": "A preparation contains both a water-soluble salt and an alcohol-soluble resin. Which solvent fits best and why?", "b": "Diluted Alcohol NF (49–50%) — equal volumes of Alcohol USP and Purified Water give a hydroalcoholic solvent dissolving both alcohol-soluble and water-soluble substances."},
-  {"level": 3, "cat": "water", "f": "Starting from Tap Water and using the deionization route, list the named processes needed to reach Bacteriostatic Water.", "b": "Deionization (→ Deionized/Purified Water), Sterilization, Removal of pyrogen, then Preservative addition — four named processes."},
-  {"level": 3, "cat": "chloroform", "f": "Chloroform is \"not flammable\". Why must it still be kept away from naked flames?", "b": "Its vapor decomposes in naked flames, producing harmful gases."},
-  {"level": 3, "cat": "general", "f": "Which solvent in the lecture is miscible with water and alcohol but NOT with chloroform, and also acts as a stabilizer?", "b": "Glycerin (glycerol)."},
-  {"level": 3, "cat": "alcohol", "f": "A product contains 8% alcohol. For which age groups does it satisfy the lecture's recommended limits?", "b": "Not suitable for children under 6 (limit 0.5%) or children 6–12 (limit 5%); acceptable only for children over 12 years and adults (limit 10%)."},
-  {"level": 3, "cat": "general", "f": "Link two solvent properties: how can solvent volatility threaten the \"stable\" requirement?", "b": "A volatile solvent evaporates on storage, concentrating the active ingredient and altering its environment/interaction, which can compromise stability and protection of the active ingredient."}
+  {level:1,cat:'general',f:'Which reference source states the solubilities of medicinal agents in usual solvents?',b:'The USP-NF (United States Pharmacopeia–National Formulary), and other reference books.'},
+  {level:1,cat:'general',f:'Property 1 of a pharmaceutical solvent',b:'Not toxic — no harmful effect on the body.'},
+  {level:1,cat:'general',f:'Property 2 of a pharmaceutical solvent',b:'Not volatile.'},
+  {level:1,cat:'general',f:'Property 3 of a pharmaceutical solvent (part 1)',b:'Stable — must not interact with the active ingredient or added substances.'},
+  {level:1,cat:'general',f:'Property 3 of a pharmaceutical solvent (part 2)',b:'Stay stable under storage conditions and protect the active ingredient.'},
+  {level:1,cat:'water',f:'What can water dissolve well (inorganic)?',b:'Most inorganic salts.'},
+  {level:1,cat:'water',f:'What can water dissolve well (organic)?',b:'Many organic compounds.'},
+  {level:1,cat:'water',f:'Which solvent is water miscible with (mentioned first)?',b:'Alcohol.'},
+  {level:1,cat:'water',f:'Which solvent is water miscible with (mentioned second)?',b:'Glycerin.'},
+  {level:1,cat:'water',f:'Crude Water → Tap Water',b:'Clarification.'},
+  {level:1,cat:'water',f:'Tap Water → Distilled Water',b:'Distillation.'},
+  {level:1,cat:'water',f:'Tap Water → Deionized Water',b:'Deionization.'},
+  {level:1,cat:'water',f:'Definition of Purified Water',b:'Water that is both distilled and deionized.'},
+  {level:1,cat:'water',f:'Purified Water → Sterile Water (for injection)',b:'Sterilization.'},
+  {level:1,cat:'water',f:'Sterile Water → Pyrogen-free Water (for injection)',b:'Removal of Pyrogen.'},
+  {level:1,cat:'water',f:'Pyrogen-free Water → Bacteriostatic Water (for injection)',b:'Preservative addition.'},
+  {level:1,cat:'alcohol',f:'Concentration of Alcohol USP (Ethyl alcohol)',b:'94.9–96% by volume C2H5OH.'},
+  {level:1,cat:'alcohol',f:'What kind of drugs is Alcohol USP a solvent for?',b:'Drugs insoluble in water — natural and synthetic organic substances.'},
+  {level:1,cat:'alcohol',f:'Alcohol USP dissolves which plant constituent (1)?',b:'Resins.'},
+  {level:1,cat:'alcohol',f:'Alcohol USP dissolves which plant constituent (2)?',b:'Volatile oils.'},
+  {level:1,cat:'alcohol',f:'Alcohol USP dissolves which plant constituent (3)?',b:'Alkaloids.'},
+  {level:1,cat:'alcohol',f:'What preservative role can alcohol play (alone)?',b:'An antimicrobial preservative, used alone.'},
+  {level:1,cat:'alcohol',f:'Why is alcohol combined with glycols and glycerin?',b:'To reduce the amount of alcohol required.'},
+  {level:1,cat:'alcohol',f:'Why does alcohol have recommended content limits?',b:'Because it has undesired pharmacologic and toxic effects when ingested, especially by children.'},
+  {level:1,cat:'alcohol',f:'Alcohol limit: OTC oral, children under 6 years',b:'0.5%.'},
+  {level:1,cat:'alcohol',f:'Alcohol limit: children 6–12 years',b:'5%.'},
+  {level:1,cat:'alcohol',f:'Alcohol limit: children over 12 years / adults',b:'10%.'},
+  {level:1,cat:'diluted',f:'Concentration of Diluted Alcohol NF',b:'49–50%.'},
+  {level:1,cat:'diluted',f:'How is Diluted Alcohol NF prepared?',b:'By mixing equal volumes of Alcohol USP and Purified Water USP.'},
+  {level:1,cat:'diluted',f:'What does Diluted Alcohol NF dissolve?',b:'Both alcohol-soluble and water-soluble substances.'},
+  {level:1,cat:'dehydrated',f:'Concentration of Dehydrated Alcohol USP',b:'99.5% C2H5OH (absolute alcohol), practically free from water.'},
+  {level:1,cat:'dehydrated',f:'Chief use of Dehydrated Alcohol (1)',b:'Research and analytic work.'},
+  {level:1,cat:'isopropyl',f:'Concentration and use of isopropyl alcohol',b:'70% — used in cosmetic and dermatologic formulations.'},
+  {level:1,cat:'chloroform',f:'Chloroform miscibility (1)',b:'Alcohol.'},
+  {level:1,cat:'chloroform',f:'Chloroform miscibility (2)',b:'Ether.'},
+  {level:1,cat:'chloroform',f:'Chloroform miscibility (3)',b:'Benzene.'},
+  {level:1,cat:'chloroform',f:'Chloroform\'s solubility in water',b:'Dissolves in 200 volumes of water (about 200 mL water per 1 g).'},
+  {level:1,cat:'chloroform',f:'Is chloroform flammable?',b:'No, chloroform itself is not flammable.'},
+  {level:1,cat:'chloroform',f:'What happens to chloroform vapor near naked flames?',b:'It decomposes, producing harmful gases.'},
+  {level:1,cat:'chloroform',f:'What class of compounds is chloroform a solvent for?',b:'Many alkaloids.'},
+  {level:1,cat:'glycerin',f:'Physical description of Glycerin USP',b:'A clear syrupy liquid with a sweet taste.'},
+  {level:1,cat:'glycerin',f:'Glycerin miscibility (1)',b:'Water.'},
+  {level:1,cat:'glycerin',f:'Glycerin miscibility (2)',b:'Alcohol.'},
+  {level:1,cat:'glycerin',f:'Which solvent is glycerin NOT miscible with?',b:'Chloroform.'},
+  {level:1,cat:'glycerin',f:'Glycerin is an excellent solvent for (1)',b:'Tannins.'},
+  {level:1,cat:'glycerin',f:'Glycerin is an excellent solvent for (2)',b:'Phenol.'},
+  {level:1,cat:'glycerin',f:'Why is glycerin sometimes used as a stabilizer?',b:'Because of its preservative qualities.'},
+  {level:1,cat:'glycerin',f:'What must be done to glycerin before using it as a solvent?',b:'It must be heated, to reduce its viscosity.'},
+  {level:1,cat:'glycerin',f:'How is glycerin used alongside water or alcohol?',b:'As a stabilizer and an auxiliary solvent.'},
+  {level:1,cat:'glycerin',f:'Where is glycerin commonly used?',b:'In many internal (oral) preparations.'},
+  {level:1,cat:'pg',f:'Propylene glycol miscibility (1)',b:'Water.'},
+  {level:1,cat:'pg',f:'Propylene glycol miscibility (2)',b:'Acetone.'},
+  {level:1,cat:'pg',f:'Propylene glycol miscibility (3)',b:'Alcohol.'},
+  {level:1,cat:'pg',f:'What does propylene glycol dissolve well?',b:'Many essential (volatile) oils.'},
+  {level:1,cat:'pg',f:'What is propylene glycol immiscible with?',b:'Fixed oils.'},
+  {level:1,cat:'pg',f:'What does propylene glycol replace in modern formulations?',b:'Glycerin.'},
+  {level:1,cat:'peg',f:'Polyethylene glycol miscibility (1)',b:'Water.'},
+  {level:1,cat:'peg',f:'Polyethylene glycol miscibility (2)',b:'Acetone.'},
+  {level:1,cat:'peg',f:'What water-soluble compounds does PEG dissolve?',b:'Many water-soluble organic compounds.'},
+  {level:1,cat:'peg',f:'What water-insoluble substance can PEG still dissolve?',b:'Acetylsalicylic acid (aspirin), among others.'},
+  {level:2,cat:'general',f:'What does \'not toxic\' mean for a pharmaceutical solvent, and why does it matter?',b:'It means the solvent must have no harmful effect on the body — this matters because the solvent itself, not just the drug, is administered to the patient.'},
+  {level:2,cat:'general',f:'Why is volatility undesirable in a pharmaceutical solvent?',b:'A volatile solvent would evaporate over time, changing the concentration/consistency of the preparation and reducing accuracy of dosing.'},
+  {level:2,cat:'general',f:'Explain what \'stable\' covers for a pharmaceutical solvent (two aspects).',b:'It must not interact with the active ingredient or added substances, AND it must remain stable under storage conditions while protecting the active ingredient.'},
+  {level:2,cat:'general',f:'Where would a pharmacist look up the solubility of a poorly-known drug in ethanol?',b:'The USP-NF or other reference books, which state solubilities of many medicinal agents in usual solvents.'},
+  {level:2,cat:'water',f:'Why does water\'s miscibility with alcohol and glycerin matter for formulation, beyond water simply being a solvent?',b:'It lets water be combined with alcohol- or glycerin-based systems to form mixed (hydroalcoholic/hydroglycerin) vehicles, extending the range of substances that can be dissolved.'},
+  {level:2,cat:'water',f:'Two water types are combined to make Purified Water. Which two, and by what respective processes were they each made from Tap Water?',b:'Distilled Water (made by distillation) and Deionized Water (made by deionization) are combined to give Purified Water.'},
+  {level:2,cat:'water',f:'List, in order, the three steps water for injection must pass through after Purified Water to become Bacteriostatic Water.',b:'Sterilization → Removal of Pyrogen → Preservative addition.'},
+  {level:2,cat:'water',f:'Why would injectable water need pyrogens removed even after it has been sterilized?',b:'Because sterilization only kills microorganisms — it does not eliminate pyrogens (microbial by-products) that were already present, which can still cause a febrile reaction if injected.'},
+  {level:2,cat:'water',f:'What is the first step applied to Crude Water, and what does it accomplish before distillation or deionization can occur?',b:'Clarification — it turns Crude Water into usable Tap Water, which is the common starting point for both the distillation and deionization branches.'},
+  {level:2,cat:'alcohol',f:'A liquid oral formulation needs to dissolve alkaloids, glycosides, and act as a co-preservative. Which solvent fits both roles, and with what other agent is it commonly paired as co-preservative?',b:'Alcohol USP — it dissolves alkaloids and glycosides, and is commonly used as a co-preservative with parabens.'},
+  {level:2,cat:'alcohol',f:'Why is alcohol often combined with glycols and glycerin rather than used alone at full strength?',b:'To reduce the amount of alcohol required in the formulation, lowering the toxic/pharmacologic risk while still achieving the needed solvency.'},
+  {level:2,cat:'alcohol',f:'A cough syrup is intended for a 4-year-old and is sold OTC. What is the maximum recommended alcohol content?',b:'0.5%, since the child is under 6 years of age.'},
+  {level:2,cat:'alcohol',f:'A product is labeled for ages 8 and up. What is the recommended alcohol content ceiling, based on the lecture\'s age brackets?',b:'5%, since age 8 falls in the 6–12 years bracket.'},
+  {level:2,cat:'alcohol',f:'Rank the three pediatric/general alcohol limits from most to least restrictive.',b:'Under 6 years (0.5%) is the strictest, then 6–12 years (5%), then over 12/adults (10%) is the least restrictive.'},
+  {level:2,cat:'diluted',f:'Diluted Alcohol NF is made from which two USP/NF ingredients, and in what proportion?',b:'Equal volumes of Alcohol USP and Purified Water USP.'},
+  {level:2,cat:'diluted',f:'Why is Diluted Alcohol NF described as useful for \'various pharmaceutical processes and preparations\'?',b:'Because, being hydroalcoholic, it dissolves both alcohol-soluble and water-soluble substances, giving it broader solvency than either pure water or pure alcohol alone.'},
+  {level:2,cat:'dehydrated',f:'Why is Dehydrated Alcohol USP unsuitable as a general oral vehicle but suited to research/synthesis work?',b:'It is 99.5% C2H5OH, practically free of water — a concentration far too strong and pharmacologically harsh for routine oral dosing, but valuable where anhydrous conditions matter, as in research, analysis, and synthetic organic drug preparation.'},
+  {level:2,cat:'isopropyl',f:'Isopropyl alcohol is used at what concentration, and in which category of formulations specifically (not oral)?',b:'70%, used in cosmetic and dermatologic formulations.'},
+  {level:2,cat:'chloroform',f:'If a formulator needs 5 g of chloroform to dissolve completely in water, roughly how much water is needed, given that chloroform dissolves in 200 volumes of water?',b:'About 1000 mL (5 g × 200 mL/g), since 200 mL of water is needed per 1 g of chloroform.'},
+  {level:2,cat:'chloroform',f:'Chloroform is not itself flammable, yet it still poses a fire-related hazard. What is that hazard?',b:'Its vapor decomposes when exposed to naked flames, producing harmful (toxic) gases.'},
+  {level:2,cat:'chloroform',f:'Name two broad solvent-miscibility groups and one compound class that make chloroform useful for extracting/dissolving plant-derived drugs.',b:'It is miscible with alcohol, ether, benzene, hexane, and both fixed and volatile oils, and it is a solvent for many alkaloids.'},
+  {level:2,cat:'glycerin',f:'Why must glycerin be heated before it is used as a solvent, and what happens if this step is skipped?',b:'Heating reduces glycerin\'s high viscosity; if it is not heated, it becomes difficult to dissolve the substance in it.'},
+  {level:2,cat:'glycerin',f:'Glycerin is miscible with two common solvents but explicitly not with a third. Name all three and their miscibility status.',b:'Miscible with water and alcohol; not miscible with chloroform.'},
+  {level:2,cat:'glycerin',f:'Glycerin serves two overlapping roles in a formulation beyond being a solvent. What are they, and what property underlies one of them?',b:'It serves as a stabilizer (owing to its preservative qualities) and as an auxiliary solvent used together with water or alcohol.'},
+  {level:2,cat:'pg',f:'Propylene glycol is described as replacing which classic solvent in modern formulations, and why might that substitution be attractive (based on stated properties)?',b:'It replaces glycerin; propylene glycol has a wide range of usefulness as a solvent, including dissolving many essential oils, without needing the heating step glycerin requires.'},
+  {level:2,cat:'pg',f:'Contrast propylene glycol\'s behavior toward essential oils versus fixed oils.',b:'It dissolves many essential (volatile) oils but is immiscible with fixed oils.'},
+  {level:2,cat:'peg',f:'Polyethylene glycol can dissolve a water-insoluble drug example given in the lecture. Name the drug and explain why this is notable.',b:'Acetylsalicylic acid (aspirin) — notable because PEG can dissolve it despite it being water-insoluble, extending PEG\'s usefulness beyond simple water-soluble organics.'},
+  {level:2,cat:'general',f:'Compare the three required solvent properties to the specific hazards discussed for chloroform and alcohol in the lecture.',b:'Chloroform\'s vapor-decomposition hazard relates to instability/reactivity near flames, and alcohol\'s pediatric toxicity relates to the \'not toxic\' requirement — both illustrate why the three general properties matter in practice.'},
+  {level:2,cat:'alcohol',f:'Compare the roles of Alcohol USP versus Diluted Alcohol NF in terms of concentration and typical use.',b:'Alcohol USP (94.9–96%) is a strong solvent for water-insoluble organics/preservative use, while Diluted Alcohol NF (49–50%), made by diluting Alcohol USP with Purified Water, offers a milder hydroalcoholic vehicle dissolving both alcohol- and water-soluble substances.'},
+  {level:2,cat:'water',f:'Explain the difference between the deionization branch and the distillation branch starting from Tap Water.',b:'From Tap Water, distillation yields Distilled Water, while deionization yields Deionized Water; the two are then combined to form Purified Water.'},
+  {level:2,cat:'chloroform',f:'Chloroform, glycerin, and propylene glycol all interact differently with oils. Summarize the pattern.',b:'Chloroform is miscible with both fixed and volatile oils; propylene glycol dissolves essential (volatile) oils but is immiscible with fixed oils; glycerin\'s relationship to oils is not described, but it is notably immiscible with chloroform.'},
+  {level:2,cat:'glycerin',f:'Explain why glycerin\'s \'preservative qualities\' give it two distinct formulation roles.',b:'Because it resists microbial growth, it can stabilize solutions made with other solvents, and it can also serve as an auxiliary solvent alongside water or alcohol in the same formulation.'},
+  {level:2,cat:'alcohol',f:'A formulator wants to dissolve a resin-based drug and also needs antimicrobial protection in the same liquid. Which single solvent can supply both functions per the lecture?',b:'Alcohol USP — it dissolves resins and also functions as an antimicrobial preservative.'},
+  {level:2,cat:'pg',f:'Both propylene glycol and polyethylene glycol share three of the same miscibility partners. Name them.',b:'Water, acetone, and alcohol.'},
+  {level:2,cat:'water',f:'Why would a manufacturer choose Purified Water rather than simple Distilled Water or Deionized Water alone?',b:'Purified Water combines both distillation and deionization, so it benefits from both purification approaches rather than relying on only one.'},
+  {level:2,cat:'dehydrated',f:'Compare Dehydrated Alcohol USP and Alcohol USP in terms of water content and typical application.',b:'Dehydrated Alcohol USP (99.5%) is practically free from water and used mainly in research/synthesis, while Alcohol USP (94.9–96%) retains a small amount of water and is used more broadly as a formulation solvent and preservative.'},
+  {level:2,cat:'chloroform',f:'If naked flame exposure is a formulation or storage hazard, which of the lecture\'s properties should specifically be checked for chloroform, and why?',b:'Stability — though chloroform is not flammable, its vapor decomposes near open flames to produce harmful gases, so storage/handling around heat sources is a real hazard despite the absence of flammability.'},
+  {level:2,cat:'alcohol',f:'Explain how the alcohol content rule changes as intended patient age increases, using all three numeric limits.',b:'The permitted alcohol percentage rises with age: 0.5% for under 6 years, 5% for 6–12 years, and 10% for over 12 years and adults — reflecting greater tolerance in older patients.'},
+  {level:2,cat:'glycerin',f:'A formulator needs a solvent for boric acid that will also stabilize the final solution. Which single agent fits both needs, and why?',b:'Glycerin — it is an excellent solvent for boric acid, and its preservative qualities let it double as a stabilizer.'},
+  {level:2,cat:'peg',f:'How does polyethylene glycol\'s solvency range compare to that of water alone?',b:'PEG dissolves many water-soluble organic compounds, like water, but goes further by also dissolving certain water-insoluble substances such as acetylsalicylic acid.'},
+  {level:2,cat:'water',f:'In the water-purification diagram, name the water type that sits immediately before Sterile Water and the process linking them.',b:'Purified Water, linked to Sterile Water by Sterilization.'},
+  {level:2,cat:'diluted',f:'Explain, in terms of ingredients and ratio, exactly how to reproduce Diluted Alcohol NF from stock materials.',b:'Take equal volumes of Alcohol USP and Purified Water USP and mix them, yielding roughly 49–50% alcohol content.'},
+  {level:2,cat:'general',f:'A drug\'s manufacturer wants a solvent that stays at constant strength on the shelf for two years. Which two of the three required solvent properties are most directly relevant, and why?',b:'Not volatile (so the solvent does not evaporate and change concentration) and stable (so it does not degrade or react with the active ingredient over time).'},
+  {level:2,cat:'chloroform',f:'Why is knowing that chloroform \'dissolves in 200 volumes of water\' more useful to a formulator than simply knowing it is \'poorly soluble in water\'?',b:'It gives an exact, usable ratio (200 mL of water per 1 g of chloroform) for calculating how much water is needed to dissolve a given quantity, rather than a vague qualitative description.'},
+  {level:2,cat:'alcohol',f:'A liquid formulation must dissolve glycosides but also needs to reduce total alcohol content. What TWO substances from the lecture could be added to reduce the alcohol needed while keeping solvency?',b:'Glycols and glycerin — alcohol is used together with these to reduce the amount of alcohol required.'},
+  {level:2,cat:'pg',f:'Which listed solvent is miscible with chloroform, unlike glycerin?',b:'Propylene glycol — it is miscible with chloroform, while glycerin explicitly is not.'},
+  {level:2,cat:'dehydrated',f:'Contrast the practical formulation uses of Dehydrated Alcohol USP versus Isopropyl alcohol 70%.',b:'Dehydrated Alcohol (99.5%) is used chiefly for research/analytic work and synthetic organic drug preparation, while Isopropyl alcohol 70% is used in cosmetic and dermatologic formulations — different concentrations for very different purposes.'},
+  {level:2,cat:'glycerin',f:'If a formulator skips heating glycerin and finds a solute will not dissolve, what is the most likely explanation based on the lecture?',b:'Unheated glycerin remains highly viscous, and this high viscosity is what makes it difficult to dissolve substances in it.'},
+  {level:2,cat:'water',f:'Explain why \'Bacteriostatic Water for injection\' is not simply the same as \'Pyrogen-free Water for injection\'.',b:'Bacteriostatic Water has an added preservative (via preservative addition) on top of already being pyrogen-free, giving it an extra property that plain Pyrogen-free Water lacks.'},
+  {level:2,cat:'alcohol',f:'Summarize, in one statement, all three uses of Alcohol USP given in the lecture (solvent role, dissolved constituents, and preservative role).',b:'Alcohol USP is a solvent for water-insoluble natural/synthetic organic drugs, dissolves resins, volatile oils, alkaloids, and glycosides, and is also used as an antimicrobial preservative alone or with parabens.'},
+  {level:3,cat:'general',f:'Rank ALL alcohol-related concentrations mentioned in the lecture from lowest to highest, naming each preparation.',b:'Diluted Alcohol NF (49–50%) < Isopropyl alcohol (70%) < Alcohol USP (94.9–96%) < Dehydrated Alcohol USP (99.5%).'},
+  {level:3,cat:'water',f:'Trace the complete pathway, step by step, from Crude Water to Bacteriostatic Water (for injection), naming every intermediate water type and process.',b:'Crude Water --Clarification--> Tap Water --Distillation--> Distilled Water; Tap Water --Deionization--> Deionized Water; Distilled + Deionized --> Purified Water --Sterilization--> Sterile Water --Removal of Pyrogen--> Pyrogen-free Water --Preservative addition--> Bacteriostatic Water.'},
+  {level:3,cat:'chloroform',f:'A pharmacist has 3.5 g of a compound that behaves like chloroform in water (200 volumes). Approximately how much water, in liters, is required to dissolve it?',b:'About 0.7 L (3.5 g × 200 mL/g = 700 mL = 0.7 L).'},
+  {level:3,cat:'general',f:'A formulation fails after 18 months of storage: the active ingredient has degraded due to a reaction with the vehicle. Which required solvent property was violated, and which was NOT necessarily violated?',b:'The \'stable\' property was violated (the solvent interacted with/degraded the active ingredient); this does not necessarily mean the solvent was toxic or volatile.'},
+  {level:3,cat:'alcohol',f:'A children\'s cough syrup (ages 6–12) contains 4% alcohol by volume. Does this comply with the recommended limit, and by how much margin?',b:'Yes, it complies — the limit for 6–12 years is 5%, so 4% is within limit, with a 1 percentage-point margin to spare.'},
+  {level:3,cat:'general',f:'Compare and contrast the miscibility of glycerin and propylene glycol with chloroform. What does this difference suggest about choosing a vehicle for a chloroform-containing preparation?',b:'Glycerin is NOT miscible with chloroform, while propylene glycol IS miscible with chloroform — so for a chloroform-containing formulation, propylene glycol would be the more compatible auxiliary solvent of the two.'},
+  {level:3,cat:'pg',f:'Both propylene glycol and glycerin can act as auxiliary/replacement solvents, yet they differ in handling requirements. Identify the difference described in the lecture.',b:'Glycerin must be heated to reduce its viscosity before use as a solvent; no such heating requirement is described for propylene glycol, which is presented as a direct, wide-use replacement for glycerin.'},
+  {level:3,cat:'chloroform',f:'Chloroform is \'not flammable\' yet is still treated as a fire-adjacent hazard. Explain the underlying mechanism and identify which of the three general solvent properties this relates to.',b:'Although chloroform does not itself burn, its vapor thermally decomposes upon contact with naked flames, generating harmful gases — this is a stability/safety issue rather than a flammability (toxicity-adjacent) issue, illustrating that \'not flammable\' does not guarantee \'safe near flames\'.'},
+  {level:3,cat:'general',f:'A formulator is choosing between Alcohol USP and Dehydrated Alcohol USP for a new synthetic organic drug that must remain anhydrous during synthesis. Which is correct, and why does the other fail the requirement?',b:'Dehydrated Alcohol USP (99.5%, practically free from water) is correct, since it is specifically used for research/analytic work and synthesis of synthetic organic medicinal agents; Alcohol USP (94.9–96%) still contains enough water to compromise an anhydrous process.'},
+  {level:3,cat:'glycerin',f:'A solution needs a vehicle that (1) dissolves boric acid, (2) is miscible with water, and (3) cannot be combined with chloroform. Identify the single best-fitting solvent from the lecture and explain each criterion.',b:'Glycerin: it is an excellent solvent for boric acid, is miscible with water, and is explicitly NOT miscible with chloroform, matching all three criteria (the third criterion is a limitation glycerin has, matching \'cannot be combined with chloroform\').'},
+  {level:3,cat:'alcohol',f:'An OTC liquid product intended for all ages (infants through adults) is being formulated with a single alcohol content to simplify manufacturing. Based on the lecture\'s limits, what is the maximum alcohol percentage that would keep the product compliant for the YOUNGEST group?',b:'0.5%, since the strictest applicable limit (for children under 6 years) is 0.5%, and a single formulation for all ages must not exceed the lowest permitted limit.'},
+  {level:3,cat:'peg',f:'Explain why \'polyethylene glycol dissolves acetylsalicylic acid\' is a more significant claim than \'water dissolves many organic compounds\', in terms of solubility categories.',b:'Acetylsalicylic acid is specifically described as water-INsoluble, so PEG dissolving it demonstrates a solvency capability beyond plain water — PEG can handle both water-soluble organics and certain water-insoluble substances, a broader range than water\'s general organic-compound solvency.'},
+  {level:3,cat:'chloroform',f:'Chloroform, Alcohol USP, and Propylene glycol are all miscible with at least one common partner solvent. Identify a solvent that is miscible with ALL THREE.',b:'Alcohol — chloroform is miscible with alcohol, and Alcohol USP and Propylene glycol are themselves alcohol-family/alcohol-miscible; more precisely, chloroform is miscible with alcohol, and propylene glycol is miscible with alcohol, making \'alcohol\' the common link across chloroform, propylene glycol, and (as ethanol itself) Alcohol USP.'},
+  {level:3,cat:'general',f:'A new liquid pediatric formulation must (a) dissolve a water-insoluble alkaloid, (b) contain minimal alcohol for a 5-year-old patient, and (c) remain stable in storage. Propose a vehicle strategy using only agents named in the lecture, and justify each choice.',b:'Use Alcohol USP (dissolves alkaloids) combined with glycols/glycerin to reduce the total alcohol required, keeping the final alcohol content at or below 0.5% for the under-6 age group, while relying on glycerin\'s stabilizing/preservative qualities for storage stability.'},
+  {level:3,cat:'water',f:'Explain why Sterile Water (for injection) alone is not the same as Bacteriostatic Water (for injection), listing every additional processing step separating them.',b:'Two additional steps separate them: Removal of Pyrogen (Sterile Water → Pyrogen-free Water) and Preservative addition (Pyrogen-free Water → Bacteriostatic Water).'},
+  {level:3,cat:'dehydrated',f:'A researcher needs a solvent that is (1) almost entirely water-free and (2) suitable for synthesizing a new organic drug candidate. Compare Dehydrated Alcohol USP and Diluted Alcohol NF for this task and explain which fails and why.',b:'Dehydrated Alcohol USP (99.5%, practically water-free) fits both criteria and is explicitly used for research/synthesis; Diluted Alcohol NF (49–50%, made by mixing equal volumes of alcohol and water) fails criterion 1, since it is roughly half water by composition.'},
+  {level:3,cat:'glycerin',f:'Glycerin plays three distinct formulation roles in the lecture. Name all three and give the property or use that justifies each.',b:'(1) Primary solvent — for tannins, phenol, boric acid; (2) Stabilizer — due to its preservative qualities; (3) Auxiliary solvent — used in conjunction with water or alcohol, especially in internal preparations.'},
+  {level:3,cat:'alcohol',f:'If a manufacturer mistakenly uses Alcohol USP (94.9–96%) at full strength in a product intended for children aged 6–12 (limit 5%), by roughly what factor does the actual alcohol content exceed the recommended limit?',b:'Roughly 19-fold (about 95% ÷ 5% ≈ 19), a very large excess over the recommended limit.'},
+  {level:3,cat:'chloroform',f:'Reconstruct, from the lecture, the full list of substances/solvent classes chloroform is miscible with, and separately state its behavior toward water and toward alkaloids.',b:'Miscible with: alcohol, ether, benzene, hexane, and both fixed and volatile oils. Toward water: only dissolves in 200 volumes (poorly soluble, not miscible). Toward alkaloids: acts as a solvent for many of them.'},
+  {level:3,cat:'pg',f:'Propylene glycol and Polyethylene glycol share several miscibility partners but differ in one notable pairing each. Identify the solvent each is miscible with that the other is NOT stated to be miscible with.',b:'Propylene glycol is stated as miscible with chloroform (not stated for PEG); Polyethylene glycol is stated as miscible with \'other glycols\' (not specifically stated for propylene glycol).'},
+  {level:3,cat:'general',f:'A solvent dissolves the active ingredient well, is non-toxic, and is non-volatile, but slowly reacts with a preservative in the formulation over six months. Does it satisfy the lecture\'s three required properties? Justify.',b:'No — although it satisfies \'not toxic\' and \'not volatile\', it fails the \'stable\' requirement, since a stable solvent must not interact with added substances (such as the preservative), and reacting with the preservative violates this.'},
+  {level:3,cat:'water',f:'If a batch of \'Purified Water\' is found to have been made only by deionization (never distilled), does it meet the lecture\'s definition of Purified Water? Explain.',b:'No — Purified Water is defined as water that is both distilled AND deionized; water that has only been deionized (not distilled) is Deionized Water, not Purified Water.'},
+  {level:3,cat:'diluted',f:'A student prepares a solvent by mixing equal volumes of Dehydrated Alcohol USP (99.5%) and Purified Water USP instead of Alcohol USP (94.9–96%) and Purified Water USP. Is the result correctly called Diluted Alcohol NF? Why or why not?',b:'Strictly, the lecture defines Diluted Alcohol NF as prepared from Alcohol USP and Purified Water USP in equal volumes; substituting Dehydrated Alcohol USP changes the specified starting material, so the result is not exactly the Diluted Alcohol NF as defined, even though it is alcohol diluted with water.'},
+  {level:3,cat:'glycerin',f:'Explain the apparent contradiction: glycerin is praised as \'an excellent solvent,\' yet it requires a preparatory step (heating) that other listed solvents (like water or propylene glycol) do not. What does this reveal about evaluating solvents beyond solvency alone?',b:'It shows that solvency power alone does not determine practicality — glycerin\'s high native viscosity is a separate physical property from its solvent capacity, meaning formulators must also weigh handling requirements (like heating) alongside a solvent\'s dissolving strength.'},
+  {level:3,cat:'alcohol',f:'A formulator has Alcohol USP, Diluted Alcohol NF, and Dehydrated Alcohol USP on hand and needs a hydroalcoholic vehicle that dissolves BOTH alcohol-soluble and water-soluble substances without further dilution. Which is correct off the shelf?',b:'Diluted Alcohol NF — it is explicitly described as a hydroalcoholic liquid that dissolves both alcohol-soluble and water-soluble substances, unlike the other two which are not described this way.'},
+  {level:3,cat:'chloroform',f:'Combine two chloroform facts to explain a storage recommendation: why should chloroform never be stored or used near an open flame, even though it will not itself ignite?',b:'Because although chloroform is not flammable, its vapor decomposes upon contact with naked flames to produce harmful gases — so the hazard is toxic-gas formation, not fire, and open flames should still be avoided.'},
+  {level:3,cat:'general',f:'Considering the whole lecture, name the ONE solvent explicitly described as being usable as BOTH a primary solvent for specific chemicals (tannins/phenol/boric acid) AND a stabilizer for other formulations.',b:'Glycerin.'},
+  {level:3,cat:'pg',f:'A cosmetic formulation historically used glycerin but is being reformulated with propylene glycol. Based on the lecture, name one advantage this substitution is said to offer.',b:'Propylene glycol is described as having a wide range of usefulness as a solvent and is used specifically as a modern replacement for glycerin in pharmaceutical and cosmetic formulations, implying broader or more convenient solvency.'},
+  {level:3,cat:'water',f:'A hospital pharmacy has Sterile Water for injection but needs Bacteriostatic Water for a multi-dose vial. What single additional step is required, and what does this step add?',b:'Two steps are actually required first: removal of pyrogen, then preservative addition; the preservative addition step is what specifically adds the antimicrobial protection needed for a multi-dose (repeatedly punctured) vial.'},
+  {level:3,cat:'alcohol',f:'Reconcile these two facts: Alcohol USP is used as an antimicrobial preservative, yet strict pediatric limits restrict its use. Explain how a formulator balances preservation needs against these limits for a children\'s product.',b:'The formulator can rely on the \'glycols and glycerin\' strategy — combining alcohol with these co-solvents to reduce the total alcohol required — allowing enough antimicrobial/solvent benefit while keeping the final alcohol percentage within the age-appropriate limit (e.g., 0.5% for under 6 years).'},
+  {level:3,cat:'general',f:'Across the entire lecture, identify the only pair of solvents explicitly stated to be immiscible/not-miscible with each other, and name both members.',b:'Glycerin and chloroform.'},
+  {level:3,cat:'peg',f:'Polyethylene glycol is \'miscible with other glycols.\' Based on the rest of the lecture, name a specific glycol this description would logically include, and justify.',b:'Propylene glycol — it is the other glycol explicitly discussed in the lecture, so PEG\'s statement of being \'miscible with other glycols\' logically includes propylene glycol as one such glycol.'},
+  {level:3,cat:'dehydrated',f:'Explain why \'dehydrated\' in Dehydrated Alcohol USP is a matter of degree rather than absolute, referencing the exact stated concentration.',b:'The lecture states Dehydrated Alcohol USP is 99.5% C2H5OH — \'practically free from water\' — meaning it is not literally 100% ethanol but contains a very small residual water fraction (about 0.5%), so \'dehydrated\' describes near-total, not absolute, water removal.'},
+  {level:3,cat:'chloroform',f:'A formulator wants a single solvent to extract alkaloids from a plant material that also happens to contain some fixed oil impurities. Explain why chloroform is well suited to this specific combined task.',b:'Chloroform is a solvent for many alkaloids AND is miscible with fixed oils, so it can dissolve/extract the target alkaloids while also being compatible with (not separating from) the fixed-oil-containing matrix, unlike a solvent that only handled one of the two.'},
+  {level:3,cat:'general',f:'Summarize the lecture\'s overall logic: why does it move from general required properties, to water, to a family of alcohols, to chloroform, to glycerin, to the two glycols? What organizing principle links this order?',b:'The lecture progresses from the general criteria any pharmaceutical solvent must meet, to water as the most fundamental/common solvent, then through solvents of increasing organic solvency power (the alcohol family), then to chloroform (a strong organic solvent with safety caveats), then to glycerin and the two glycols as viscous, often auxiliary or replacement solvents — moving roughly from foundational/aqueous to specialized/organic/auxiliary solvents.'},
+  {level:3,cat:'water',f:'Explain why \'Removal of Pyrogen\' must occur AFTER sterilization rather than before it, based on the definitions given.',b:'The lecture\'s flow places Sterilization before Removal of Pyrogen (Purified Water → Sterile Water → Pyrogen-free Water); performing pyrogen removal on non-sterile water would leave the water still capable of harboring/producing new pyrogens from surviving microorganisms, so sterilization logically precedes pyrogen removal in this pathway.'},
+  {level:3,cat:'alcohol',f:'A 70% isopropyl alcohol solution and a 70%-equivalent dilution of Alcohol USP are being compared for a dermatologic product. Based on the lecture, which is the named, standard preparation for this use, and why might that matter?',b:'Isopropyl alcohol 70% is the named standard preparation explicitly used in cosmetic and dermatologic formulations; an ad hoc 70% dilution of Alcohol USP is not the preparation described in the lecture for this purpose, so it would not carry the same standardized identity.'},
+  {level:3,cat:'glycerin',f:'If a formulator wants to dissolve phenol in a vehicle that will also help preserve the final product, but must avoid chloroform entirely, which single agent satisfies all three constraints, and which constraint would rule out an alternative like propylene glycol?',b:'Glycerin satisfies all three: it dissolves phenol, offers preservative/stabilizing qualities, and (being incompatible with chloroform) inherently avoids chloroform; propylene glycol is not ruled out by chloroform-avoidance (it is miscible with chloroform, so it could still be combined with it), but the lecture does not describe propylene glycol as a solvent for phenol specifically.'},
+  {level:3,cat:'general',f:'A quality-control chemist notices a solvent has begun to evaporate slightly during long-term storage, slowly concentrating the active ingredient. Which required property has failed, and what downstream property (stability of the drug) might this indirectly threaten?',b:'The \'not volatile\' property has failed; this can indirectly threaten the \'stable\' requirement too, since a rising concentration from evaporation could alter how the solvent interacts with the active ingredient or push it out of its intended stable range.'},
+  {level:3,cat:'water',f:'Construct the shortest correct path (fewest steps) from Crude Water to Purified Water, and state how many named processes it requires.',b:'Crude Water → (Clarification) → Tap Water → (Distillation) → Distilled Water, combined with Tap Water → (Deionization) → Deionized Water, to give Purified Water: this requires three named processes overall (clarification, distillation, deionization) even though it is often drawn as two parallel branches after clarification.'}
 ];
 let cardOrder = flashData.map((_,i)=>i);
 let cardIndex = 0;
 let flippedNow = false;
 const catLabels = {general:'General',water:'Water',alcohol:'Alcohol USP',diluted:'Diluted Alcohol',dehydrated:'Dehydrated Alcohol',isopropyl:'Isopropyl Alcohol',chloroform:'Chloroform',glycerin:'Glycerin',pg:'Propylene Glycol',peg:'Polyethylene Glycol'};
 const levelLabels = {1:'Level 1 · Easy',2:'Level 2 · Medium',3:'Level 3 · Hard'};
-const levelCounts = {1:25,2:15,3:10};
+const levelCounts = {1:60,2:50,3:40};
 let activeLevelCards = 1;
 let activeCat = 'all';
 
@@ -836,7 +1003,7 @@ function applyCardFilter(){
   renderCard();
 }
 rebuildCatChips();
-document.getElementById('cardsTotalNote').textContent = flashData.length+' cards total across 3 difficulty levels (25 easy / 15 medium / 10 hard) — every solvent covered in the lecture.';
+document.getElementById('cardsTotalNote').textContent = flashData.length+' cards total across 3 difficulty levels (60 easy / 50 medium / 40 hard) — every solvent covered in the lecture.';
 
 const flashCardEl = document.getElementById('flashCard');
 const cardFront = document.getElementById('cardFront');
@@ -888,60 +1055,160 @@ applyCardFilter();
    QUIZ BANK
    ============================================================ */
 const quizData = [
-  {"level": 1, "q": "Which source states the solubilities of many medicinal agents in the usual solvents?", "correct": "USP-NF (United States Pharmacopeia–National Formulary)", "wrong": ["British Pharmacopoeia only", "WHO Essential Medicines List", "FDA Orange Book"]},
-  {"level": 1, "q": "Which is NOT a desired property of a pharmaceutical solvent?", "correct": "Volatile", "wrong": ["Not toxic", "Stable", "Not volatile"]},
-  {"level": 1, "q": "\"Not toxic\" for a solvent means:", "correct": "No harmful effect on the body", "wrong": ["Pleasant smell", "Rapid evaporation", "High viscosity"]},
-  {"level": 1, "q": "A stable solvent should NOT:", "correct": "Interact with the active ingredient or added substances", "wrong": ["Remain stable on storage", "Protect the active ingredient", "Stay liquid"]},
-  {"level": 1, "q": "Water is a good solvent for:", "correct": "Most inorganic salts and many organic compounds", "wrong": ["Only fixed oils", "Only resins", "Only waxes"]},
-  {"level": 1, "q": "Water's miscibility with which pair makes it a useful vehicle?", "correct": "Alcohol and glycerin", "wrong": ["Chloroform and benzene", "Hexane and ether", "Fixed oils and volatile oils"]},
-  {"level": 1, "q": "Crude Water → Tap Water is achieved by:", "correct": "Clarification", "wrong": ["Distillation", "Deionization", "Sterilization"]},
-  {"level": 1, "q": "Tap Water → Distilled Water is achieved by:", "correct": "Distillation", "wrong": ["Clarification", "Deionization", "Preservative addition"]},
-  {"level": 1, "q": "Tap Water → Deionized Water is achieved by:", "correct": "Deionization", "wrong": ["Distillation", "Sterilization", "Removal of pyrogen"]},
-  {"level": 1, "q": "Purified Water is:", "correct": "Distilled and deionized water", "wrong": ["Only distilled water", "Sterile pyrogen-free water", "Water with added preservative"]},
-  {"level": 1, "q": "Purified Water → Sterile Water (for injection) requires:", "correct": "Sterilization", "wrong": ["Clarification", "Deionization", "Preservative addition"]},
-  {"level": 1, "q": "Sterile Water → Pyrogen-free Water requires:", "correct": "Removal of pyrogen", "wrong": ["Sterilization", "Distillation", "Clarification"]},
-  {"level": 1, "q": "Pyrogen-free Water → Bacteriostatic Water requires:", "correct": "Preservative addition", "wrong": ["Sterilization", "Deionization", "Removal of pyrogen"]},
-  {"level": 1, "q": "Alcohol USP (ethyl alcohol) concentration is:", "correct": "94.9–96% by volume C2H5OH", "wrong": ["49–50%", "70%", "99.5%"]},
-  {"level": 1, "q": "Alcohol USP dissolves which plant constituents?", "correct": "Resins, volatile oils, alkaloids and glycosides", "wrong": ["Only inorganic salts", "Only proteins", "Only pyrogens"]},
-  {"level": 1, "q": "Alcohol can serve in liquid products as:", "correct": "An antimicrobial preservative", "wrong": ["A pyrogen remover", "A thickener only", "A colouring agent"]},
-  {"level": 1, "q": "Recommended alcohol limit in OTC oral products for children under 6 years:", "correct": "0.5%", "wrong": ["5%", "10%", "50%"]},
-  {"level": 1, "q": "Diluted Alcohol NF contains approximately:", "correct": "49–50% alcohol", "wrong": ["94.9–96% alcohol", "99.5% alcohol", "70% alcohol"]},
-  {"level": 1, "q": "Dehydrated Alcohol USP (absolute alcohol) is:", "correct": "99.5% C2H5OH, practically free from water", "wrong": ["49–50% C2H5OH", "70% isopropyl alcohol", "94.9–96% C2H5OH"]},
-  {"level": 1, "q": "Isopropyl alcohol 70% is used in:", "correct": "Cosmetic and dermatologic formulations", "wrong": ["Intravenous injections", "Oral pediatric syrups", "Absolute-alcohol research"]},
-  {"level": 1, "q": "Chloroform is a solvent for many:", "correct": "Alkaloids", "wrong": ["Inorganic salts", "Pyrogens", "Proteins"]},
-  {"level": 1, "q": "Glycerin USP is described as:", "correct": "A clear syrupy liquid with a sweet taste", "wrong": ["A volatile colourless gas", "A dry crystalline powder", "A bitter oily solid"]},
-  {"level": 1, "q": "Glycerin is an excellent solvent for:", "correct": "Tannins, phenol and boric acid", "wrong": ["Fixed oils only", "Chloroform only", "Alkaloid bases only"]},
-  {"level": 1, "q": "In modern formulations propylene glycol is used as a replacement for:", "correct": "Glycerin", "wrong": ["Chloroform", "Water", "Dehydrated alcohol"]},
-  {"level": 1, "q": "Which water-insoluble substance can polyethylene glycol dissolve?", "correct": "Acetyl salicylic acid", "wrong": ["Sodium chloride", "Boric acid", "Tannins"]},
-  {"level": 2, "q": "Recommended alcohol limit for oral products for children 6–12 years:", "correct": "5%", "wrong": ["0.5%", "10%", "25%"]},
-  {"level": 2, "q": "Recommended alcohol limit for children over 12 years and adults:", "correct": "10%", "wrong": ["0.5%", "5%", "20%"]},
-  {"level": 2, "q": "Why is alcohol combined with glycols and glycerin?", "correct": "To reduce the amount of alcohol required", "wrong": ["To increase alcohol toxicity", "To make the product volatile", "To remove pyrogens"]},
-  {"level": 2, "q": "Diluted Alcohol NF is prepared by mixing:", "correct": "Equal volumes of Alcohol USP and Purified Water USP", "wrong": ["Alcohol USP and glycerin", "Dehydrated alcohol and chloroform", "Isopropyl alcohol and tap water"]},
-  {"level": 2, "q": "Diluted Alcohol is useful because it dissolves:", "correct": "Both alcohol-soluble and water-soluble substances", "wrong": ["Only fixed oils", "Only inorganic salts", "Neither type"]},
-  {"level": 2, "q": "The chief pharmacy use of Dehydrated Alcohol USP is:", "correct": "Research and analytic work and synthesis of organic medicinals", "wrong": ["Oral pediatric syrups", "Preparation of tap water", "A preservative for injections"]},
-  {"level": 2, "q": "\"Chloroform dissolves in 200 volumes of water\" means:", "correct": "200 mL of water dissolves 1 g of compound", "wrong": ["200 g dissolves in 1 mL", "It is miscible in all proportions", "1 mL needs 200 g of water"]},
-  {"level": 2, "q": "Regarding flames, chloroform:", "correct": "Is not flammable, but its vapor decomposes in flames giving harmful gases", "wrong": ["Is highly flammable", "Is explosive when mixed with water", "Is completely inert to flames"]},
-  {"level": 2, "q": "Glycerin is NOT miscible with:", "correct": "Chloroform", "wrong": ["Water", "Alcohol", "Water–alcohol mixtures"]},
-  {"level": 2, "q": "Glycerin is heated when used as a solvent in order to:", "correct": "Reduce its viscosity", "wrong": ["Increase its sweetness", "Make it volatile", "Convert it to alcohol"]},
-  {"level": 2, "q": "Propylene glycol is immiscible with:", "correct": "Fixed oils", "wrong": ["Water", "Acetone", "Chloroform"]},
-  {"level": 2, "q": "Polyethylene glycol is miscible with:", "correct": "Water, acetone, alcohol and other glycols", "wrong": ["Only fixed oils", "Only chloroform", "Only hexane"]},
-  {"level": 2, "q": "Which water in the lecture diagram is NOT labelled \"for injection\"?", "correct": "Purified Water", "wrong": ["Sterile Water", "Pyrogen-free Water", "Bacteriostatic Water"]},
-  {"level": 2, "q": "Alcohol is used as a co-preservative with:", "correct": "Parabens", "wrong": ["Chloroform", "Glycerin only", "Hexane"]},
-  {"level": 2, "q": "Which statement about chloroform is correct according to the lecture?", "correct": "It is miscible with alcohol, ether, benzene, hexane and fixed/volatile oils", "wrong": ["It is miscible with water in all proportions", "It is immiscible with fixed oils", "It is not a solvent for alkaloids"]},
-  {"level": 3, "q": "An OTC syrup for a 4-year-old contains 3% alcohol. The correct judgement is:", "correct": "Unacceptable; limit is 0.5% so alcohol must be reduced (e.g. with glycols/glycerin)", "wrong": ["Acceptable; limit is 5%", "Acceptable; limit is 10%", "Unacceptable only for adults"]},
-  {"level": 3, "q": "To dissolve aspirin (water-insoluble) the best lecture solvent is:", "correct": "Polyethylene glycol", "wrong": ["Water", "Glycerin", "Isopropyl alcohol 70%"]},
-  {"level": 3, "q": "Which statement correctly distinguishes propylene glycol from glycerin?", "correct": "Propylene glycol is miscible with chloroform; glycerin is not", "wrong": ["Glycerin is miscible with chloroform; propylene glycol is not", "Both are immiscible with water", "Propylene glycol is immiscible with alcohol"]},
-  {"level": 3, "q": "Number of named processes from Tap Water (deionization route) to Bacteriostatic Water:", "correct": "Four (deionization, sterilization, removal of pyrogen, preservative addition)", "wrong": ["Two", "Three", "Five"]},
-  {"level": 3, "q": "A preparation with a water-soluble salt and an alcohol-soluble resin is best dissolved in:", "correct": "Diluted Alcohol NF", "wrong": ["Dehydrated Alcohol USP", "Chloroform", "Fixed oil"]},
-  {"level": 3, "q": "Why must chloroform be kept from naked flames despite being non-flammable?", "correct": "Its vapor decomposes, producing harmful gases", "wrong": ["It explodes on contact", "It ignites spontaneously", "It polymerises"]},
-  {"level": 3, "q": "A product containing 8% alcohol meets the recommended limit for:", "correct": "Children over 12 years and adults only", "wrong": ["Children under 6 only", "Children 6–12 only", "All age groups"]},
-  {"level": 3, "q": "Which statement is CORRECT?", "correct": "Glycerin may act as a stabilizer and an auxiliary solvent with water or alcohol", "wrong": ["Glycerin is miscible with chloroform", "Dehydrated alcohol is 49–50% ethanol", "Propylene glycol is miscible with fixed oils"]},
-  {"level": 3, "q": "Which comparison is correct?", "correct": "Alcohol USP is 94.9–96% whereas Dehydrated Alcohol is 99.5%", "wrong": ["Alcohol USP is 99.5% whereas Dehydrated Alcohol is 94.9–96%", "Both are 49–50%", "Dehydrated Alcohol is 70%"]},
-  {"level": 3, "q": "Solvent evaporation during storage violates which property directly and threatens which indirectly?", "correct": "Not volatile (directly); stable (indirectly)", "wrong": ["Not toxic (directly); stable (indirectly)", "Stable (directly); not toxic (indirectly)", "Not volatile (directly); not toxic (indirectly)"]}
+  {level:1,q:'Which source states the solubilities of many medicinal agents in the usual solvents?',correct:'USP-NF (United States Pharmacopeia–National Formulary)',wrong:['British Pharmacopoeia only','WHO Essential Medicines List','FDA Orange Book']},
+  {level:1,q:'Which is a required property of a pharmaceutical solvent?',correct:'Not toxic',wrong:['Highly volatile','Strong odor','High viscosity always']},
+  {level:1,q:'Which of these is a required property of a pharmaceutical solvent?',correct:'Not volatile',wrong:['Highly flammable','Highly colored','Highly reactive']},
+  {level:1,q:'A stable pharmaceutical solvent should NOT do what?',correct:'Interact with the active ingredient or added substances',wrong:['Dissolve the active ingredient','Remain liquid','Have a pleasant taste']},
+  {level:1,q:'What should a stable solvent do under storage conditions?',correct:'Remain stable and protect/keep the active ingredient stable',wrong:['Evaporate slowly','Change color','Crystallize']},
+  {level:1,q:'Water is described as a good solvent for which group of compounds?',correct:'Most inorganic salts and many organic compounds',wrong:['Only fixed oils','Only alkaloids','Only resins']},
+  {level:1,q:'Besides inorganic salts, water is also a good solvent for:',correct:'Many organic compounds',wrong:['Fixed oils only','Pyrogens only','Waxes only']},
+  {level:1,q:'Water\'s usefulness as a pharmaceutical vehicle is due to its miscibility with alcohol and:',correct:'Glycerin',wrong:['Chloroform','Hexane','Benzene']},
+  {level:1,q:'Water is miscible with alcohol and which other solvent, per the lecture?',correct:'Glycerin',wrong:['Chloroform','Fixed oils','Ether']},
+  {level:1,q:'What process converts Crude Water into Tap Water?',correct:'Clarification',wrong:['Distillation','Deionization','Sterilization']},
+  {level:1,q:'What process converts Tap Water into Distilled Water?',correct:'Distillation',wrong:['Clarification','Deionization','Preservative addition']},
+  {level:1,q:'What process converts Tap Water into Deionized Water?',correct:'Deionization',wrong:['Distillation','Sterilization','Removal of pyrogen']},
+  {level:1,q:'Purified Water is best defined as water that is:',correct:'Distilled and deionized',wrong:['Only distilled','Only deionized','Sterile and pyrogen-free']},
+  {level:1,q:'What process converts Purified Water into Sterile Water (for injection)?',correct:'Sterilization',wrong:['Clarification','Deionization','Preservative addition']},
+  {level:1,q:'What process converts Sterile Water into Pyrogen-free Water (for injection)?',correct:'Removal of pyrogen',wrong:['Sterilization','Distillation','Deionization']},
+  {level:1,q:'What process converts Pyrogen-free Water into Bacteriostatic Water (for injection)?',correct:'Preservative addition',wrong:['Sterilization','Removal of pyrogen','Deionization']},
+  {level:1,q:'What is the approximate concentration range of Alcohol USP (Ethyl alcohol)?',correct:'94.9–96% by volume C2H5OH',wrong:['49–50%','70%','99.5%']},
+  {level:1,q:'Alcohol USP is used as a solvent mainly for:',correct:'Drugs insoluble in water (natural and synthetic organic substances)',wrong:['Inorganic salts only','Pyrogens','Fixed oils only']},
+  {level:1,q:'Which of these does Alcohol USP dissolve?',correct:'Resins, volatile oils, alkaloids and glycosides',wrong:['Only inorganic salts','Only proteins','Only pyrogens']},
+  {level:1,q:'Alcohol USP is a solvent for which of the following plant constituents?',correct:'Volatile oils',wrong:['Fixed oils only','Pyrogens','Inorganic salts']},
+  {level:1,q:'Alcohol USP is a solvent for which of the following plant constituents?',correct:'Alkaloids',wrong:['Pyrogens','Inorganic salts','Fixed oils']},
+  {level:1,q:'Besides being a solvent, Alcohol USP can also act as:',correct:'An antimicrobial preservative',wrong:['A pyrogen remover','A chelating agent','A buffering agent']},
+  {level:1,q:'Alcohol is often combined with glycols and glycerin in order to:',correct:'Reduce the amount of alcohol required',wrong:['Increase toxicity','Increase volatility','Remove pyrogens']},
+  {level:1,q:'Alcohol content limits in oral pharmaceutical products exist mainly because:',correct:'Ingested alcohol has undesired pharmacologic and toxic effects, particularly in children',wrong:['Alcohol is too expensive','Alcohol reduces shelf life','Alcohol changes the color of the product']},
+  {level:1,q:'The recommended alcohol limit for OTC oral products for children under 6 years is:',correct:'0.5%',wrong:['5%','10%','50%']},
+  {level:1,q:'The recommended alcohol limit for products intended for children 6–12 years is:',correct:'5%',wrong:['0.5%','10%','70%']},
+  {level:1,q:'The recommended alcohol limit for children over 12 years and adults is:',correct:'10%',wrong:['0.5%','5%','94.9%']},
+  {level:1,q:'What is the concentration of Diluted Alcohol NF?',correct:'49–50%',wrong:['94.9–96%','70%','99.5%']},
+  {level:1,q:'Diluted Alcohol NF is prepared by:',correct:'Mixing equal volumes of Alcohol USP and Purified Water USP',wrong:['Distilling Alcohol USP','Adding glycerin to Alcohol USP','Deionizing Alcohol USP']},
+  {level:1,q:'As a hydroalcoholic liquid, Diluted Alcohol NF is useful because it dissolves:',correct:'Both alcohol-soluble and water-soluble substances',wrong:['Only fixed oils','Only pyrogens','Only inorganic salts']},
+  {level:1,q:'What is the concentration of Dehydrated Alcohol USP (absolute alcohol)?',correct:'99.5% C2H5OH',wrong:['49–50% C2H5OH','70% C2H5OH','94.9% C2H5OH']},
+  {level:1,q:'The chief use of Dehydrated Alcohol USP in pharmacy includes:',correct:'Research and analytic work',wrong:['Cosmetic formulations','Injectable vehicles','Antiseptic skin cleansing']},
+  {level:1,q:'What concentration of isopropyl alcohol is commonly used in pharmacy, and for what?',correct:'70%, used in cosmetic and dermatologic formulations',wrong:['49–50%, oral solutions','94.9–96%, injections','99.5%, research only']},
+  {level:1,q:'Chloroform is miscible with which of the following?',correct:'Alcohol, ether, benzene, and hexane',wrong:['Water, in unlimited proportions','Only pyrogens','Only inorganic salts']},
+  {level:1,q:'Chloroform is miscible with:',correct:'Ether',wrong:['Purified Water in all proportions','Inorganic salts','Pyrogens']},
+  {level:1,q:'Chloroform is miscible with:',correct:'Benzene',wrong:['Purified Water in all proportions','Pyrogens','Inorganic salts']},
+  {level:1,q:'Chloroform\'s solubility in water is described as:',correct:'Dissolves in 200 volumes of water (about 200 mL for 1 g)',wrong:['Fully miscible with water','Insoluble in water','Dissolves in 10 volumes of water']},
+  {level:1,q:'Is chloroform flammable?',correct:'No, it is not flammable',wrong:['Yes, highly flammable','Only flammable when heated','Only flammable in pure oxygen']},
+  {level:1,q:'What happens to chloroform vapor near naked flames?',correct:'It decomposes and produces harmful gases',wrong:['It becomes inert','It condenses into water','It becomes non-toxic']},
+  {level:1,q:'Chloroform is a good solvent for which class of compounds?',correct:'Many alkaloids',wrong:['Inorganic salts','Pyrogens','Proteins']},
+  {level:1,q:'Glycerin USP (Glycerol) is best described physically as:',correct:'A clear syrupy liquid with a sweet taste',wrong:['A volatile clear gas','A white crystalline powder','An oily yellow liquid']},
+  {level:1,q:'Glycerin is miscible with which of the following?',correct:'Water and alcohol',wrong:['Chloroform','Fixed oils','Hexane']},
+  {level:1,q:'Glycerin is miscible with:',correct:'Alcohol',wrong:['Chloroform','Fixed oils','Hexane']},
+  {level:1,q:'Glycerin is miscible with water and alcohol but NOT with:',correct:'Chloroform',wrong:['Propylene glycol','Polyethylene glycol','Purified water']},
+  {level:1,q:'Glycerin is an excellent solvent for which of these?',correct:'Tannins, phenol, and boric acid',wrong:['Alkaloids, resins, and glycosides','Fixed oils and waxes','Pyrogens and inorganic salts']},
+  {level:1,q:'Glycerin is an excellent solvent for:',correct:'Phenol',wrong:['Fixed oils','Pyrogens','Hexane']},
+  {level:1,q:'Glycerin is sometimes used as a stabilizer because of its:',correct:'Preservative qualities',wrong:['High volatility','Low viscosity','Acidic pH']},
+  {level:1,q:'Before using glycerin as a solvent, it should be:',correct:'Heated, to reduce its viscosity',wrong:['Cooled, to increase viscosity','Diluted with chloroform','Filtered through charcoal']},
+  {level:1,q:'Glycerin is used as a stabilizer and auxiliary solvent in conjunction with:',correct:'Water or alcohol',wrong:['Chloroform','Hexane','Benzene']},
+  {level:1,q:'Glycerin is commonly used in:',correct:'Many internal preparations',wrong:['Only injectable preparations','Only inhalation preparations','Only ophthalmic preparations']},
+  {level:1,q:'Propylene glycol is miscible with which of the following?',correct:'Water, acetone, alcohol, and chloroform',wrong:['Fixed oils','Pyrogens','Hexane']},
+  {level:1,q:'Propylene glycol is miscible with:',correct:'Acetone',wrong:['Fixed oils','Pyrogens','Inorganic salts']},
+  {level:1,q:'Propylene glycol is miscible with:',correct:'Alcohol',wrong:['Fixed oils','Pyrogens','Inorganic salts']},
+  {level:1,q:'Propylene glycol will dissolve many:',correct:'Essential (volatile) oils',wrong:['Fixed oils','Inorganic salts','Pyrogens']},
+  {level:1,q:'Propylene glycol is immiscible with:',correct:'Fixed oils',wrong:['Water','Acetone','Chloroform']},
+  {level:1,q:'In modern pharmaceutical and cosmetic formulations, propylene glycol often replaces:',correct:'Glycerin',wrong:['Water','Chloroform','Isopropyl alcohol']},
+  {level:1,q:'Polyethylene glycol is miscible with which of the following?',correct:'Water, acetone, alcohol, and other glycols',wrong:['Fixed oils only','Pyrogens','Hexane only']},
+  {level:1,q:'Polyethylene glycol is miscible with:',correct:'Acetone',wrong:['Fixed oils','Pyrogens','Inorganic salts']},
+  {level:1,q:'Polyethylene glycol dissolves many:',correct:'Water-soluble organic compounds',wrong:['Inorganic salts only','Pyrogens only','Fixed oils only']},
+  {level:1,q:'Polyethylene glycol dissolves certain water-insoluble substances, such as:',correct:'Acetylsalicylic acid (aspirin)',wrong:['Boric acid','Tannins','Phenol']},
+  {level:2,q:'Why must a pharmaceutical solvent be non-toxic?',correct:'Because it has no harmful effect on the body — it is administered along with the drug',wrong:['Because toxic solvents are always volatile','Because toxicity increases solubility','Because toxic solvents cannot dissolve salts']},
+  {level:2,q:'What is the main practical problem with using a volatile solvent in a pharmaceutical preparation?',correct:'It evaporates, altering the concentration and stability of the preparation over time',wrong:['It becomes more toxic','It increases viscosity','It becomes more acidic']},
+  {level:2,q:'The requirement that a solvent be \'stable\' covers which two aspects together?',correct:'No interaction with the active ingredient/added substances, and stability under storage conditions',wrong:['Low cost and high volatility','High toxicity and low viscosity','High volatility and low cost']},
+  {level:2,q:'A pharmacist needing solubility data for a medicinal agent in the usual solvents should consult:',correct:'The USP-NF and other reference books',wrong:['Only the product\'s marketing brochure','A general chemistry textbook only','Only the FDA Orange Book']},
+  {level:2,q:'Water\'s miscibility with alcohol and glycerin is significant mainly because it:',correct:'Allows mixed vehicles that dissolve a wider range of substances',wrong:['Makes water flammable','Makes water more viscous','Removes the need for sterilization']},
+  {level:2,q:'Purified Water results from combining the products of which two processes applied to Tap Water?',correct:'Distillation and deionization',wrong:['Clarification and sterilization','Sterilization and removal of pyrogen','Clarification and deionization']},
+  {level:2,q:'Starting from Purified Water, what is the correct order of steps to reach Bacteriostatic Water (for injection)?',correct:'Sterilization, then removal of pyrogen, then preservative addition',wrong:['Preservative addition, then sterilization, then removal of pyrogen','Removal of pyrogen, then sterilization, then preservative addition','Sterilization, then preservative addition, then removal of pyrogen']},
+  {level:2,q:'Why is an extra \'removal of pyrogen\' step needed after Sterile Water, even though the water is already sterile?',correct:'Sterilization kills microorganisms but does not remove pyrogens already present',wrong:['Sterilization adds pyrogens to the water','Pyrogens are only formed after sterilization','Removal of pyrogen replaces the need for sterilization']},
+  {level:2,q:'Clarification is the step that transforms Crude Water into:',correct:'Tap Water — the shared starting point for both distillation and deionization',wrong:['Purified Water directly','Sterile Water directly','Bacteriostatic Water directly']},
+  {level:2,q:'Which solvent both dissolves alkaloids/glycosides AND can serve as a co-preservative with parabens?',correct:'Alcohol USP',wrong:['Chloroform','Glycerin','Polyethylene glycol']},
+  {level:2,q:'The main reason alcohol is combined with glycols and glycerin in a formulation is to:',correct:'Reduce the amount of alcohol required',wrong:['Increase the alcohol\'s volatility','Make the product flammable','Neutralize the active ingredient']},
+  {level:2,q:'An OTC oral cough syrup for a 4-year-old should not exceed which alcohol content?',correct:'0.5%',wrong:['5%','10%','94.9%']},
+  {level:2,q:'For a product intended for an 8-year-old, the recommended alcohol content ceiling is:',correct:'5%',wrong:['0.5%','10%','49–50%']},
+  {level:2,q:'Which sequence correctly ranks the alcohol limits from most restrictive to least restrictive?',correct:'Under 6 years (0.5%) → 6–12 years (5%) → over 12/adults (10%)',wrong:['Over 12/adults (10%) → 6–12 years (5%) → under 6 years (0.5%)','6–12 years (5%) → under 6 years (0.5%) → over 12/adults (10%)','Under 6 years (0.5%) → over 12/adults (10%) → 6–12 years (5%)']},
+  {level:2,q:'If you mix equal volumes of Alcohol USP and Purified Water USP, what do you obtain?',correct:'Diluted Alcohol NF (49–50%)',wrong:['Dehydrated Alcohol USP','Isopropyl alcohol 70%','Bacteriostatic Water']},
+  {level:2,q:'Diluted Alcohol NF is useful in various pharmaceutical processes mainly because it:',correct:'Dissolves both alcohol-soluble and water-soluble substances',wrong:['Is completely non-toxic at any dose','Is more volatile than pure alcohol','Is immiscible with water']},
+  {level:2,q:'Dehydrated Alcohol USP\'s near-total lack of water makes it particularly suited to:',correct:'Research, analytic work, and preparation of synthetic organic medicinal agents',wrong:['Pediatric oral syrups','Cosmetic skin formulations','Injectable vehicles for infants']},
+  {level:2,q:'Isopropyl alcohol 70% is specifically associated with which category of formulations in the lecture?',correct:'Cosmetic and dermatologic formulations',wrong:['Oral pediatric formulations','Injectable formulations','Ophthalmic formulations']},
+  {level:2,q:'Given chloroform dissolves in 200 volumes of water, approximately how much water is needed to dissolve 5 g of chloroform?',correct:'About 1000 mL',wrong:['About 200 mL','About 40 mL','About 5000 mL']},
+  {level:2,q:'What fire-related hazard does chloroform still pose, despite not being flammable?',correct:'Its vapor decomposes near naked flames, producing harmful gases',wrong:['It explodes spontaneously at room temperature','It self-ignites above 40°C','It releases oxygen that fuels fires']},
+  {level:2,q:'Chloroform\'s usefulness for plant-derived drugs comes largely from being a solvent for:',correct:'Many alkaloids',wrong:['Inorganic salts','Pyrogens','Proteins only']},
+  {level:2,q:'If glycerin is not heated before being used as a solvent, what is the practical consequence?',correct:'It becomes difficult to dissolve the substance in it',wrong:['It becomes flammable','It becomes toxic','It evaporates rapidly']},
+  {level:2,q:'Which statement about glycerin\'s miscibility is correct?',correct:'Miscible with water and alcohol, but not with chloroform',wrong:['Miscible with chloroform but not water','Miscible with all three: water, alcohol, and chloroform','Immiscible with both water and alcohol']},
+  {level:2,q:'Beyond dissolving tannins, phenol, and boric acid, glycerin also functions as a:',correct:'Stabilizer and auxiliary solvent (used with water or alcohol)',wrong:['Pyrogen-removal agent','Antimicrobial preservative for injections only','Chelating agent for metals']},
+  {level:2,q:'Propylene glycol\'s role as a modern replacement for glycerin is based mainly on its:',correct:'Wide range of usefulness as a solvent',wrong:['Higher toxicity than glycerin','Immiscibility with water','Higher viscosity than glycerin']},
+  {level:2,q:'How does propylene glycol behave differently toward essential oils compared with fixed oils?',correct:'It dissolves essential oils but is immiscible with fixed oils',wrong:['It dissolves fixed oils but not essential oils','It dissolves neither type of oil','It dissolves both equally well']},
+  {level:2,q:'Why is PEG\'s ability to dissolve acetylsalicylic acid notable?',correct:'Because acetylsalicylic acid is a water-insoluble substance, yet PEG still dissolves it',wrong:['Because acetylsalicylic acid is a pyrogen','Because PEG is immiscible with water','Because acetylsalicylic acid is an inorganic salt']},
+  {level:2,q:'The recommended alcohol limits for children mainly relate to which required solvent property?',correct:'Not toxic',wrong:['Not volatile','High viscosity','Low cost']},
+  {level:2,q:'Compared with Alcohol USP, Diluted Alcohol NF is best described as:',correct:'A milder, roughly half-strength hydroalcoholic vehicle made from Alcohol USP and Purified Water',wrong:['A stronger, more concentrated form of Alcohol USP','Identical in concentration to Alcohol USP','Free from water, unlike Alcohol USP']},
+  {level:2,q:'From Tap Water, which two parallel processes each lead toward Purified Water?',correct:'Distillation (→ Distilled Water) and deionization (→ Deionized Water)',wrong:['Sterilization and clarification','Removal of pyrogen and preservative addition','Clarification and preservative addition']},
+  {level:2,q:'Which solvent is explicitly described as miscible with BOTH fixed and volatile oils?',correct:'Chloroform',wrong:['Propylene glycol','Glycerin','Polyethylene glycol']},
+  {level:2,q:'Glycerin\'s preservative qualities are the basis for its role as a:',correct:'Stabilizer for solutions prepared with other solvents',wrong:['Pyrogen-removal agent','Antimicrobial co-preservative with parabens','Chief solvent for research work']},
+  {level:2,q:'Which solvent can both dissolve resins AND act as an antimicrobial preservative?',correct:'Alcohol USP',wrong:['Chloroform','Propylene glycol','Polyethylene glycol']},
+  {level:2,q:'Which three solvents are common miscibility partners of BOTH propylene glycol and polyethylene glycol?',correct:'Water, acetone, and alcohol',wrong:['Chloroform, hexane, and benzene','Fixed oils, pyrogens, and inorganic salts','Boric acid, tannins, and phenol']},
+  {level:2,q:'Purified Water is preferred over using only Distilled Water or only Deionized Water because it:',correct:'Combines the benefits of both distillation and deionization',wrong:['Is cheaper to produce','Is the only type suitable for oral use','Already contains a preservative']},
+  {level:2,q:'The main practical difference between Dehydrated Alcohol USP and Alcohol USP is:',correct:'Dehydrated Alcohol is nearly water-free and used mainly for research/synthesis, while Alcohol USP is used more broadly in formulations',wrong:['They are identical in concentration and use','Dehydrated Alcohol is used only in pediatric syrups','Alcohol USP is used only for injections']},
+  {level:2,q:'Even though chloroform is not flammable, why should it still be kept away from naked flames?',correct:'Because its vapor decomposes near flames, producing harmful gases',wrong:['Because it becomes radioactive','Because it will freeze','Because it changes into water']},
+  {level:2,q:'As the intended patient age bracket increases from under 6, to 6–12, to over 12/adult, the recommended alcohol limit:',correct:'Increases (0.5% → 5% → 10%)',wrong:['Decreases (10% → 5% → 0.5%)','Stays constant at 5%','Increases then decreases']},
+  {level:2,q:'Which solvent both dissolves boric acid AND can stabilize the resulting solution?',correct:'Glycerin',wrong:['Chloroform','Isopropyl alcohol','Dehydrated Alcohol']},
+  {level:2,q:'Compared with plain water, polyethylene glycol\'s solvency range is:',correct:'Broader — it also dissolves certain water-insoluble substances such as acetylsalicylic acid',wrong:['Narrower — it dissolves fewer compounds than water','Identical to water in every respect','Limited only to inorganic salts']},
+  {level:2,q:'Which water type is converted directly into Sterile Water (for injection), and by which process?',correct:'Purified Water, by sterilization',wrong:['Tap Water, by clarification','Deionized Water, by deionization','Distilled Water, by distillation']},
+  {level:2,q:'To reproduce Diluted Alcohol NF from stock materials, you should combine equal volumes of:',correct:'Alcohol USP and Purified Water USP',wrong:['Isopropyl alcohol and glycerin','Dehydrated Alcohol and chloroform','Propylene glycol and water']},
+  {level:2,q:'For a solvent to keep a formulation at constant strength over a long shelf life, which two required properties matter most?',correct:'Not volatile and stable',wrong:['Not toxic and inexpensive','Colorless and odorless','High viscosity and sweet taste']},
+  {level:2,q:'The value \'200 volumes of water\' for chloroform is useful mainly because it:',correct:'Gives an exact ratio (mL of water needed per gram of chloroform) for calculations',wrong:['Tells you chloroform is flammable','Tells you chloroform is miscible with water in all proportions','Tells you chloroform is toxic']},
+  {level:2,q:'Which two agents can be added to an alcohol-based formulation to reduce the amount of alcohol required?',correct:'Glycols and glycerin',wrong:['Chloroform and hexane','Boric acid and tannins','Pyrogens and preservatives']},
+  {level:2,q:'Unlike glycerin, which solvent IS miscible with chloroform?',correct:'Propylene glycol',wrong:['Water','Polyethylene glycol is not stated as miscible with chloroform','Isopropyl alcohol']},
+  {level:2,q:'Dehydrated Alcohol USP and Isopropyl alcohol 70% differ mainly in that:',correct:'Dehydrated Alcohol is for research/synthesis, while isopropyl alcohol 70% is for cosmetic/dermatologic use',wrong:['Both are used identically in oral pediatric syrups','Isopropyl alcohol is more concentrated than Dehydrated Alcohol','Dehydrated Alcohol is used only in cosmetics']},
+  {level:2,q:'A solute failing to dissolve in room-temperature glycerin is most likely explained by:',correct:'Glycerin\'s high viscosity when not heated',wrong:['Glycerin being toxic','Glycerin being volatile','Glycerin reacting chemically with the solute']},
+  {level:2,q:'What distinguishes Bacteriostatic Water (for injection) from Pyrogen-free Water (for injection)?',correct:'Bacteriostatic Water has had a preservative added',wrong:['Bacteriostatic Water has not been sterilized','Bacteriostatic Water still contains pyrogens','Bacteriostatic Water is not deionized']},
+  {level:2,q:'Which single statement best summarizes ALL of Alcohol USP\'s roles in the lecture?',correct:'Solvent for water-insoluble organics (including resins, volatile oils, alkaloids, glycosides) and antimicrobial preservative',wrong:['Only a solvent for inorganic salts','Only a preservative, never a solvent','Only used for injections']},
+  {level:3,q:'Which sequence correctly ranks these from lowest to highest alcohol concentration?',correct:'Diluted Alcohol NF (49–50%) < Isopropyl alcohol (70%) < Alcohol USP (94.9–96%) < Dehydrated Alcohol USP (99.5%)',wrong:['Dehydrated Alcohol < Alcohol USP < Isopropyl < Diluted Alcohol','Isopropyl < Diluted Alcohol < Dehydrated Alcohol < Alcohol USP','Alcohol USP < Dehydrated Alcohol < Diluted Alcohol < Isopropyl']},
+  {level:3,q:'Which sequence correctly traces the FULL pathway from Crude Water to Bacteriostatic Water (for injection)?',correct:'Clarification → Tap Water → (Distillation → Distilled Water) + (Deionization → Deionized Water) → Purified Water → Sterilization → Sterile Water → Removal of Pyrogen → Pyrogen-free Water → Preservative addition → Bacteriostatic Water',wrong:['Clarification → Purified Water → Sterilization → Bacteriostatic Water directly','Distillation → Deionization → Sterilization → Clarification → Bacteriostatic Water','Sterilization → Clarification → Distillation → Bacteriostatic Water']},
+  {level:3,q:'Using chloroform\'s \'200 volumes of water\' ratio, approximately how much water is needed to dissolve 3.5 g?',correct:'About 700 mL (0.7 L)',wrong:['About 70 mL','About 1750 mL','About 200 mL']},
+  {level:3,q:'A vehicle that chemically degrades the active ingredient during storage has failed which required property?',correct:'Stable',wrong:['Not toxic','Not volatile','Sweet taste']},
+  {level:3,q:'A 6–12-year-old product containing 4% alcohol, compared with the recommended 5% limit, is:',correct:'Compliant, 1 percentage point below the limit',wrong:['Non-compliant, 1 percentage point over the limit','Compliant, exactly at the limit','Non-compliant, far over the limit']},
+  {level:3,q:'For a formulation that must remain miscible with chloroform, which of these two solvents is compatible?',correct:'Propylene glycol',wrong:['Glycerin','Both are equally incompatible','Neither is a valid solvent choice']},
+  {level:3,q:'Which of these solvents is explicitly stated as requiring heating to reduce viscosity before use?',correct:'Glycerin',wrong:['Propylene glycol','Polyethylene glycol','Alcohol USP']},
+  {level:3,q:'Chloroform\'s flame-related risk arises because:',correct:'Its vapor decomposes near flames into harmful gases, even though the liquid itself does not burn',wrong:['It is itself highly flammable','It reacts explosively with cold water','It becomes radioactive when heated']},
+  {level:3,q:'For a synthesis requiring anhydrous (water-free) conditions, which alcohol grade is appropriate?',correct:'Dehydrated Alcohol USP (99.5%)',wrong:['Alcohol USP (94.9–96%)','Diluted Alcohol NF (49–50%)','Isopropyl alcohol (70%)']},
+  {level:3,q:'Which solvent dissolves boric acid, is miscible with water, but is NOT miscible with chloroform?',correct:'Glycerin',wrong:['Propylene glycol','Polyethylene glycol','Isopropyl alcohol']},
+  {level:3,q:'If a single alcohol percentage must satisfy children under 6 years, 6–12 years, AND over 12/adults simultaneously, the maximum allowable percentage is:',correct:'0.5%',wrong:['5%','10%','2.5%']},
+  {level:3,q:'PEG dissolving acetylsalicylic acid is notable mainly because it shows PEG can dissolve substances that are:',correct:'Water-insoluble, extending beyond water\'s usual solvency range',wrong:['Highly volatile','Inorganic salts','Pyrogenic']},
+  {level:3,q:'Which solvent is explicitly listed as miscible with BOTH chloroform AND propylene glycol?',correct:'Alcohol',wrong:['Fixed oils','Hexane','Pyrogen-free water']},
+  {level:3,q:'For a pediatric (under 6) alkaloid-containing liquid needing minimal alcohol, the lecture supports combining alcohol with which agents to reduce the alcohol needed?',correct:'Glycols and glycerin',wrong:['Chloroform and hexane','Boric acid and phenol','Pyrogens and acetone']},
+  {level:3,q:'How many additional processing steps separate Sterile Water (for injection) from Bacteriostatic Water (for injection)?',correct:'Two (removal of pyrogen, then preservative addition)',wrong:['One (preservative addition only)','Three (deionization, removal of pyrogen, preservative addition)','Zero — they are the same product']},
+  {level:3,q:'Which of these alcohol grades is explicitly unsuitable for anhydrous synthesis work because it contains substantial water?',correct:'Diluted Alcohol NF (49–50%)',wrong:['Dehydrated Alcohol USP (99.5%)','Alcohol USP is not compared in this question','Isopropyl alcohol is not compared in this question']},
+  {level:3,q:'Which of the following is NOT one of glycerin\'s three roles described in the lecture?',correct:'Sterilizing agent for injectable water',wrong:['Solvent for tannins, phenol, and boric acid','Stabilizer, due to preservative qualities','Auxiliary solvent with water or alcohol']},
+  {level:3,q:'Using Alcohol USP at ~95% in a product limited to 5% alcohol exceeds the limit by approximately:',correct:'About 19 times',wrong:['About 2 times','About 5 times','It does not exceed the limit']},
+  {level:3,q:'Which best summarizes chloroform\'s relationship with water compared with its relationship with alcohol/ether/benzene/hexane/oils?',correct:'It is only poorly soluble in water (200 volumes needed) but fully miscible with alcohol, ether, benzene, hexane, and oils',wrong:['It is miscible with water but not with alcohol or oils','It is equally miscible with water and with alcohol','It is immiscible with everything listed']},
+  {level:3,q:'Which solvent is explicitly listed as miscible with chloroform: propylene glycol or polyethylene glycol?',correct:'Propylene glycol',wrong:['Polyethylene glycol','Both are stated as miscible with chloroform','Neither is stated as miscible with chloroform']},
+  {level:3,q:'A solvent that reacts with a preservative over time, despite being non-toxic and non-volatile, fails which required property?',correct:'Stable',wrong:['Not toxic','Not volatile','All three properties']},
+  {level:3,q:'Water that has undergone deionization but NOT distillation should correctly be labeled:',correct:'Deionized Water (not Purified Water)',wrong:['Purified Water','Sterile Water','Bacteriostatic Water']},
+  {level:3,q:'According to the lecture\'s definition, Diluted Alcohol NF is prepared specifically from Purified Water USP and:',correct:'Alcohol USP (94.9–96%)',wrong:['Dehydrated Alcohol USP (99.5%)','Isopropyl alcohol (70%)','Chloroform']},
+  {level:3,q:'Glycerin\'s need for heating before use illustrates that solvent selection should also weigh:',correct:'Physical handling properties (like viscosity), not just solvency power',wrong:['Only the solvent\'s cost','Only the solvent\'s flammability','Only the solvent\'s taste']},
+  {level:3,q:'Which of these three alcohol preparations is explicitly described as dissolving BOTH alcohol-soluble and water-soluble substances?',correct:'Diluted Alcohol NF',wrong:['Alcohol USP','Dehydrated Alcohol USP','All three equally']},
+  {level:3,q:'The storage rule \'keep chloroform away from naked flames\' exists because of:',correct:'Vapor decomposition producing harmful gases near flames, not flammability',wrong:['Chloroform\'s flammability','Chloroform\'s high volatility causing explosions','Chloroform reacting with oxygen to form salts']},
+  {level:3,q:'Which solvent is described as both dissolving tannins/phenol/boric acid AND acting as a stabilizer for solutions made with other solvents?',correct:'Glycerin',wrong:['Propylene glycol','Chloroform','Isopropyl alcohol']},
+  {level:3,q:'The lecture frames propylene glycol\'s replacement of glycerin in cosmetic formulations as being due to its:',correct:'Wide range of usefulness as a solvent',wrong:['Higher price','Higher toxicity','Lower miscibility with water']},
+  {level:3,q:'To convert Sterile Water for injection into Bacteriostatic Water for injection, which of the following must occur, in the correct order?',correct:'Removal of pyrogen, then preservative addition',wrong:['Preservative addition only, no pyrogen removal needed','Deionization, then sterilization','Clarification, then distillation']},
+  {level:3,q:'The lecture\'s strategy for balancing alcohol\'s preservative benefit against pediatric alcohol limits is to:',correct:'Combine alcohol with glycols and glycerin to reduce the amount of alcohol required',wrong:['Replace alcohol entirely with chloroform','Increase the alcohol content and accept the risk','Remove all preservatives from pediatric products']},
+  {level:3,q:'Which pair of solvents is explicitly stated as NOT miscible with each other in the lecture?',correct:'Glycerin and chloroform',wrong:['Water and alcohol','Propylene glycol and water','Polyethylene glycol and acetone']},
+  {level:3,q:'PEG\'s stated miscibility with \'other glycols\' most logically refers to which specific glycol discussed elsewhere in the lecture?',correct:'Propylene glycol',wrong:['Chloroform','Boric acid','Dehydrated alcohol']},
+  {level:3,q:'Dehydrated Alcohol USP\'s stated concentration of 99.5% implies that it:',correct:'Still contains a small residual amount of water (about 0.5%)',wrong:['Contains no water whatsoever (100% ethanol)','Is only 49.5% ethanol','Contains more water than Alcohol USP']},
+  {level:3,q:'Chloroform is well suited to extracting alkaloids from oil-containing plant material because it is:',correct:'Both a solvent for alkaloids and miscible with fixed oils',wrong:['Only miscible with water','Only a solvent for inorganic salts','Immiscible with all oils']},
+  {level:3,q:'The overall structure of the lecture moves from general solvent properties toward:',correct:'Increasingly specialized organic and auxiliary solvents (water → alcohols → chloroform → glycerin/glycols)',wrong:['A random, unordered list with no logical progression','Only injectable water types','Only pediatric dosing rules']},
+  {level:3,q:'In the lecture\'s diagram, which step precedes \'Removal of Pyrogen\'?',correct:'Sterilization (Sterile Water)',wrong:['Preservative addition','Clarification','Deionization']},
+  {level:3,q:'For cosmetic/dermatologic use, the lecture names which specific standardized preparation?',correct:'Isopropyl alcohol 70%',wrong:['A 70% dilution of Alcohol USP','Dehydrated Alcohol USP','Diluted Alcohol NF']},
+  {level:3,q:'Which solvent dissolves phenol, has preservative/stabilizing qualities, and is not itself miscible with chloroform?',correct:'Glycerin',wrong:['Propylene glycol','Polyethylene glycol','Chloroform']},
+  {level:3,q:'Solvent evaporation during storage most directly violates which required property, and can indirectly compromise which other one?',correct:'Not volatile (directly); stable (indirectly)',wrong:['Not toxic (directly); stable (indirectly)','Stable (directly); not toxic (indirectly)','Not volatile (directly); not toxic (indirectly)']},
+  {level:3,q:'How many named processes (in total) are required to go from Crude Water to Purified Water, per the lecture\'s diagram?',correct:'Three (clarification, distillation, and deionization)',wrong:['One (clarification only)','Two (distillation and deionization only)','Five (all steps through bacteriostatic water)']}
 ];
 
 const levelLabelsQ = {1:'Level 1 · Easy',2:'Level 2 · Medium',3:'Level 3 · Hard'};
-const levelCountsQ = {1:25,2:15,3:10};
+const levelCountsQ = {1:60,2:50,3:40};
 let activeLevelQuiz = 1;
 let quizOrder = [];
 let quizPos = 0;
@@ -965,7 +1232,7 @@ const levelRowQuiz = document.getElementById('levelRowQuiz');
   });
   levelRowQuiz.appendChild(chip);
 });
-document.getElementById('quizTotalNote').textContent = quizData.length+' questions across 3 difficulty levels (25 easy / 15 medium / 10 hard) — options reshuffle every time.';
+document.getElementById('quizTotalNote').textContent = quizData.length+' questions across 3 difficulty levels (60 easy / 50 medium / 40 hard) — options reshuffle every time.';
 
 function shuffle(arr){
   const a = arr.slice();
