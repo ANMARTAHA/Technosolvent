@@ -1,7 +1,1045 @@
-ANMAR TAHA, [Sep 11, 2026 at 1:35 PM]
-سوف نجري تعديل على قسمين هما قسم flash cards وقسم MCQ bank مع الحفاظ على باقي الاقسام بدون اي تغيير ولا تغيير بالتصميم ،اليك التغير : اجعل في القسمين المراد تغييرهما 3 مستويات للصعوبة المستوى الاول تكون فيه الاسالة والمعلومات سهلة ومباشرة،المستوى الثاني تكون فيه المعلومات متوسط وتحتاج تفكير قليل،المستوى الثالث تكون فيه المعلومات صعبة وتحتاج تفكير كثير،اعتبر نفسك دكتور جامعي ذو خبرة تزيد عن 30 سنة عند صياغة الاسالة والمعلومات،واريد كل معلومات المصدر في الاسالة عند صياغة الاسالة،
-المستوى الاول(السهل) : 25mcq/25flash card
-المستوى الثاني (المتوسط):15mcq/15flash card
-المستوى الثالث(الصعب) : 10mcq/10flash card
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="color-scheme" content="light only">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Study Smart — Pharmaceutical Solvents</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F1ECDE;
+    --paper-deep:#E7DFC8;
+    --ink:#25301F;
+    --ink-soft:#4B5741;
+    --forest:#3F5A34;
+    --forest-deep:#2C4025;
+    --amber:#AD7A2C;
+    --amber-soft:#D9B372;
+    --rust:#A2402B;
+    --line:#C9BC96;
+    --line-soft:#DAD0AE;
+    --card:#FBF8EF;
+    --shadow: 0 1px 0 rgba(37,48,31,0.06);
+    --radius: 3px;
+    --serif: 'Fraunces', serif;
+    --sans: 'Inter', sans-serif;
+  }
+  html{color-scheme:light only;}
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--sans);
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  .page{max-width:1180px;margin:0 auto;padding:0 24px 60px;}
 
-يعني يكونن شاملات لمعلومات الملزمة وبدون اشياء خارجية
+  /* ---------- Masthead ---------- */
+  .masthead{
+    padding:56px 0 30px;
+    border-bottom:2px solid var(--ink);
+    animation: rise .7s ease both;
+  }
+  @keyframes rise{ from{opacity:0; transform:translateY(10px);} to{opacity:1; transform:translateY(0);} }
+  .mast-eyebrow{
+    font-family:var(--sans);
+    font-size:13px;
+    letter-spacing:.04em;
+    color:var(--forest-deep);
+    margin:0 0 10px;
+    font-weight:600;
+  }
+  .masthead h1{
+    font-family:var(--serif);
+    font-optical-sizing:auto;
+    font-weight:600;
+    font-size:clamp(42px,7vw,76px);
+    line-height:0.98;
+    margin:0;
+    color:var(--ink);
+    letter-spacing:-0.01em;
+  }
+  .mast-sub{
+    font-family:var(--serif);
+    font-style:italic;
+    font-weight:400;
+    font-size:clamp(17px,2.2vw,22px);
+    color:var(--ink-soft);
+    margin:12px 0 0;
+    max-width:46ch;
+  }
+
+  /* ---------- Shelf nav ---------- */
+  .shelf{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    margin:26px 0 34px;
+    padding-top:6px;
+  }
+  .jar{
+    position:relative;
+    font-family:var(--sans);
+    font-weight:600;
+    font-size:14.5px;
+    color:var(--ink-soft);
+    background:var(--card);
+    border:1.5px solid var(--line);
+    border-radius:2px;
+    padding:12px 18px 11px;
+    cursor:pointer;
+    transition:background .15s ease, color .15s ease, border-color .15s ease, transform .1s ease;
+  }
+  .jar::before{
+    content:"";
+    position:absolute;
+    top:-6px; left:50%;
+    transform:translateX(-50%);
+    width:22px; height:6px;
+    background:var(--line);
+    border-radius:1px;
+  }
+  .jar:hover{border-color:var(--forest); color:var(--forest-deep);}
+  .jar:focus-visible{outline:2px solid var(--rust); outline-offset:2px;}
+  .jar[aria-selected="true"]{
+    background:var(--forest-deep);
+    border-color:var(--forest-deep);
+    color:var(--paper);
+  }
+  .jar[aria-selected="true"]::before{background:var(--amber-soft);}
+
+  /* ---------- Panels ---------- */
+  .panel{display:none;}
+  .panel.active{display:block; animation: fadein .35s ease both;}
+  @keyframes fadein{from{opacity:0;} to{opacity:1;}}
+  .panel-head{
+    display:flex; align-items:baseline; justify-content:space-between; gap:16px;
+    border-bottom:1px solid var(--line); padding-bottom:14px; margin-bottom:26px;
+  }
+  .panel-head h2{
+    font-family:var(--serif); font-weight:600; font-size:30px; margin:0; color:var(--ink);
+  }
+  .panel-head p{margin:0; font-size:13.5px; color:var(--ink-soft); max-width:34ch; text-align:right;}
+
+  /* ---------- Overview ---------- */
+  .rule-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+    gap:14px;
+  }
+  .rule-card{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-left:4px solid var(--forest);
+    border-radius:var(--radius);
+    padding:16px 18px;
+    box-shadow:var(--shadow);
+  }
+  .rule-card h3{
+    font-family:var(--serif); font-size:16.5px; font-weight:600; margin:0 0 8px; color:var(--forest-deep);
+  }
+  .rule-card p, .rule-card li{font-size:14px; color:var(--ink); margin:0;}
+  .rule-card ul{margin:0; padding-left:18px; display:grid; gap:4px;}
+  .rule-card.accent{border-left-color:var(--rust);}
+  .rule-card.amber{border-left-color:var(--amber);}
+  .mini-table{width:100%; border-collapse:collapse; font-size:13.5px; margin-top:6px;}
+  .mini-table td{padding:4px 0; border-bottom:1px dashed var(--line-soft);}
+  .mini-table td:last-child{text-align:right; font-weight:600; color:var(--forest-deep);}
+
+  /* ---------- Diagrams ---------- */
+  .diagram-block{
+    background:var(--card); border:1px solid var(--line); border-radius:var(--radius);
+    padding:22px; margin-bottom:22px;
+    background-image: linear-gradient(rgba(201,188,150,0.18) 1px, transparent 1px), linear-gradient(90deg, rgba(201,188,150,0.18) 1px, transparent 1px);
+    background-size:22px 22px;
+  }
+  .diagram-block h3{font-family:var(--serif); font-size:19px; margin:0 0 4px; color:var(--ink);}
+  .diagram-block .hint{font-size:12.5px; color:var(--ink-soft); margin:0 0 18px;}
+
+  .flow-row{display:flex; align-items:center; flex-wrap:wrap; gap:0; row-gap:14px;}
+  .flow-node{
+    font-family:var(--sans); font-weight:600; font-size:13px; text-align:center;
+    background:var(--paper); border:1.5px solid var(--ink-soft); border-radius:3px;
+    padding:10px 12px; cursor:pointer; min-width:112px; color:var(--ink);
+    transition:background .15s ease, border-color .15s ease, transform .1s ease;
+  }
+  .flow-node:hover{transform:translateY(-2px); border-color:var(--forest);}
+  .flow-node.active{background:var(--forest-deep); border-color:var(--forest-deep); color:var(--paper);}
+  .flow-arrow{display:flex; flex-direction:column; align-items:center; justify-content:center; margin:0 10px; min-width:70px;}
+  .flow-arrow .lbl{font-size:10.5px; color:var(--amber); font-weight:600; margin-bottom:2px; text-align:center;}
+  .flow-arrow .shaft{width:100%; height:1.5px; background:var(--ink-soft); position:relative;}
+  .flow-arrow .shaft::after{content:"▸"; position:absolute; right:-6px; top:-8px; color:var(--ink-soft); font-size:12px;}
+  .flow-branch{
+    margin:18px 0 0 122px; padding:14px 0 0 22px; border-left:2px dashed var(--line);
+    display:flex; align-items:center; flex-wrap:wrap; row-gap:12px;
+  }
+  .flow-detail{
+    margin-top:18px; padding:14px 16px; background:var(--paper-deep); border-left:3px solid var(--rust);
+    border-radius:2px; font-size:14px; min-height:20px;
+  }
+  .flow-detail.empty{color:var(--ink-soft); font-style:italic;}
+
+  .bar-chart{display:flex; align-items:flex-end; gap:28px; height:190px; padding:0 10px 8px; border-bottom:1.5px solid var(--ink-soft);}
+  .bar-col{display:flex; flex-direction:column; align-items:center; justify-content:flex-end; height:100%; cursor:pointer;}
+  .bar{width:52px; background:var(--forest); border-radius:2px 2px 0 0; transition:background .15s ease, transform .12s ease;}
+  .bar-col:hover .bar, .bar-col.active .bar{background:var(--rust); transform:scaleX(1.04);}
+  .bar-col .cap{font-size:11.5px; margin-top:8px; color:var(--ink-soft); text-align:center; max-width:82px;}
+  .bar-detail{margin-top:16px; font-size:14px; padding:12px 16px; background:var(--paper-deep); border-left:3px solid var(--forest); border-radius:2px; min-height:20px;}
+
+  .scale-wrap{margin-top:10px; padding:34px 20px 10px;}
+  .scale-line{position:relative; height:3px; background:var(--ink-soft); border-radius:2px;}
+  .scale-tick{position:absolute; top:-4px; width:1px; height:11px; background:var(--line);}
+  .scale-marker{
+    position:absolute; top:-9px; width:20px; height:20px; margin-left:-10px;
+    background:var(--amber); border:2px solid var(--paper); border-radius:50%; cursor:pointer;
+    transition:transform .12s ease, background .12s ease;
+  }
+  .scale-marker:hover, .scale-marker.active{background:var(--rust); transform:scale(1.2);}
+  .scale-detail{margin-top:30px; font-size:14px; padding:12px 16px; background:var(--paper-deep); border-left:3px solid var(--amber); border-radius:2px; min-height:20px;}
+
+  table.matrix{width:100%; border-collapse:collapse; font-size:13.5px; margin-top:4px;}
+  table.matrix th, table.matrix td{border:1px solid var(--line); padding:9px 8px; text-align:center;}
+  table.matrix th{background:var(--paper-deep); font-family:var(--serif); font-weight:600; cursor:pointer; user-select:none;}
+  table.matrix td:first-child, table.matrix th:first-child{text-align:left; font-weight:600; background:var(--paper-deep);}
+  table.matrix td.yes{color:var(--forest-deep); font-weight:700;}
+  table.matrix td.no{color:var(--rust); font-weight:700;}
+  table.matrix td.unk{color:var(--line); }
+  th.col-active{background:var(--amber-soft) !important;}
+  td.cell-lit{background:#F4E8CC;}
+  .legend{font-size:12px; color:var(--ink-soft); margin-top:10px;}
+
+  /* ---------- Mind map ---------- */
+  .map-wrap{display:flex; gap:26px; align-items:stretch; flex-wrap:wrap;}
+  .map-canvas{
+    position:relative; flex:1 1 420px; min-width:320px; aspect-ratio:1/1; max-width:520px;
+    background:var(--card); border:1px solid var(--line); border-radius:50%;
+  }
+  .map-canvas svg{position:absolute; inset:0; width:100%; height:100%;}
+  .map-center{
+    position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+    background:var(--forest-deep); color:var(--paper); font-family:var(--serif); font-weight:600;
+    font-size:13.5px; text-align:center; padding:14px; border-radius:50%; width:104px; height:104px;
+    display:flex; align-items:center; justify-content:center; line-height:1.2; z-index:2;
+  }
+  .map-node{
+    position:absolute; transform:translate(-50%,-50%);
+    background:var(--paper); border:1.5px solid var(--ink-soft); color:var(--ink);
+    font-family:var(--sans); font-weight:600; font-size:12px; padding:8px 10px; border-radius:14px;
+    cursor:pointer; white-space:nowrap; z-index:2; transition:background .15s, color .15s, border-color .15s;
+  }
+  .map-node:hover{border-color:var(--forest);}
+  .map-node.active{background:var(--rust); border-color:var(--rust); color:var(--paper);}
+  .map-detail{
+    flex:1 1 300px; min-width:280px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:22px; align-self:flex-start;
+  }
+  .map-detail h3{font-family:var(--serif); font-size:20px; margin:0 0 10px; color:var(--forest-deep);}
+  .map-detail p{font-size:14.5px; margin:0 0 8px;}
+  .map-detail .placeholder{color:var(--ink-soft); font-style:italic;}
+
+  /* ---------- Flash cards ---------- */
+  .chip-row{display:flex; gap:8px; flex-wrap:wrap; margin-bottom:20px;}
+  .chip{
+    font-size:12.5px; font-weight:600; padding:6px 13px; border-radius:14px;
+    border:1.5px solid var(--line); background:var(--card); color:var(--ink-soft); cursor:pointer;
+  }
+  .chip.active{background:var(--forest-deep); border-color:var(--forest-deep); color:var(--paper);}
+  .card-stage{display:flex; flex-direction:column; align-items:center; gap:16px;}
+  .flash-card{
+    width:100%; max-width:560px; height:230px; perspective:1200px; cursor:pointer;
+  }
+  .flash-inner{
+    position:relative; width:100%; height:100%; transition:transform .5s cubic-bezier(.4,.2,.2,1);
+    transform-style:preserve-3d;
+  }
+  .flash-card.flipped .flash-inner{transform:rotateY(180deg);}
+  .flash-face{
+    position:absolute; inset:0; backface-visibility:hidden; border-radius:6px;
+    border:1.5px solid var(--ink-soft); display:flex; flex-direction:column; align-items:center;
+    justify-content:center; text-align:center; padding:28px; background:var(--card);
+  }
+  .flash-face .tag{position:absolute; top:14px; left:16px; font-size:11px; font-weight:700; color:var(--amber); letter-spacing:.03em;}
+  .flash-face p{font-family:var(--serif); font-size:19px; font-weight:500; margin:0; line-height:1.35; color:var(--ink);}
+  .flash-back{background:var(--forest-deep); color:var(--paper); transform:rotateY(180deg);}
+  .flash-back p{color:var(--paper); font-size:16.5px; font-weight:400;}
+  .flash-hint{font-size:11.5px; color:var(--ink-soft); position:absolute; bottom:12px;}
+  .card-controls{display:flex; align-items:center; gap:14px; flex-wrap:wrap; justify-content:center;}
+  .card-count{font-size:13px; color:var(--ink-soft); min-width:88px; text-align:center;}
+  button.ghost{
+    font-family:var(--sans); font-weight:600; font-size:13.5px; padding:9px 16px; border-radius:3px;
+    border:1.5px solid var(--ink-soft); background:var(--card); color:var(--ink); cursor:pointer;
+  }
+  button.ghost:hover{border-color:var(--forest); color:var(--forest-deep);}
+  button.solid{
+    font-family:var(--sans); font-weight:700; font-size:13.5px; padding:9px 18px; border-radius:3px;
+    border:1.5px solid var(--rust); background:var(--rust); color:var(--paper); cursor:pointer;
+  }
+  button.solid:hover{background:#8a3323;}
+
+  /* ---------- Quiz ---------- */
+  .quiz-top{display:flex; justify-content:space-between; align-items:center; gap:14px; flex-wrap:wrap; margin-bottom:16px;}
+  .quiz-progress{flex:1; min-width:160px; height:8px; background:var(--paper-deep); border-radius:4px; overflow:hidden;}
+  .quiz-progress-fill{height:100%; background:var(--forest); width:0%; transition:width .3s ease;}
+  .quiz-score{font-size:13.5px; font-weight:600; color:var(--ink-soft); white-space:nowrap;}
+  .quiz-card{background:var(--card); border:1px solid var(--line); border-radius:var(--radius); padding:28px; max-width:640px; margin:0 auto;}
+  .quiz-card .qnum{font-size:12px; font-weight:700; color:var(--amber); margin:0 0 8px;}
+  .quiz-card h3{font-family:var(--serif); font-size:20px; font-weight:600; margin:0 0 22px; line-height:1.35;}
+  .quiz-options{display:grid; gap:10px;}
+  .opt{
+    text-align:left; font-family:var(--sans); font-size:14.5px; padding:12px 15px; border-radius:3px;
+    border:1.5px solid var(--line); background:var(--paper); color:var(--ink); cursor:pointer; transition:border-color .12s, background .12s;
+  }
+  .opt:hover{border-color:var(--forest);}
+  .opt.correct{background:#E4EEDD; border-color:var(--forest); color:var(--forest-deep); font-weight:600;}
+  .opt.wrong{background:#F3DCD6; border-color:var(--rust); color:var(--rust); font-weight:600;}
+  .opt[disabled]{cursor:default;}
+  .quiz-feedback{min-height:20px; font-size:13.5px; margin-top:14px; font-weight:600;}
+  .quiz-actions{display:flex; justify-content:space-between; align-items:center; margin-top:20px;}
+  .quiz-done{text-align:center; max-width:520px; margin:40px auto; padding:34px; background:var(--card); border:1px solid var(--line); border-radius:var(--radius);}
+  .quiz-done h3{font-family:var(--serif); font-size:26px; margin:0 0 8px;}
+  .quiz-done p{color:var(--ink-soft); margin:0 0 20px;}
+
+
+  /* ---------- Credits ---------- */
+  .credit-bar{
+    display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px 18px;
+    padding:12px 0; border-bottom:1px solid var(--line);
+    font-size:12.5px; color:var(--ink-soft);
+  }
+  .credit-bar a, .colophon a{color:var(--forest-deep); font-weight:600; text-decoration:none; border-bottom:1px dotted var(--forest);}
+  .credit-bar a:hover, .colophon a:hover{color:var(--rust); border-bottom-color:var(--rust);}
+  .credit-links{display:flex; gap:16px; flex-wrap:wrap;}
+  .colophon .credit-block{display:flex; flex-direction:column; gap:4px;}
+  .colophon .credit-links{margin-top:2px;}
+
+  /* ---------- Footer ---------- */
+  .colophon{
+    margin-top:60px; padding-top:18px; border-top:1px solid var(--line);
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px;
+    font-size:12.5px; color:var(--ink-soft);
+  }
+
+  @media (max-width:640px){
+    .panel-head{flex-direction:column; align-items:flex-start;}
+    .panel-head p{text-align:left;}
+    .flow-branch{margin-left:0;}
+    .map-canvas{border-radius:12px; aspect-ratio:auto; min-height:520px;}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="credit-bar">
+    <span>© <span class="yr"></span> Anmar Taha. All rights reserved.</span>
+    <span class="credit-links"><a href="https://t.me/AnmarTaha" target="_blank" rel="noopener">Telegram: @AnmarTaha</a><a href="https://instagram.com/a.za18" target="_blank" rel="noopener">Instagram: a.za18</a></span>
+  </div>
+
+  <header class="masthead">
+    <p class="mast-eyebrow">Pharmaceutical Technology I · Lecture 4</p>
+    <h1>Study Smart</h1>
+    <p class="mast-sub">Solvents used in pharmaceutical preparation — the rules, the numbers, and the recall tools you need.</p>
+  </header>
+
+  <nav class="shelf" role="tablist">
+    <button class="jar" role="tab" aria-selected="true" data-tab="overview">Overview</button>
+    <button class="jar" role="tab" aria-selected="false" data-tab="diagrams">Interactive Diagrams</button>
+    <button class="jar" role="tab" aria-selected="false" data-tab="map">Mind Map</button>
+    <button class="jar" role="tab" aria-selected="false" data-tab="cards">Flash Cards</button>
+    <button class="jar" role="tab" aria-selected="false" data-tab="quiz">Quiz Bank</button>
+  </nav>
+
+  <main>
+
+    <!-- ============ OVERVIEW ============ -->
+    <section id="overview" class="panel active">
+      <div class="panel-head">
+        <h2>Overview</h2>
+        <p>The rules and numbers that matter — not the full lecture.</p>
+      </div>
+      <div class="rule-grid">
+        <div class="rule-card accent">
+          <h3>3 required properties</h3>
+          <ul>
+            <li>Not toxic — no harmful effect on the body</li>
+            <li>Not volatile</li>
+            <li>Stable — no interaction with the active ingredient; holds up in storage</li>
+          </ul>
+        </div>
+        <div class="rule-card">
+          <h3>Solubility reference</h3>
+          <p>Solubilities of many medicinal agents are stated in the <strong>USP-NF</strong> (United States Pharmacopeia–National Formulary) and other reference books.</p>
+        </div>
+        <div class="rule-card amber">
+          <h3>Pediatric alcohol limits</h3>
+          <table class="mini-table">
+            <tr><td>OTC oral, under 6 years</td><td>0.5%</td></tr>
+            <tr><td>6–12 years</td><td>5%</td></tr>
+            <tr><td>Over 12 years / adults</td><td>10%</td></tr>
+          </table>
+        </div>
+        <div class="rule-card">
+          <h3>Alcohol strengths at a glance</h3>
+          <table class="mini-table">
+            <tr><td>Diluted Alcohol NF</td><td>49–50%</td></tr>
+            <tr><td>Isopropyl Alcohol</td><td>70%</td></tr>
+            <tr><td>Alcohol USP</td><td>94.9–96%</td></tr>
+            <tr><td>Dehydrated Alcohol USP</td><td>99.5%</td></tr>
+          </table>
+        </div>
+        <div class="rule-card accent">
+          <h3>Chloroform + water</h3>
+          <p>Dissolves in <strong>200 volumes of water</strong> — about 200 mL of water is needed to dissolve 1 g. Not flammable, but its vapor decomposes near naked flames into harmful gases.</p>
+        </div>
+        <div class="rule-card">
+          <h3>Glycerin needs heat</h3>
+          <p>Glycerin must be <strong>heated to reduce its viscosity</strong> before it is used as a solvent — otherwise substances are difficult to dissolve in it.</p>
+        </div>
+        <div class="rule-card">
+          <h3>Water purification, in order</h3>
+          <p>Crude → Tap → Distilled/Deionized → Purified → Sterile → Pyrogen-free → Bacteriostatic (each step for injectable water adds one more requirement).</p>
+        </div>
+        <div class="rule-card amber">
+          <h3>One replaces, one dissolves aspirin</h3>
+          <p><strong>Propylene glycol</strong> is used as a modern replacement for glycerin. <strong>Polyethylene glycol</strong> dissolves water-insoluble substances such as acetylsalicylic acid.</p>
+        </div>
+        <div class="rule-card">
+          <h3>Not miscible</h3>
+          <p>Glycerin is miscible with water and alcohol — but explicitly <strong>not with chloroform</strong>.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ DIAGRAMS ============ -->
+    <section id="diagrams" class="panel">
+      <div class="panel-head">
+        <h2>Interactive Diagrams</h2>
+        <p>Click anything that looks clickable.</p>
+      </div>
+
+      <div class="diagram-block">
+        <h3>Water purification pathway</h3>
+        <p class="hint">Click a stage to see what defines it.</p>
+        <div class="flow-row" id="flowMain"></div>
+        <div class="flow-branch" id="flowBranch"></div>
+        <div class="flow-detail empty" id="flowDetail">Select a stage above to read its definition.</div>
+      </div>
+
+      <div class="diagram-block">
+        <h3>Recommended alcohol limit by age group</h3>
+        <p class="hint">Click a bar to see the exact figure.</p>
+        <div class="bar-chart" id="barChart"></div>
+        <div class="bar-detail" id="barDetail">Select an age group above.</div>
+      </div>
+
+      <div class="diagram-block">
+        <h3>Alcohol concentrations on one scale</h3>
+        <p class="hint">Click a marker to identify it.</p>
+        <div class="scale-wrap">
+          <div class="scale-line" id="scaleLine"></div>
+        </div>
+        <div class="scale-detail" id="scaleDetail">Select a marker above.</div>
+      </div>
+
+      <div class="diagram-block">
+        <h3>Miscibility matrix</h3>
+        <p class="hint">Click a column header to highlight where that solvent mixes.</p>
+        <table class="matrix" id="matrixTable"></table>
+        <p class="legend">✓ miscible/soluble · ✗ not miscible · — not stated in the source material</p>
+      </div>
+    </section>
+
+    <!-- ============ MIND MAP ============ -->
+    <section id="map" class="panel">
+      <div class="panel-head">
+        <h2>Mind Map</h2>
+        <p>Click a solvent to read it here, in place.</p>
+      </div>
+      <div class="map-wrap">
+        <div class="map-canvas" id="mapCanvas">
+          <svg viewBox="0 0 100 100" preserveAspectRatio="none" id="mapSvg"></svg>
+          <div class="map-center">Pharmaceutical<br>Solvents</div>
+        </div>
+        <div class="map-detail" id="mapDetail">
+          <h3>Pick a term</h3>
+          <p class="placeholder">Click any node on the wheel to load its details into this panel.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ FLASH CARDS ============ -->
+    <section id="cards" class="panel">
+      <div class="panel-head">
+        <h2>Flash Cards</h2>
+        <p id="cardsTotalNote"></p>
+      </div>
+      <div class="chip-row" id="levelRowCards"></div>
+      <div class="chip-row" id="chipRow"></div>
+      <div class="card-stage">
+        <div class="flash-card" id="flashCard">
+          <div class="flash-inner">
+            <div class="flash-face flash-front">
+              <span class="tag" id="cardTag">GENERAL</span>
+              <p id="cardFront"></p>
+              <span class="flash-hint">tap to flip</span>
+            </div>
+            <div class="flash-face flash-back">
+              <p id="cardBack"></p>
+            </div>
+          </div>
+        </div>
+        <div class="card-controls">
+          <button class="ghost" id="prevCard">← Prev</button>
+          <span class="card-count" id="cardCount"></span>
+          <button class="ghost" id="nextCard">Next →</button>
+          <button class="solid" id="shuffleCard">Shuffle</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ QUIZ ============ -->
+    <section id="quiz" class="panel">
+      <div class="panel-head">
+        <h2>Quiz Bank</h2>
+        <p id="quizTotalNote"></p>
+      </div>
+      <div class="chip-row" id="levelRowQuiz"></div>
+      <div class="quiz-top">
+        <div class="quiz-progress"><div class="quiz-progress-fill" id="quizProgressFill"></div></div>
+        <div class="quiz-score" id="quizScore">Score: 0 / 0</div>
+      </div>
+      <div id="quizArea"></div>
+    </section>
+
+  </main>
+
+  <footer class="colophon">
+    <div class="credit-block">
+      <span>© <span class="yr"></span> Anmar Taha. All rights reserved.</span>
+      <span class="credit-links"><a href="https://t.me/AnmarTaha" target="_blank" rel="noopener">Telegram: @AnmarTaha</a><a href="https://instagram.com/a.za18" target="_blank" rel="noopener">Instagram: a.za18</a></span>
+    </div>
+    <span>Pharmaceutical Technology I — Solvents used in pharmaceutical preparation</span>
+  </footer>
+</div>
+
+<script>
+document.querySelectorAll('.yr').forEach(e=>e.textContent = new Date().getFullYear());
+
+/* ---------------- Tabs ---------------- */
+const jars = document.querySelectorAll('.jar');
+const panels = document.querySelectorAll('.panel');
+jars.forEach(jar=>{
+  jar.addEventListener('click', ()=>{
+    jars.forEach(j=>j.setAttribute('aria-selected','false'));
+    jar.setAttribute('aria-selected','true');
+    panels.forEach(p=>p.classList.remove('active'));
+    document.getElementById(jar.dataset.tab).classList.add('active');
+  });
+});
+
+/* ============================================================
+   DIAGRAM 1 — Water purification flow
+   ============================================================ */
+const flowMainSteps = [
+  {id:'crude', label:'Crude Water', arrow:'Clarification',
+   detail:'Crude Water — the untreated starting water, before any purification step is applied.'},
+  {id:'tap', label:'Tap Water', arrow:'Distillation',
+   detail:'Tap Water — obtained from Crude Water by clarification.'},
+  {id:'distilled', label:'Distilled Water', arrow:'combined with Deionized Water',
+   detail:'Distilled Water — obtained from Tap Water by distillation.'},
+  {id:'purified', label:'Purified Water\n(Distilled & Deionized)', arrow:'Sterilization',
+   detail:'Purified Water — water that is both distilled and deionized.'},
+  {id:'sterile', label:'Sterile Water\n(for injection)', arrow:'Removal of Pyrogen',
+   detail:'Sterile Water (for injection) — obtained from Purified Water by sterilization.'},
+  {id:'pyrogenfree', label:'Pyrogen-free Water\n(for injection)', arrow:'Preservative addition',
+   detail:'Pyrogen-free Water (for injection) — obtained from Sterile Water by removal of pyrogen.'},
+  {id:'bacteriostatic', label:'Bacteriostatic Water\n(for injection)', arrow:null,
+   detail:'Bacteriostatic Water (for injection) — obtained from Pyrogen-free Water by addition of a preservative.'}
+];
+const flowBranchSteps = [
+  {id:'tap2', label:'Tap Water', arrow:'Deionization',
+   detail:'Tap Water — the same water used to start the deionization branch.'},
+  {id:'deionized', label:'Deionized Water', arrow:'combines into Purified Water',
+   detail:'Deionized Water — obtained from Tap Water by deionization; it combines with Distilled Water to form Purified Water.'}
+];
+
+function buildFlow(container, steps, detailEl){
+  container.innerHTML = '';
+  steps.forEach((s,i)=>{
+    const node = document.createElement('button');
+    node.className='flow-node';
+    node.type='button';
+    node.innerHTML = s.label.replace(/\n/g,'<br>');
+    node.addEventListener('click', ()=>{
+      container.querySelectorAll('.flow-node').forEach(n=>n.classList.remove('active'));
+      document.querySelectorAll('.flow-branch .flow-node').forEach(n=>n.classList.remove('active'));
+      document.querySelectorAll('.flow-row .flow-node').forEach(n=>n.classList.remove('active'));
+      node.classList.add('active');
+      detailEl.textContent = s.detail;
+      detailEl.classList.remove('empty');
+    });
+    container.appendChild(node);
+    if(s.arrow){
+      const arrow = document.createElement('div');
+      arrow.className='flow-arrow';
+      arrow.innerHTML = `<span class="lbl">${s.arrow}</span><span class="shaft"></span>`;
+      container.appendChild(arrow);
+    }
+  });
+}
+const flowDetail = document.getElementById('flowDetail');
+buildFlow(document.getElementById('flowMain'), flowMainSteps, flowDetail);
+buildFlow(document.getElementById('flowBranch'), flowBranchSteps, flowDetail);
+
+/* ============================================================
+   DIAGRAM 2 — bar chart, pediatric alcohol limits
+   ============================================================ */
+const barData = [
+  {label:'Under 6 years (OTC oral)', value:0.5, detail:'Under 6 years, OTC oral products: recommended alcohol limit is 0.5%.'},
+  {label:'6–12 years', value:5, detail:'6 to 12 years: recommended alcohol limit is 5%.'},
+  {label:'Over 12 years / adults', value:10, detail:'Over 12 years and adults: recommended alcohol limit is 10%.'}
+];
+const maxBar = 10;
+const barChartEl = document.getElementById('barChart');
+const barDetailEl = document.getElementById('barDetail');
+barData.forEach(b=>{
+  const col = document.createElement('div');
+  col.className='bar-col';
+  const h = Math.max(10,(b.value/maxBar)*160);
+  col.innerHTML = `<div class="bar" style="height:${h}px"></div><div class="cap">${b.label}<br><strong>${b.value}%</strong></div>`;
+  col.addEventListener('click', ()=>{
+    barChartEl.querySelectorAll('.bar-col').forEach(c=>c.classList.remove('active'));
+    col.classList.add('active');
+    barDetailEl.textContent = b.detail;
+  });
+  barChartEl.appendChild(col);
+});
+
+/* ============================================================
+   DIAGRAM 3 — concentration scale
+   ============================================================ */
+const scaleData = [
+  {pct:49.5, label:'Diluted Alcohol NF', detail:'Diluted Alcohol NF — 49–50%, equal parts Alcohol USP and Purified Water USP.'},
+  {pct:70, label:'Isopropyl Alcohol', detail:'Isopropyl Alcohol — 70%, used in cosmetic and dermatologic formulations.'},
+  {pct:95, label:'Alcohol USP', detail:'Alcohol USP (Ethyl alcohol) — 94.9–96% C2H5OH, the general-purpose pharmaceutical solvent.'},
+  {pct:99.5, label:'Dehydrated Alcohol USP', detail:'Dehydrated Alcohol USP — 99.5% C2H5OH, practically free from water; used in research and synthesis.'}
+];
+const scaleLine = document.getElementById('scaleLine');
+const scaleDetail = document.getElementById('scaleDetail');
+for(let t=0;t<=100;t+=10){
+  const tick = document.createElement('div');
+  tick.className='scale-tick';
+  tick.style.left = t+'%';
+  scaleLine.appendChild(tick);
+}
+scaleData.forEach(m=>{
+  const marker = document.createElement('div');
+  marker.className='scale-marker';
+  marker.style.left = m.pct+'%';
+  marker.title = m.label;
+  marker.addEventListener('click', ()=>{
+    scaleLine.querySelectorAll('.scale-marker').forEach(x=>x.classList.remove('active'));
+    marker.classList.add('active');
+    scaleDetail.textContent = m.label+' — '+m.pct+'%. '+m.detail;
+  });
+  scaleLine.appendChild(marker);
+});
+
+/* ============================================================
+   DIAGRAM 4 — miscibility matrix
+   ============================================================ */
+const matrixCols = ['Water','Alcohol','Chloroform','Acetone','Fixed oils','Essential/Volatile oils'];
+const matrixRows = [
+  {name:'Water', vals:['—','yes','—','—','—','—']},
+  {name:'Glycerin', vals:['yes','yes','no','—','—','—']},
+  {name:'Propylene glycol', vals:['yes','yes','yes','yes','no','yes']},
+  {name:'Polyethylene glycol', vals:['yes','yes','—','yes','—','—']},
+  {name:'Chloroform', vals:['—','yes','—','—','yes','yes']}
+];
+const matrixEl = document.getElementById('matrixTable');
+function renderMatrix(){
+  let html = '<tr><th data-col="-1">Solvent</th>' + matrixCols.map((c,i)=>`<th data-col="${i}">${c}</th>`).join('') + '</tr>';
+  matrixRows.forEach(r=>{
+    html += `<tr><td>${r.name}</td>` + r.vals.map((v,i)=>{
+      const cls = v==='yes'?'yes':(v==='no'?'no':'unk');
+      const sym = v==='yes'?'✓':(v==='no'?'✗':'—');
+      return `<td class="${cls}" data-col="${i}">${sym}</td>`;
+    }).join('') + '</tr>';
+  });
+  matrixEl.innerHTML = html;
+  matrixEl.querySelectorAll('th[data-col]').forEach(th=>{
+    th.addEventListener('click', ()=>{
+      const col = th.dataset.col;
+      const isActive = th.classList.contains('col-active');
+      matrixEl.querySelectorAll('th').forEach(x=>x.classList.remove('col-active'));
+      matrixEl.querySelectorAll('td').forEach(x=>x.classList.remove('cell-lit'));
+      if(!isActive && col !== '-1'){
+        th.classList.add('col-active');
+        matrixEl.querySelectorAll(`td[data-col="${col}"]`).forEach(x=>x.classList.add('cell-lit'));
+      }
+    });
+  });
+}
+renderMatrix();
+
+/* ============================================================
+   MIND MAP
+   ============================================================ */
+const mapNodes = [
+  {label:'Water', title:'Water', text:'A good solvent for most inorganic salts and many organic compounds. Its miscibility with alcohol and glycerin makes it a widely used pharmaceutical vehicle.'},
+  {label:'Alcohol USP', title:'Alcohol USP (Ethyl alcohol, 94.9–96%)', text:'Dissolves drugs insoluble in water — resins, volatile oils, alkaloids, glycosides. Also functions as an antimicrobial preservative, alone or with parabens. Pediatric alcohol-content limits apply: 0.5% under 6 years, 5% for 6–12 years, 10% over 12 years and for adults.'},
+  {label:'Diluted Alcohol', title:'Diluted Alcohol NF (49–50%)', text:'Prepared by mixing equal volumes of Alcohol USP and Purified Water USP. This hydroalcoholic solvent dissolves both alcohol-soluble and water-soluble substances.'},
+  {label:'Dehydrated Alcohol', title:'Dehydrated Alcohol USP (99.5%, absolute alcohol)', text:'Practically free from water. Its chief pharmacy use is in research and analytic work, and in preparing synthetic organic medicinals.'},
+  {label:'Isopropyl Alcohol', title:'Isopropyl Alcohol (70%)', text:'Used in cosmetic and dermatologic formulations.'},
+  {label:'Chloroform', title:'Chloroform', text:'Miscible with alcohol, ether, benzene, hexane, and both fixed and volatile oils. Dissolves in 200 volumes of water. Not flammable, but its vapor decomposes near naked flames, producing harmful gases. A solvent for many alkaloids.'},
+  {label:'Glycerin', title:'Glycerin USP (Glycerol)', text:'A clear syrupy liquid with a sweet taste. Miscible with water and alcohol, but not with chloroform. An excellent solvent for tannins, phenol, and boric acid. Must be heated to reduce viscosity before use as a solvent. Used as a stabilizer and auxiliary solvent, and in many internal preparations.'},
+  {label:'Propylene Glycol', title:'Propylene Glycol', text:'Miscible with water, acetone, alcohol, and chloroform. Dissolves many essential oils but is immiscible with fixed oils. Used as a modern replacement for glycerin in pharmaceutical and cosmetic formulations.'},
+  {label:'Polyethylene Glycol', title:'Polyethylene Glycol', text:'Miscible with water, acetone, alcohol, and other glycols. Dissolves many water-soluble organic compounds as well as certain water-insoluble substances, such as acetylsalicylic acid.'}
+];
+const positions = [
+  [50,12],[74.4,20.9],[87.4,43.4],[82.9,69],[63,85.7],[37,85.7],[17.1,69],[12.6,43.4],[25.6,20.9]
+];
+const mapCanvas = document.getElementById('mapCanvas');
+const mapSvg = document.getElementById('mapSvg');
+const mapDetail = document.getElementById('mapDetail');
+mapNodes.forEach((n,i)=>{
+  const [x,y] = positions[i];
+  const line = document.createElementNS('http://www.w3.org/2000/svg','line');
+  line.setAttribute('x1',50); line.setAttribute('y1',50);
+  line.setAttribute('x2',x); line.setAttribute('y2',y);
+  line.setAttribute('stroke','#C9BC96'); line.setAttribute('stroke-width','0.6');
+  mapSvg.appendChild(line);
+
+  const node = document.createElement('button');
+  node.className='map-node'; node.type='button';
+  node.style.left = x+'%'; node.style.top = y+'%';
+  node.textContent = n.label;
+  node.addEventListener('click', ()=>{
+    document.querySelectorAll('.map-node').forEach(m=>m.classList.remove('active'));
+    node.classList.add('active');
+    mapDetail.innerHTML = `<h3>${n.title}</h3><p>${n.text}</p>`;
+  });
+  mapCanvas.appendChild(node);
+});
+
+/* ============================================================
+   FLASH CARDS
+   ============================================================ */
+const flashData = [
+  {"level": 1, "cat": "general", "f": "Which reference source states the solubilities of many medicinal agents in the usual solvents?", "b": "The United States Pharmacopeia–National Formulary (USP-NF), as well as other reference books."},
+  {"level": 1, "cat": "general", "f": "Pharmaceutical solvent property 1: \"Not toxic\" means…", "b": "No harmful effect on the body."},
+  {"level": 1, "cat": "general", "f": "Pharmaceutical solvent property 2: what must a solvent NOT be?", "b": "Volatile — it should be non-volatile."},
+  {"level": 1, "cat": "general", "f": "Pharmaceutical solvent property 3: \"Stable\" means…", "b": "It must not interact with the active ingredient or the added substances, must stay stable under storage conditions, and must keep the active ingredient stable."},
+  {"level": 1, "cat": "water", "f": "Water is a good solvent for which kinds of substances?", "b": "Most inorganic salts and many organic compounds."},
+  {"level": 1, "cat": "water", "f": "Water is miscible with which solvents (named in the lecture), making it a useful vehicle?", "b": "Alcohol and glycerin."},
+  {"level": 1, "cat": "water", "f": "Crude Water → Tap Water: which process?", "b": "Clarification."},
+  {"level": 1, "cat": "water", "f": "Tap Water → Distilled Water: which process?", "b": "Distillation."},
+  {"level": 1, "cat": "water", "f": "Tap Water → Deionized Water: which process?", "b": "Deionization."},
+  {"level": 1, "cat": "water", "f": "Purified Water is…", "b": "Water that is both distilled and deionized."},
+  {"level": 1, "cat": "water", "f": "Purified Water → Sterile Water (for injection): which process?", "b": "Sterilization."},
+  {"level": 1, "cat": "water", "f": "Sterile Water → Pyrogen-free Water (for injection): which process?", "b": "Removal of pyrogen."},
+  {"level": 1, "cat": "water", "f": "Pyrogen-free Water → Bacteriostatic Water (for injection): which process?", "b": "Preservative addition."},
+  {"level": 1, "cat": "alcohol", "f": "Alcohol USP (ethyl alcohol): concentration and formula?", "b": "94.9–96% by volume C2H5OH."},
+  {"level": 1, "cat": "alcohol", "f": "Name the plant constituents that Alcohol USP dissolves.", "b": "Resins, volatile oils, alkaloids and glycosides."},
+  {"level": 1, "cat": "alcohol", "f": "Besides being a solvent, what role can alcohol play in liquid products?", "b": "Antimicrobial preservative — alone or as a co-preservative with others such as parabens."},
+  {"level": 1, "cat": "alcohol", "f": "Recommended alcohol limit in OTC oral products for children under 6 years?", "b": "0.5%."},
+  {"level": 1, "cat": "diluted", "f": "Diluted Alcohol NF: concentration?", "b": "49–50%."},
+  {"level": 1, "cat": "dehydrated", "f": "Dehydrated Alcohol USP (absolute alcohol): concentration?", "b": "99.5% C2H5OH — practically free from water."},
+  {"level": 1, "cat": "isopropyl", "f": "Isopropyl alcohol 70%: where is it used?", "b": "In cosmetic and dermatologic formulations."},
+  {"level": 1, "cat": "chloroform", "f": "Chloroform is a solvent for which class of drugs?", "b": "Many alkaloids."},
+  {"level": 1, "cat": "glycerin", "f": "Physical description of Glycerin USP (glycerol)?", "b": "A clear, syrupy liquid with a sweet taste."},
+  {"level": 1, "cat": "glycerin", "f": "Glycerin is an excellent solvent for which three substances?", "b": "Tannins, phenol and boric acid."},
+  {"level": 1, "cat": "pg", "f": "Propylene glycol is used in modern formulations as a replacement for which solvent?", "b": "Glycerin (in pharmaceutical and cosmetic formulations)."},
+  {"level": 1, "cat": "peg", "f": "Name the water-insoluble drug the lecture says polyethylene glycol can dissolve.", "b": "Acetyl salicylic acid (aspirin)."},
+  {"level": 2, "cat": "alcohol", "f": "State the recommended alcohol limits for children 6–12 years and for those over 12 years and adults.", "b": "6–12 years: 5%. Over 12 years and adults: 10%."},
+  {"level": 2, "cat": "alcohol", "f": "Why is alcohol combined with glycols and glycerin, and why does its content need limiting?", "b": "The co-solvents reduce the amount of alcohol required, because alcohol has undesired pharmacologic and toxic effects when ingested, particularly by children."},
+  {"level": 2, "cat": "diluted", "f": "How is Diluted Alcohol NF prepared, and why is it useful?", "b": "By mixing equal volumes of Alcohol USP and Purified Water USP. It dissolves both alcohol-soluble and water-soluble substances."},
+  {"level": 2, "cat": "dehydrated", "f": "What is the chief use of Dehydrated Alcohol USP in pharmacy?", "b": "Research and analytic work, and the preparation of synthetic organic medicinals."},
+  {"level": 2, "cat": "chloroform", "f": "Chloroform \"dissolves in 200 volumes of water\" — what does that mean?", "b": "200 mL of water is required to dissolve 1 g of compound (volumes = mL of water per gram)."},
+  {"level": 2, "cat": "chloroform", "f": "Is chloroform flammable? What hazard does it pose near a flame?", "b": "Not flammable, but its vapor decomposes in naked flames and produces harmful gases."},
+  {"level": 2, "cat": "chloroform", "f": "Chloroform is miscible with which liquids?", "b": "Alcohol, ether, benzene, hexane, and both fixed and volatile oils."},
+  {"level": 2, "cat": "glycerin", "f": "Glycerin is miscible with which solvents and NOT miscible with which?", "b": "Miscible with water and alcohol; not miscible with chloroform."},
+  {"level": 2, "cat": "glycerin", "f": "Why must glycerin be heated when used as a solvent?", "b": "Heating reduces its viscosity; otherwise it is difficult to dissolve substances in it."},
+  {"level": 2, "cat": "glycerin", "f": "What two supporting roles does glycerin play besides acting as a main solvent?", "b": "A stabilizer (because of its preservative qualities) and an auxiliary solvent used together with water or alcohol."},
+  {"level": 2, "cat": "pg", "f": "Propylene glycol: miscible with which solvents, and immiscible with what?", "b": "Miscible with water, acetone, alcohol and chloroform (dissolves many essential oils); immiscible with fixed oils."},
+  {"level": 2, "cat": "peg", "f": "Polyethylene glycol is miscible with which solvents, and what does it dissolve?", "b": "Miscible with water, acetone, alcohol and other glycols; dissolves many water-soluble organic compounds and certain water-insoluble ones such as acetyl salicylic acid."},
+  {"level": 2, "cat": "water", "f": "In the water flow diagram, which water types are labelled \"for injection\"?", "b": "Sterile Water, Pyrogen-free Water and Bacteriostatic Water (Purified Water is distilled and deionized, but not labelled for injection)."},
+  {"level": 2, "cat": "general", "f": "The lecture asks: \"If the solvent were volatile, what would that mean?\" Give the logical answer.", "b": "It would evaporate easily, so the volume/concentration of the preparation would change during storage and use, making the dose unreliable."},
+  {"level": 2, "cat": "alcohol", "f": "Contrast Alcohol USP with Dehydrated Alcohol USP in concentration and use.", "b": "Alcohol USP is 94.9–96% and serves as a general solvent and preservative; Dehydrated Alcohol is 99.5% (practically water-free) and is used mainly in research, analysis and synthesis of organic medicinals."},
+  {"level": 3, "cat": "alcohol", "f": "An OTC oral syrup for a 4-year-old contains 3% alcohol. Is it acceptable? What must be done?", "b": "No. The recommended limit for OTC oral products for children under 6 is 0.5%. Alcohol must be cut to ≤0.5%, e.g. by using glycols or glycerin as co-solvents to reduce the alcohol required."},
+  {"level": 3, "cat": "peg", "f": "A formulator must dissolve aspirin, which is water-insoluble. Which solvent from the lecture is suitable, and why not simply use water?", "b": "Polyethylene glycol — it dissolves certain water-insoluble substances such as acetyl salicylic acid. Water alone is a poor solvent for such organic compounds."},
+  {"level": 3, "cat": "pg", "f": "Propylene glycol replaces glycerin in many modern formulations. Give one solubility difference between them relevant to chloroform.", "b": "Propylene glycol is miscible with chloroform, whereas glycerin is not. (Propylene glycol is also immiscible with fixed oils.)"},
+  {"level": 3, "cat": "glycerin", "f": "A tannin solution in glycerin dissolves very slowly. What is the cause and the remedy?", "b": "Glycerin is highly viscous, which hinders dissolving. Heat the glycerin to reduce its viscosity."},
+  {"level": 3, "cat": "diluted", "f": "A preparation contains both a water-soluble salt and an alcohol-soluble resin. Which solvent fits best and why?", "b": "Diluted Alcohol NF (49–50%) — equal volumes of Alcohol USP and Purified Water give a hydroalcoholic solvent dissolving both alcohol-soluble and water-soluble substances."},
+  {"level": 3, "cat": "water", "f": "Starting from Tap Water and using the deionization route, list the named processes needed to reach Bacteriostatic Water.", "b": "Deionization (→ Deionized/Purified Water), Sterilization, Removal of pyrogen, then Preservative addition — four named processes."},
+  {"level": 3, "cat": "chloroform", "f": "Chloroform is \"not flammable\". Why must it still be kept away from naked flames?", "b": "Its vapor decomposes in naked flames, producing harmful gases."},
+  {"level": 3, "cat": "general", "f": "Which solvent in the lecture is miscible with water and alcohol but NOT with chloroform, and also acts as a stabilizer?", "b": "Glycerin (glycerol)."},
+  {"level": 3, "cat": "alcohol", "f": "A product contains 8% alcohol. For which age groups does it satisfy the lecture's recommended limits?", "b": "Not suitable for children under 6 (limit 0.5%) or children 6–12 (limit 5%); acceptable only for children over 12 years and adults (limit 10%)."},
+  {"level": 3, "cat": "general", "f": "Link two solvent properties: how can solvent volatility threaten the \"stable\" requirement?", "b": "A volatile solvent evaporates on storage, concentrating the active ingredient and altering its environment/interaction, which can compromise stability and protection of the active ingredient."}
+];
+let cardOrder = flashData.map((_,i)=>i);
+let cardIndex = 0;
+let flippedNow = false;
+const catLabels = {general:'General',water:'Water',alcohol:'Alcohol USP',diluted:'Diluted Alcohol',dehydrated:'Dehydrated Alcohol',isopropyl:'Isopropyl Alcohol',chloroform:'Chloroform',glycerin:'Glycerin',pg:'Propylene Glycol',peg:'Polyethylene Glycol'};
+const levelLabels = {1:'Level 1 · Easy',2:'Level 2 · Medium',3:'Level 3 · Hard'};
+const levelCounts = {1:25,2:15,3:10};
+let activeLevelCards = 1;
+let activeCat = 'all';
+
+const levelRowCards = document.getElementById('levelRowCards');
+[1,2,3].forEach(lv=>{
+  const chip = document.createElement('button');
+  chip.className = 'chip'+(lv===1?' active':'');
+  chip.textContent = levelLabels[lv]+' ('+levelCounts[lv]+')';
+  chip.dataset.level = lv;
+  chip.addEventListener('click', ()=>{
+    activeLevelCards = lv;
+    levelRowCards.querySelectorAll('.chip').forEach(x=>x.classList.remove('active'));
+    chip.classList.add('active');
+    activeCat = 'all';
+    rebuildCatChips();
+    cardIndex = 0;
+    applyCardFilter();
+  });
+  levelRowCards.appendChild(chip);
+});
+
+const chipRow = document.getElementById('chipRow');
+function rebuildCatChips(){
+  chipRow.innerHTML = '';
+  const inLevel = flashData.filter(d=>d.level===activeLevelCards);
+  const cats = ['all',...Object.keys(catLabels).filter(c=> inLevel.some(d=>d.cat===c))];
+  cats.forEach(c=>{
+    const chip = document.createElement('button');
+    chip.className = 'chip'+(c==='all'?' active':'');
+    const count = c==='all' ? inLevel.length : inLevel.filter(d=>d.cat===c).length;
+    chip.textContent = c==='all' ? 'All ('+count+')' : catLabels[c]+' ('+count+')';
+    chip.dataset.cat = c;
+    chip.addEventListener('click', ()=>{
+      activeCat = c;
+      chipRow.querySelectorAll('.chip').forEach(x=>x.classList.remove('active'));
+      chip.classList.add('active');
+      cardIndex = 0;
+      applyCardFilter();
+    });
+    chipRow.appendChild(chip);
+  });
+}
+function applyCardFilter(){
+  cardOrder = flashData.map((_,i)=>i).filter(i=> flashData[i].level===activeLevelCards && (activeCat==='all' || flashData[i].cat===activeCat));
+  renderCard();
+}
+rebuildCatChips();
+document.getElementById('cardsTotalNote').textContent = flashData.length+' cards total across 3 difficulty levels (25 easy / 15 medium / 10 hard) — every solvent covered in the lecture.';
+
+const flashCardEl = document.getElementById('flashCard');
+const cardFront = document.getElementById('cardFront');
+const cardBack = document.getElementById('cardBack');
+const cardTag = document.getElementById('cardTag');
+const cardCount = document.getElementById('cardCount');
+
+function renderCard(){
+  flashCardEl.classList.remove('flipped');
+  flippedNow = false;
+  if(cardOrder.length===0){
+    cardFront.textContent = 'No cards in this filter.';
+    cardBack.textContent = '';
+    cardTag.textContent = '';
+    cardCount.textContent = '0 / 0';
+    return;
+  }
+  const item = flashData[cardOrder[cardIndex]];
+  cardFront.textContent = item.f;
+  cardBack.textContent = item.b;
+  cardTag.textContent = levelLabels[item.level].toUpperCase()+' · '+catLabels[item.cat].toUpperCase();
+  cardCount.textContent = (cardIndex+1)+' / '+cardOrder.length;
+}
+flashCardEl.addEventListener('click', ()=>{
+  flippedNow = !flippedNow;
+  flashCardEl.classList.toggle('flipped', flippedNow);
+});
+document.getElementById('prevCard').addEventListener('click', ()=>{
+  if(cardOrder.length===0) return;
+  cardIndex = (cardIndex-1+cardOrder.length)%cardOrder.length;
+  renderCard();
+});
+document.getElementById('nextCard').addEventListener('click', ()=>{
+  if(cardOrder.length===0) return;
+  cardIndex = (cardIndex+1)%cardOrder.length;
+  renderCard();
+});
+document.getElementById('shuffleCard').addEventListener('click', ()=>{
+  for(let i=cardOrder.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [cardOrder[i],cardOrder[j]]=[cardOrder[j],cardOrder[i]];
+  }
+  cardIndex = 0;
+  renderCard();
+});
+applyCardFilter();
+
+/* ============================================================
+   QUIZ BANK
+   ============================================================ */
+const quizData = [
+  {"level": 1, "q": "Which source states the solubilities of many medicinal agents in the usual solvents?", "correct": "USP-NF (United States Pharmacopeia–National Formulary)", "wrong": ["British Pharmacopoeia only", "WHO Essential Medicines List", "FDA Orange Book"]},
+  {"level": 1, "q": "Which is NOT a desired property of a pharmaceutical solvent?", "correct": "Volatile", "wrong": ["Not toxic", "Stable", "Not volatile"]},
+  {"level": 1, "q": "\"Not toxic\" for a solvent means:", "correct": "No harmful effect on the body", "wrong": ["Pleasant smell", "Rapid evaporation", "High viscosity"]},
+  {"level": 1, "q": "A stable solvent should NOT:", "correct": "Interact with the active ingredient or added substances", "wrong": ["Remain stable on storage", "Protect the active ingredient", "Stay liquid"]},
+  {"level": 1, "q": "Water is a good solvent for:", "correct": "Most inorganic salts and many organic compounds", "wrong": ["Only fixed oils", "Only resins", "Only waxes"]},
+  {"level": 1, "q": "Water's miscibility with which pair makes it a useful vehicle?", "correct": "Alcohol and glycerin", "wrong": ["Chloroform and benzene", "Hexane and ether", "Fixed oils and volatile oils"]},
+  {"level": 1, "q": "Crude Water → Tap Water is achieved by:", "correct": "Clarification", "wrong": ["Distillation", "Deionization", "Sterilization"]},
+  {"level": 1, "q": "Tap Water → Distilled Water is achieved by:", "correct": "Distillation", "wrong": ["Clarification", "Deionization", "Preservative addition"]},
+  {"level": 1, "q": "Tap Water → Deionized Water is achieved by:", "correct": "Deionization", "wrong": ["Distillation", "Sterilization", "Removal of pyrogen"]},
+  {"level": 1, "q": "Purified Water is:", "correct": "Distilled and deionized water", "wrong": ["Only distilled water", "Sterile pyrogen-free water", "Water with added preservative"]},
+  {"level": 1, "q": "Purified Water → Sterile Water (for injection) requires:", "correct": "Sterilization", "wrong": ["Clarification", "Deionization", "Preservative addition"]},
+  {"level": 1, "q": "Sterile Water → Pyrogen-free Water requires:", "correct": "Removal of pyrogen", "wrong": ["Sterilization", "Distillation", "Clarification"]},
+  {"level": 1, "q": "Pyrogen-free Water → Bacteriostatic Water requires:", "correct": "Preservative addition", "wrong": ["Sterilization", "Deionization", "Removal of pyrogen"]},
+  {"level": 1, "q": "Alcohol USP (ethyl alcohol) concentration is:", "correct": "94.9–96% by volume C2H5OH", "wrong": ["49–50%", "70%", "99.5%"]},
+  {"level": 1, "q": "Alcohol USP dissolves which plant constituents?", "correct": "Resins, volatile oils, alkaloids and glycosides", "wrong": ["Only inorganic salts", "Only proteins", "Only pyrogens"]},
+  {"level": 1, "q": "Alcohol can serve in liquid products as:", "correct": "An antimicrobial preservative", "wrong": ["A pyrogen remover", "A thickener only", "A colouring agent"]},
+  {"level": 1, "q": "Recommended alcohol limit in OTC oral products for children under 6 years:", "correct": "0.5%", "wrong": ["5%", "10%", "50%"]},
+  {"level": 1, "q": "Diluted Alcohol NF contains approximately:", "correct": "49–50% alcohol", "wrong": ["94.9–96% alcohol", "99.5% alcohol", "70% alcohol"]},
+  {"level": 1, "q": "Dehydrated Alcohol USP (absolute alcohol) is:", "correct": "99.5% C2H5OH, practically free from water", "wrong": ["49–50% C2H5OH", "70% isopropyl alcohol", "94.9–96% C2H5OH"]},
+  {"level": 1, "q": "Isopropyl alcohol 70% is used in:", "correct": "Cosmetic and dermatologic formulations", "wrong": ["Intravenous injections", "Oral pediatric syrups", "Absolute-alcohol research"]},
+  {"level": 1, "q": "Chloroform is a solvent for many:", "correct": "Alkaloids", "wrong": ["Inorganic salts", "Pyrogens", "Proteins"]},
+  {"level": 1, "q": "Glycerin USP is described as:", "correct": "A clear syrupy liquid with a sweet taste", "wrong": ["A volatile colourless gas", "A dry crystalline powder", "A bitter oily solid"]},
+  {"level": 1, "q": "Glycerin is an excellent solvent for:", "correct": "Tannins, phenol and boric acid", "wrong": ["Fixed oils only", "Chloroform only", "Alkaloid bases only"]},
+  {"level": 1, "q": "In modern formulations propylene glycol is used as a replacement for:", "correct": "Glycerin", "wrong": ["Chloroform", "Water", "Dehydrated alcohol"]},
+  {"level": 1, "q": "Which water-insoluble substance can polyethylene glycol dissolve?", "correct": "Acetyl salicylic acid", "wrong": ["Sodium chloride", "Boric acid", "Tannins"]},
+  {"level": 2, "q": "Recommended alcohol limit for oral products for children 6–12 years:", "correct": "5%", "wrong": ["0.5%", "10%", "25%"]},
+  {"level": 2, "q": "Recommended alcohol limit for children over 12 years and adults:", "correct": "10%", "wrong": ["0.5%", "5%", "20%"]},
+  {"level": 2, "q": "Why is alcohol combined with glycols and glycerin?", "correct": "To reduce the amount of alcohol required", "wrong": ["To increase alcohol toxicity", "To make the product volatile", "To remove pyrogens"]},
+  {"level": 2, "q": "Diluted Alcohol NF is prepared by mixing:", "correct": "Equal volumes of Alcohol USP and Purified Water USP", "wrong": ["Alcohol USP and glycerin", "Dehydrated alcohol and chloroform", "Isopropyl alcohol and tap water"]},
+  {"level": 2, "q": "Diluted Alcohol is useful because it dissolves:", "correct": "Both alcohol-soluble and water-soluble substances", "wrong": ["Only fixed oils", "Only inorganic salts", "Neither type"]},
+  {"level": 2, "q": "The chief pharmacy use of Dehydrated Alcohol USP is:", "correct": "Research and analytic work and synthesis of organic medicinals", "wrong": ["Oral pediatric syrups", "Preparation of tap water", "A preservative for injections"]},
+  {"level": 2, "q": "\"Chloroform dissolves in 200 volumes of water\" means:", "correct": "200 mL of water dissolves 1 g of compound", "wrong": ["200 g dissolves in 1 mL", "It is miscible in all proportions", "1 mL needs 200 g of water"]},
+  {"level": 2, "q": "Regarding flames, chloroform:", "correct": "Is not flammable, but its vapor decomposes in flames giving harmful gases", "wrong": ["Is highly flammable", "Is explosive when mixed with water", "Is completely inert to flames"]},
+  {"level": 2, "q": "Glycerin is NOT miscible with:", "correct": "Chloroform", "wrong": ["Water", "Alcohol", "Water–alcohol mixtures"]},
+  {"level": 2, "q": "Glycerin is heated when used as a solvent in order to:", "correct": "Reduce its viscosity", "wrong": ["Increase its sweetness", "Make it volatile", "Convert it to alcohol"]},
+  {"level": 2, "q": "Propylene glycol is immiscible with:", "correct": "Fixed oils", "wrong": ["Water", "Acetone", "Chloroform"]},
+  {"level": 2, "q": "Polyethylene glycol is miscible with:", "correct": "Water, acetone, alcohol and other glycols", "wrong": ["Only fixed oils", "Only chloroform", "Only hexane"]},
+  {"level": 2, "q": "Which water in the lecture diagram is NOT labelled \"for injection\"?", "correct": "Purified Water", "wrong": ["Sterile Water", "Pyrogen-free Water", "Bacteriostatic Water"]},
+  {"level": 2, "q": "Alcohol is used as a co-preservative with:", "correct": "Parabens", "wrong": ["Chloroform", "Glycerin only", "Hexane"]},
+  {"level": 2, "q": "Which statement about chloroform is correct according to the lecture?", "correct": "It is miscible with alcohol, ether, benzene, hexane and fixed/volatile oils", "wrong": ["It is miscible with water in all proportions", "It is immiscible with fixed oils", "It is not a solvent for alkaloids"]},
+  {"level": 3, "q": "An OTC syrup for a 4-year-old contains 3% alcohol. The correct judgement is:", "correct": "Unacceptable; limit is 0.5% so alcohol must be reduced (e.g. with glycols/glycerin)", "wrong": ["Acceptable; limit is 5%", "Acceptable; limit is 10%", "Unacceptable only for adults"]},
+  {"level": 3, "q": "To dissolve aspirin (water-insoluble) the best lecture solvent is:", "correct": "Polyethylene glycol", "wrong": ["Water", "Glycerin", "Isopropyl alcohol 70%"]},
+  {"level": 3, "q": "Which statement correctly distinguishes propylene glycol from glycerin?", "correct": "Propylene glycol is miscible with chloroform; glycerin is not", "wrong": ["Glycerin is miscible with chloroform; propylene glycol is not", "Both are immiscible with water", "Propylene glycol is immiscible with alcohol"]},
+  {"level": 3, "q": "Number of named processes from Tap Water (deionization route) to Bacteriostatic Water:", "correct": "Four (deionization, sterilization, removal of pyrogen, preservative addition)", "wrong": ["Two", "Three", "Five"]},
+  {"level": 3, "q": "A preparation with a water-soluble salt and an alcohol-soluble resin is best dissolved in:", "correct": "Diluted Alcohol NF", "wrong": ["Dehydrated Alcohol USP", "Chloroform", "Fixed oil"]},
+  {"level": 3, "q": "Why must chloroform be kept from naked flames despite being non-flammable?", "correct": "Its vapor decomposes, producing harmful gases", "wrong": ["It explodes on contact", "It ignites spontaneously", "It polymerises"]},
+  {"level": 3, "q": "A product containing 8% alcohol meets the recommended limit for:", "correct": "Children over 12 years and adults only", "wrong": ["Children under 6 only", "Children 6–12 only", "All age groups"]},
+  {"level": 3, "q": "Which statement is CORRECT?", "correct": "Glycerin may act as a stabilizer and an auxiliary solvent with water or alcohol", "wrong": ["Glycerin is miscible with chloroform", "Dehydrated alcohol is 49–50% ethanol", "Propylene glycol is miscible with fixed oils"]},
+  {"level": 3, "q": "Which comparison is correct?", "correct": "Alcohol USP is 94.9–96% whereas Dehydrated Alcohol is 99.5%", "wrong": ["Alcohol USP is 99.5% whereas Dehydrated Alcohol is 94.9–96%", "Both are 49–50%", "Dehydrated Alcohol is 70%"]},
+  {"level": 3, "q": "Solvent evaporation during storage violates which property directly and threatens which indirectly?", "correct": "Not volatile (directly); stable (indirectly)", "wrong": ["Not toxic (directly); stable (indirectly)", "Stable (directly); not toxic (indirectly)", "Not volatile (directly); not toxic (indirectly)"]}
+];
+
+const levelLabelsQ = {1:'Level 1 · Easy',2:'Level 2 · Medium',3:'Level 3 · Hard'};
+const levelCountsQ = {1:25,2:15,3:10};
+let activeLevelQuiz = 1;
+let quizOrder = [];
+let quizPos = 0;
+let score = 0;
+let answered = false;
+const quizArea = document.getElementById('quizArea');
+const quizScoreEl = document.getElementById('quizScore');
+const quizProgressFill = document.getElementById('quizProgressFill');
+
+const levelRowQuiz = document.getElementById('levelRowQuiz');
+[1,2,3].forEach(lv=>{
+  const chip = document.createElement('button');
+  chip.className = 'chip'+(lv===1?' active':'');
+  chip.textContent = levelLabelsQ[lv]+' ('+levelCountsQ[lv]+')';
+  chip.dataset.level = lv;
+  chip.addEventListener('click', ()=>{
+    activeLevelQuiz = lv;
+    levelRowQuiz.querySelectorAll('.chip').forEach(x=>x.classList.remove('active'));
+    chip.classList.add('active');
+    startQuiz();
+  });
+  levelRowQuiz.appendChild(chip);
+});
+document.getElementById('quizTotalNote').textContent = quizData.length+' questions across 3 difficulty levels (25 easy / 15 medium / 10 hard) — options reshuffle every time.';
+
+function shuffle(arr){
+  const a = arr.slice();
+  for(let i=a.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [a[i],a[j]]=[a[j],a[i]];
+  }
+  return a;
+}
+
+function startQuiz(){
+  const pool = quizData.map((_,i)=>i).filter(i=> quizData[i].level===activeLevelQuiz);
+  quizOrder = shuffle(pool);
+  quizPos = 0; score = 0; answered = false;
+  renderQuiz();
+}
+
+function renderQuiz(){
+  if(quizPos >= quizOrder.length){
+    quizArea.innerHTML = `<div class="quiz-done">
+      <h3>Quiz complete</h3>
+      <p>You scored ${score} out of ${quizOrder.length} — ${levelLabelsQ[activeLevelQuiz]}.</p>
+      <button class="solid" id="restartQuiz">Restart quiz</button>
+    </div>`;
+    quizProgressFill.style.width='100%';
+    document.getElementById('restartQuiz').addEventListener('click', startQuiz);
+    return;
+  }
+  answered = false;
+  const item = quizData[quizOrder[quizPos]];
+  const options = shuffle([{t:item.correct,ok:true}, ...item.wrong.map(w=>({t:w,ok:false}))]);
+  quizProgressFill.style.width = ((quizPos)/quizOrder.length*100)+'%';
+  quizScoreEl.textContent = `Score: ${score} / ${quizPos}`;
+
+  quizArea.innerHTML = `
+    <div class="quiz-card">
+      <p class="qnum">${levelLabelsQ[activeLevelQuiz]} — Question ${quizPos+1} of ${quizOrder.length}</p>
+      <h3>${item.q}</h3>
+      <div class="quiz-options" id="quizOptions"></div>
+      <div class="quiz-feedback" id="quizFeedback"></div>
+      <div class="quiz-actions">
+        <button class="ghost" id="skipQ">Skip</button>
+        <button class="solid" id="nextQ" style="display:none;">Next question →</button>
+      </div>
+    </div>`;
+  const optWrap = document.getElementById('quizOptions');
+  options.forEach(o=>{
+    const btn = document.createElement('button');
+    btn.className='opt'; btn.type='button'; btn.textContent=o.t;
+    btn.addEventListener('click', ()=>{
+      if(answered) return;
+      answered = true;
+      document.querySelectorAll('.opt').forEach(b=>b.setAttribute('disabled','true'));
+      if(o.ok){
+        btn.classList.add('correct');
+        score++;
+        document.getElementById('quizFeedback').textContent = 'Correct.';
+        document.getElementById('quizFeedback').style.color = '#3F5A34';
+      }else{
+        btn.classList.add('wrong');
+        document.querySelectorAll('.opt').forEach(b=>{ if(b.textContent===item.correct) b.classList.add('correct'); });
+        document.getElementById('quizFeedback').textContent = 'Not quite — correct answer highlighted.';
+        document.getElementById('quizFeedback').style.color = '#A2402B';
+      }
+      quizScoreEl.textContent = `Score: ${score} / ${quizPos+1}`;
+      document.getElementById('nextQ').style.display='inline-block';
+      document.getElementById('skipQ').style.display='none';
+    });
+    optWrap.appendChild(btn);
+  });
+  document.getElementById('nextQ').addEventListener('click', ()=>{ quizPos++; renderQuiz(); });
+  document.getElementById('skipQ').addEventListener('click', ()=>{ quizPos++; renderQuiz(); });
+}
+startQuiz();
+</script>
+</body>
+</html>
