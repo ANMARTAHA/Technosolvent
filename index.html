@@ -480,7 +480,6 @@
         <p id="cardsTotalNote"></p>
       </div>
       <div class="chip-row" id="levelRowCards"></div>
-      <div class="chip-row" id="chipRow"></div>
       <div class="card-stage">
         <div class="flash-card" id="flashCard">
           <div class="flash-inner">
@@ -732,56 +731,56 @@ mapNodes.forEach((n,i)=>{
    FLASH CARDS
    ============================================================ */
 const flashData = [
-  {"level": 1, "cat": "general", "f": "Which reference source states the solubilities of many medicinal agents in the usual solvents?", "b": "The United States Pharmacopeia–National Formulary (USP-NF), as well as other reference books."},
-  {"level": 1, "cat": "general", "f": "Pharmaceutical solvent property 1: \"Not toxic\" means…", "b": "No harmful effect on the body."},
-  {"level": 1, "cat": "general", "f": "Pharmaceutical solvent property 2: what must a solvent NOT be?", "b": "Volatile — it should be non-volatile."},
-  {"level": 1, "cat": "general", "f": "Pharmaceutical solvent property 3: \"Stable\" means…", "b": "It must not interact with the active ingredient or the added substances, must stay stable under storage conditions, and must keep the active ingredient stable."},
-  {"level": 1, "cat": "water", "f": "Water is a good solvent for which kinds of substances?", "b": "Most inorganic salts and many organic compounds."},
-  {"level": 1, "cat": "water", "f": "Water is miscible with which solvents (named in the lecture), making it a useful vehicle?", "b": "Alcohol and glycerin."},
-  {"level": 1, "cat": "water", "f": "Crude Water → Tap Water: which process?", "b": "Clarification."},
-  {"level": 1, "cat": "water", "f": "Tap Water → Distilled Water: which process?", "b": "Distillation."},
-  {"level": 1, "cat": "water", "f": "Tap Water → Deionized Water: which process?", "b": "Deionization."},
-  {"level": 1, "cat": "water", "f": "Purified Water is…", "b": "Water that is both distilled and deionized."},
-  {"level": 1, "cat": "water", "f": "Purified Water → Sterile Water (for injection): which process?", "b": "Sterilization."},
-  {"level": 1, "cat": "water", "f": "Sterile Water → Pyrogen-free Water (for injection): which process?", "b": "Removal of pyrogen."},
-  {"level": 1, "cat": "water", "f": "Pyrogen-free Water → Bacteriostatic Water (for injection): which process?", "b": "Preservative addition."},
-  {"level": 1, "cat": "alcohol", "f": "Alcohol USP (ethyl alcohol): concentration and formula?", "b": "94.9–96% by volume C2H5OH."},
-  {"level": 1, "cat": "alcohol", "f": "Name the plant constituents that Alcohol USP dissolves.", "b": "Resins, volatile oils, alkaloids and glycosides."},
-  {"level": 1, "cat": "alcohol", "f": "Besides being a solvent, what role can alcohol play in liquid products?", "b": "Antimicrobial preservative — alone or as a co-preservative with others such as parabens."},
-  {"level": 1, "cat": "alcohol", "f": "Recommended alcohol limit in OTC oral products for children under 6 years?", "b": "0.5%."},
-  {"level": 1, "cat": "diluted", "f": "Diluted Alcohol NF: concentration?", "b": "49–50%."},
-  {"level": 1, "cat": "dehydrated", "f": "Dehydrated Alcohol USP (absolute alcohol): concentration?", "b": "99.5% C2H5OH — practically free from water."},
-  {"level": 1, "cat": "isopropyl", "f": "Isopropyl alcohol 70%: where is it used?", "b": "In cosmetic and dermatologic formulations."},
-  {"level": 1, "cat": "chloroform", "f": "Chloroform is a solvent for which class of drugs?", "b": "Many alkaloids."},
-  {"level": 1, "cat": "glycerin", "f": "Physical description of Glycerin USP (glycerol)?", "b": "A clear, syrupy liquid with a sweet taste."},
-  {"level": 1, "cat": "glycerin", "f": "Glycerin is an excellent solvent for which three substances?", "b": "Tannins, phenol and boric acid."},
-  {"level": 1, "cat": "pg", "f": "Propylene glycol is used in modern formulations as a replacement for which solvent?", "b": "Glycerin (in pharmaceutical and cosmetic formulations)."},
-  {"level": 1, "cat": "peg", "f": "Name the water-insoluble drug the lecture says polyethylene glycol can dissolve.", "b": "Acetyl salicylic acid (aspirin)."},
-  {"level": 2, "cat": "alcohol", "f": "State the recommended alcohol limits for children 6–12 years and for those over 12 years and adults.", "b": "6–12 years: 5%. Over 12 years and adults: 10%."},
-  {"level": 2, "cat": "alcohol", "f": "Why is alcohol combined with glycols and glycerin, and why does its content need limiting?", "b": "The co-solvents reduce the amount of alcohol required, because alcohol has undesired pharmacologic and toxic effects when ingested, particularly by children."},
-  {"level": 2, "cat": "diluted", "f": "How is Diluted Alcohol NF prepared, and why is it useful?", "b": "By mixing equal volumes of Alcohol USP and Purified Water USP. It dissolves both alcohol-soluble and water-soluble substances."},
-  {"level": 2, "cat": "dehydrated", "f": "What is the chief use of Dehydrated Alcohol USP in pharmacy?", "b": "Research and analytic work, and the preparation of synthetic organic medicinals."},
-  {"level": 2, "cat": "chloroform", "f": "Chloroform \"dissolves in 200 volumes of water\" — what does that mean?", "b": "200 mL of water is required to dissolve 1 g of compound (volumes = mL of water per gram)."},
-  {"level": 2, "cat": "isopropyl", "f": "In the structural formula shown for isopropyl alcohol, what is attached to the central carbon?", "b": "Two CH3 groups and one OH group."},
-  {"level": 2, "cat": "chloroform", "f": "Chloroform is miscible with which liquids?", "b": "Alcohol, ether, benzene, hexane, and both fixed and volatile oils."},
-  {"level": 2, "cat": "glycerin", "f": "Glycerin is miscible with which solvents and NOT miscible with which?", "b": "Miscible with water and alcohol; not miscible with chloroform."},
-  {"level": 2, "cat": "glycerin", "f": "Why must glycerin be heated when used as a solvent?", "b": "Heating reduces its viscosity; otherwise it is difficult to dissolve substances in it."},
-  {"level": 2, "cat": "glycerin", "f": "What two supporting roles does glycerin play besides acting as a main solvent?", "b": "A stabilizer (because of its preservative qualities) and an auxiliary solvent used together with water or alcohol."},
-  {"level": 2, "cat": "pg", "f": "Propylene glycol: miscible with which solvents, and immiscible with what?", "b": "Miscible with water, acetone, alcohol and chloroform (dissolves many essential oils); immiscible with fixed oils."},
-  {"level": 2, "cat": "peg", "f": "Polyethylene glycol is miscible with which solvents, and what does it dissolve?", "b": "Miscible with water, acetone, alcohol and other glycols; dissolves many water-soluble organic compounds and certain water-insoluble ones such as acetyl salicylic acid."},
-  {"level": 2, "cat": "water", "f": "In the water flow diagram, which water types are labelled \"for injection\"?", "b": "Sterile Water, Pyrogen-free Water and Bacteriostatic Water (Purified Water is distilled and deionized, but not labelled for injection)."},
-  {"level": 2, "cat": "general", "f": "The lecture asks: \"If the solvent were volatile, what would that mean?\" Give the logical answer.", "b": "It would evaporate easily and be lost from the preparation, which is why a pharmaceutical solvent should be NOT volatile."},
-  {"level": 2, "cat": "alcohol", "f": "Alcohol USP is used as a solvent for drugs that are insoluble in water. What type of substances does the lecture name?", "b": "Organic substances, both natural and synthetic."},
-  {"level": 3, "cat": "alcohol", "f": "An OTC oral syrup for a 4-year-old contains 3% alcohol. Is it acceptable? What must be done?", "b": "No. The recommended limit for OTC oral products for children under 6 is 0.5%. Alcohol must be cut to ≤0.5%, e.g. by using glycols or glycerin as co-solvents to reduce the alcohol required."},
-  {"level": 3, "cat": "peg", "f": "A formulator must dissolve aspirin, which is water-insoluble. Which solvent from the lecture is suitable, and why not simply use water?", "b": "Polyethylene glycol — it dissolves certain water-insoluble substances such as acetyl salicylic acid. Water alone is a poor solvent for such organic compounds."},
-  {"level": 3, "cat": "pg", "f": "Propylene glycol replaces glycerin in many modern formulations. Give one solubility difference between them relevant to chloroform.", "b": "Propylene glycol is miscible with chloroform, whereas glycerin is not. (Propylene glycol is also immiscible with fixed oils.)"},
-  {"level": 3, "cat": "glycerin", "f": "A tannin solution in glycerin dissolves very slowly. What is the cause and the remedy?", "b": "Glycerin is highly viscous, which hinders dissolving. Heat the glycerin to reduce its viscosity."},
-  {"level": 3, "cat": "diluted", "f": "A preparation contains both a water-soluble salt and an alcohol-soluble resin. Which solvent fits best and why?", "b": "Diluted Alcohol NF (49–50%) — equal volumes of Alcohol USP and Purified Water give a hydroalcoholic solvent dissolving both alcohol-soluble and water-soluble substances."},
-  {"level": 3, "cat": "water", "f": "Starting from Tap Water and using the deionization route, list the named processes needed to reach Bacteriostatic Water.", "b": "Deionization (→ Deionized/Purified Water), Sterilization, Removal of pyrogen, then Preservative addition — four named processes."},
-  {"level": 3, "cat": "chloroform", "f": "Chloroform is \"not flammable\". Why must it still be kept away from naked flames?", "b": "Its vapor decomposes in naked flames, producing harmful gases."},
-  {"level": 3, "cat": "general", "f": "Which solvent in the lecture is miscible with water and alcohol but NOT with chloroform, and also acts as a stabilizer?", "b": "Glycerin (glycerol)."},
-  {"level": 3, "cat": "alcohol", "f": "A product contains 8% alcohol. For which age groups does it satisfy the lecture's recommended limits?", "b": "Not suitable for children under 6 (limit 0.5%) or children 6–12 (limit 5%); acceptable only for children over 12 years and adults (limit 10%)."},
-  {"level": 3, "cat": "pg", "f": "A formulator needs a modern replacement for glycerin that also dissolves many essential oils. Which solvent fits, and with which type of oil is it immiscible?", "b": "Propylene glycol — it dissolves many essential oils but is immiscible with fixed oils."}
+  {"level": 1, "cat": "general", "f": "Where are the solubilities of many medicinal agents in usual solvents stated?", "b": "In the USP-NF and other reference books."},
+  {"level": 1, "cat": "general", "f": "What are the three general properties required for pharmaceutical solvents?", "b": "They should be non-toxic, non-volatile, and stable."},
+  {"level": 1, "cat": "general", "f": "What does “not toxic” mean for a pharmaceutical solvent?", "b": "It should have no harmful effect on the body."},
+  {"level": 1, "cat": "general", "f": "What should a stable pharmaceutical solvent avoid interacting with?", "b": "The active ingredient and added substances."},
+  {"level": 1, "cat": "water", "f": "What is water a good solvent for?", "b": "Most inorganic salts and many organic compounds."},
+  {"level": 1, "cat": "water", "f": "Why is water a useful vehicle for many pharmaceutical preparations?", "b": "Because it is miscible with other solvents such as alcohol and glycerin."},
+  {"level": 1, "cat": "alcohol", "f": "What is the concentration of Alcohol USP?", "b": "94.9–96% by volume ethyl alcohol."},
+  {"level": 1, "cat": "alcohol", "f": "What is the formula of ethyl alcohol?", "b": "C2H5OH."},
+  {"level": 1, "cat": "alcohol", "f": "Why is Alcohol USP used as a pharmaceutical solvent?", "b": "It dissolves certain drugs that are insoluble in water, including organic substances."},
+  {"level": 1, "cat": "alcohol", "f": "Name plant substances dissolved by alcohol according to the lecture.", "b": "Resins, volatile oils, alkaloids, and glycosides."},
+  {"level": 1, "cat": "alcohol", "f": "What is one preservative use of alcohol?", "b": "It can act as an antimicrobial preservative."},
+  {"level": 1, "cat": "alcohol", "f": "What can alcohol be combined with as a co-preservative?", "b": "Other preservatives such as parabens."},
+  {"level": 1, "cat": "alcohol", "f": "What is the alcohol limit for OTC oral products for children under 6?", "b": "0.5%."},
+  {"level": 1, "cat": "alcohol", "f": "What is the alcohol limit for products intended for children aged 6–12?", "b": "5%."},
+  {"level": 1, "cat": "alcohol", "f": "What is the alcohol limit for products for children over 12 and adults?", "b": "10%."},
+  {"level": 1, "cat": "diluted", "f": "What is the concentration of Diluted Alcohol NF?", "b": "49–50%."},
+  {"level": 1, "cat": "diluted", "f": "How is Diluted Alcohol NF prepared?", "b": "By mixing equal volumes of Alcohol USP and Purified Water USP."},
+  {"level": 1, "cat": "diluted", "f": "What two types of substances can Diluted Alcohol dissolve?", "b": "Alcohol-soluble and water-soluble substances."},
+  {"level": 1, "cat": "dehydrated", "f": "What is the concentration of Dehydrated Alcohol USP?", "b": "99.5% C2H5OH."},
+  {"level": 1, "cat": "dehydrated", "f": "What is the main pharmaceutical use of Dehydrated Alcohol USP?", "b": "Research, analytical work, and preparation of synthetic organic medicinal substances."},
+  {"level": 1, "cat": "isopropyl", "f": "What is the concentration of isopropyl alcohol mentioned?", "b": "70%."},
+  {"level": 1, "cat": "isopropyl", "f": "Where is 70% isopropyl alcohol used?", "b": "Cosmetic and dermatologic formulations."},
+  {"level": 1, "cat": "chloroform", "f": "What type of substances can chloroform dissolve according to the lecture?", "b": "Many alkaloids."},
+  {"level": 1, "cat": "glycerin", "f": "What are the appearance and taste of glycerin?", "b": "It is a clear syrupy liquid with a sweet taste."},
+  {"level": 1, "cat": "pg", "f": "What solvent is used as a replacement for glycerin in modern pharmaceutical and cosmetic formulations?", "b": "Propylene glycol."},
+  {"level": 2, "cat": "alcohol", "f": "Why can alcohol be combined with glycols or glycerin in pharmaceutical preparations?", "b": "To reduce the amount of alcohol required."},
+  {"level": 2, "cat": "alcohol", "f": "Why is alcohol content particularly limited in products intended for children?", "b": "Because alcohol has undesired pharmacologic and toxic effects when ingested, particularly by children."},
+  {"level": 2, "cat": "alcohol", "f": "A product is intended for a 4-year-old child. What is the recommended alcohol limit?", "b": "0.5%."},
+  {"level": 2, "cat": "alcohol", "f": "A product is intended for an 8-year-old child. What is the recommended alcohol limit?", "b": "5%."},
+  {"level": 2, "cat": "alcohol", "f": "A product is intended for an adult. What is the recommended alcohol limit?", "b": "10%."},
+  {"level": 2, "cat": "diluted", "f": "Why is Diluted Alcohol NF useful in pharmaceutical processes?", "b": "Because it dissolves both alcohol-soluble and water-soluble substances."},
+  {"level": 2, "cat": "diluted", "f": "What is the preparation method of Diluted Alcohol NF?", "b": "Equal volumes of Alcohol USP and Purified Water USP are mixed."},
+  {"level": 2, "cat": "dehydrated", "f": "What makes Dehydrated Alcohol USP different from Alcohol USP in terms of water content?", "b": "Dehydrated Alcohol USP is practically free from water."},
+  {"level": 2, "cat": "dehydrated", "f": "What are the chief uses of Dehydrated Alcohol USP?", "b": "Research, analytical work, and preparation of synthetic organic medicinal substances."},
+  {"level": 2, "cat": "glycerin", "f": "Why is glycerin heated when it is used as a solvent?", "b": "Heating reduces its viscosity and makes dissolving substances easier."},
+  {"level": 2, "cat": "glycerin", "f": "What substances are specifically described as being excellently dissolved by glycerin?", "b": "Tannins, phenol, and boric acid."},
+  {"level": 2, "cat": "glycerin", "f": "What additional role can glycerin have because of its preservative qualities?", "b": "It can act as a stabilizer for solutions prepared with other solvents."},
+  {"level": 2, "cat": "pg", "f": "What is the miscibility profile of propylene glycol stated in the lecture?", "b": "It is miscible with water, acetone, alcohol, and chloroform, but immiscible with fixed oils."},
+  {"level": 2, "cat": "pg", "f": "What is the role of propylene glycol in modern pharmaceutical and cosmetic formulations?", "b": "It is used as a replacement for glycerin."},
+  {"level": 2, "cat": "peg", "f": "What types of substances can polyethylene glycol dissolve?", "b": "Many water-soluble organic compounds and certain water-insoluble substances such as acetyl salicylic acid."},
+  {"level": 3, "cat": "diluted", "f": "A formulation needs a hydroalcoholic solvent capable of dissolving both alcohol-soluble and water-soluble substances. Which solvent should be considered, and how is it prepared?", "b": "Diluted Alcohol NF, prepared by mixing equal volumes of Alcohol USP and Purified Water USP."},
+  {"level": 3, "cat": "alcohol", "f": "How would you distinguish Alcohol USP from Dehydrated Alcohol USP based on concentration and water content?", "b": "Alcohol USP contains 94.9–96% ethyl alcohol by volume, whereas Dehydrated Alcohol USP contains 99.5% C2H5OH and is practically free from water."},
+  {"level": 3, "cat": "alcohol", "f": "A solvent is required for certain drugs insoluble in water and should also dissolve resins, volatile oils, alkaloids and glycosides. Which solvent fits this profile?", "b": "Alcohol USP."},
+  {"level": 3, "cat": "alcohol", "f": "Why can alcohol function both as a solvent and as a preservative in pharmaceutical liquid products?", "b": "It acts as a solvent for certain water-insoluble drugs and can be used as an antimicrobial preservative alone or as a co-preservative with substances such as parabens."},
+  {"level": 3, "cat": "glycerin", "f": "A substance is difficult to dissolve in glycerin. What property of glycerin should be addressed and how?", "b": "Its viscosity should be reduced by heating the glycerin."},
+  {"level": 3, "cat": "pg", "f": "Which solvent combines the following characteristics: miscible with water, acetone, alcohol and chloroform; dissolves many essential oils; immiscible with fixed oils; and can replace glycerin?", "b": "Propylene glycol."},
+  {"level": 3, "cat": "chloroform", "f": "Which solvent is miscible with alcohol, ether, benzene, solvent hexane, and fixed and volatile oils, while dissolving in 200 volumes of water?", "b": "Chloroform."},
+  {"level": 3, "cat": "chloroform", "f": "What important safety characteristic of chloroform is stated, and what happens to its vapor in the presence of naked flames?", "b": "Chloroform is not flammable, but its vapor decomposes by naked flames, producing harmful gases."},
+  {"level": 3, "cat": "peg", "f": "Which solvent can dissolve many water-soluble organic compounds as well as certain water-insoluble substances such as acetyl salicylic acid?", "b": "Polyethylene glycol."},
+  {"level": 3, "cat": "glycerin", "f": "Compare the roles of glycerin and propylene glycol according to the lecture.", "b": "Glycerin can act as a solvent, stabilizer and auxiliary solvent with water or alcohol and is used in many internal preparations; propylene glycol has a wide range of usefulness as a solvent and is used as a replacement for glycerin in modern pharmaceutical and cosmetic formulations."}
 ];
 let cardOrder = flashData.map((_,i)=>i);
 let cardIndex = 0;
@@ -810,27 +809,7 @@ const levelRowCards = document.getElementById('levelRowCards');
   levelRowCards.appendChild(chip);
 });
 
-const chipRow = document.getElementById('chipRow');
-function rebuildCatChips(){
-  chipRow.innerHTML = '';
-  const inLevel = flashData.filter(d=>d.level===activeLevelCards);
-  const cats = ['all',...Object.keys(catLabels).filter(c=> inLevel.some(d=>d.cat===c))];
-  cats.forEach(c=>{
-    const chip = document.createElement('button');
-    chip.className = 'chip'+(c==='all'?' active':'');
-    const count = c==='all' ? inLevel.length : inLevel.filter(d=>d.cat===c).length;
-    chip.textContent = c==='all' ? 'All ('+count+')' : catLabels[c]+' ('+count+')';
-    chip.dataset.cat = c;
-    chip.addEventListener('click', ()=>{
-      activeCat = c;
-      chipRow.querySelectorAll('.chip').forEach(x=>x.classList.remove('active'));
-      chip.classList.add('active');
-      cardIndex = 0;
-      applyCardFilter();
-    });
-    chipRow.appendChild(chip);
-  });
-}
+function rebuildCatChips(){}
 function applyCardFilter(){
   cardOrder = flashData.map((_,i)=>i).filter(i=> flashData[i].level===activeLevelCards && (activeCat==='all' || flashData[i].cat===activeCat));
   renderCard();
@@ -888,56 +867,56 @@ applyCardFilter();
    QUIZ BANK
    ============================================================ */
 const quizData = [
-  {"level": 1, "q": "Which source states the solubilities of many medicinal agents in the usual solvents?", "correct": "USP-NF (United States Pharmacopeia–National Formulary)", "wrong": ["British Pharmacopoeia only", "WHO Essential Medicines List", "FDA Orange Book"]},
-  {"level": 1, "q": "Which is NOT a desired property of a pharmaceutical solvent?", "correct": "Volatile", "wrong": ["Not toxic", "Stable", "Not volatile"]},
-  {"level": 1, "q": "\"Not toxic\" for a solvent means:", "correct": "No harmful effect on the body", "wrong": ["Pleasant smell", "Rapid evaporation", "High viscosity"]},
-  {"level": 1, "q": "A stable solvent should NOT:", "correct": "Interact with the active ingredient or added substances", "wrong": ["Remain stable on storage", "Protect the active ingredient", "Stay liquid"]},
-  {"level": 1, "q": "Water is a good solvent for:", "correct": "Most inorganic salts and many organic compounds", "wrong": ["Only fixed oils", "Only resins", "Only waxes"]},
-  {"level": 1, "q": "Water's miscibility with which pair makes it a useful vehicle?", "correct": "Alcohol and glycerin", "wrong": ["Chloroform and benzene", "Hexane and ether", "Fixed oils and volatile oils"]},
-  {"level": 1, "q": "Crude Water → Tap Water is achieved by:", "correct": "Clarification", "wrong": ["Distillation", "Deionization", "Sterilization"]},
-  {"level": 1, "q": "Tap Water → Distilled Water is achieved by:", "correct": "Distillation", "wrong": ["Clarification", "Deionization", "Preservative addition"]},
-  {"level": 1, "q": "Tap Water → Deionized Water is achieved by:", "correct": "Deionization", "wrong": ["Distillation", "Sterilization", "Removal of pyrogen"]},
-  {"level": 1, "q": "Purified Water is:", "correct": "Distilled and deionized water", "wrong": ["Only distilled water", "Sterile pyrogen-free water", "Water with added preservative"]},
-  {"level": 1, "q": "Purified Water → Sterile Water (for injection) requires:", "correct": "Sterilization", "wrong": ["Clarification", "Deionization", "Preservative addition"]},
-  {"level": 1, "q": "Sterile Water → Pyrogen-free Water requires:", "correct": "Removal of pyrogen", "wrong": ["Sterilization", "Distillation", "Clarification"]},
-  {"level": 1, "q": "Pyrogen-free Water → Bacteriostatic Water requires:", "correct": "Preservative addition", "wrong": ["Sterilization", "Deionization", "Removal of pyrogen"]},
-  {"level": 1, "q": "Alcohol USP (ethyl alcohol) concentration is:", "correct": "94.9–96% by volume C2H5OH", "wrong": ["49–50%", "70%", "99.5%"]},
-  {"level": 1, "q": "Alcohol USP dissolves which plant constituents?", "correct": "Resins, volatile oils, alkaloids and glycosides", "wrong": ["Only inorganic salts", "Only proteins", "Only pyrogens"]},
-  {"level": 1, "q": "Alcohol can serve in liquid products as:", "correct": "An antimicrobial preservative", "wrong": ["A pyrogen remover", "A thickener only", "A colouring agent"]},
-  {"level": 1, "q": "Recommended alcohol limit in OTC oral products for children under 6 years:", "correct": "0.5%", "wrong": ["5%", "10%", "50%"]},
-  {"level": 1, "q": "Diluted Alcohol NF contains approximately:", "correct": "49–50% alcohol", "wrong": ["94.9–96% alcohol", "99.5% alcohol", "70% alcohol"]},
-  {"level": 1, "q": "Dehydrated Alcohol USP (absolute alcohol) is:", "correct": "99.5% C2H5OH, practically free from water", "wrong": ["49–50% C2H5OH", "70% isopropyl alcohol", "94.9–96% C2H5OH"]},
-  {"level": 1, "q": "Isopropyl alcohol 70% is used in:", "correct": "Cosmetic and dermatologic formulations", "wrong": ["Intravenous injections", "Oral pediatric syrups", "Absolute-alcohol research"]},
-  {"level": 1, "q": "Chloroform is a solvent for many:", "correct": "Alkaloids", "wrong": ["Inorganic salts", "Pyrogens", "Proteins"]},
-  {"level": 1, "q": "Glycerin USP is described as:", "correct": "A clear syrupy liquid with a sweet taste", "wrong": ["A volatile colourless gas", "A dry crystalline powder", "A bitter oily solid"]},
-  {"level": 1, "q": "Glycerin is an excellent solvent for:", "correct": "Tannins, phenol and boric acid", "wrong": ["Fixed oils only", "Chloroform only", "Alkaloid bases only"]},
-  {"level": 1, "q": "In modern formulations propylene glycol is used as a replacement for:", "correct": "Glycerin", "wrong": ["Chloroform", "Water", "Dehydrated alcohol"]},
-  {"level": 1, "q": "Which water-insoluble substance can polyethylene glycol dissolve?", "correct": "Acetyl salicylic acid", "wrong": ["Sodium chloride", "Boric acid", "Tannins"]},
-  {"level": 2, "q": "Recommended alcohol limit for oral products for children 6–12 years:", "correct": "5%", "wrong": ["0.5%", "10%", "25%"]},
-  {"level": 2, "q": "Recommended alcohol limit for children over 12 years and adults:", "correct": "10%", "wrong": ["0.5%", "5%", "20%"]},
-  {"level": 2, "q": "Why is alcohol combined with glycols and glycerin?", "correct": "To reduce the amount of alcohol required", "wrong": ["To increase alcohol toxicity", "To make the product volatile", "To remove pyrogens"]},
-  {"level": 2, "q": "Diluted Alcohol NF is prepared by mixing:", "correct": "Equal volumes of Alcohol USP and Purified Water USP", "wrong": ["Alcohol USP and glycerin", "Dehydrated alcohol and chloroform", "Isopropyl alcohol and tap water"]},
-  {"level": 2, "q": "Diluted Alcohol is useful because it dissolves:", "correct": "Both alcohol-soluble and water-soluble substances", "wrong": ["Only fixed oils", "Only inorganic salts", "Neither type"]},
-  {"level": 2, "q": "The chief pharmacy use of Dehydrated Alcohol USP is:", "correct": "Research and analytic work and synthesis of organic medicinals", "wrong": ["Oral pediatric syrups", "Preparation of tap water", "A preservative for injections"]},
-  {"level": 2, "q": "\"Chloroform dissolves in 200 volumes of water\" means:", "correct": "200 mL of water dissolves 1 g of compound", "wrong": ["200 g dissolves in 1 mL", "It is miscible in all proportions", "1 mL needs 200 g of water"]},
-  {"level": 2, "q": "In the structural formula of isopropyl alcohol shown in the lecture, the carbon carrying the OH group is attached to:", "correct": "Two CH3 groups", "wrong": ["Three CH3 groups", "One CH3 group and two OH groups", "Two OH groups and no CH3 group"]},
-  {"level": 2, "q": "Glycerin is NOT miscible with:", "correct": "Chloroform", "wrong": ["Water", "Alcohol", "Water–alcohol mixtures"]},
-  {"level": 2, "q": "Glycerin is heated when used as a solvent in order to:", "correct": "Reduce its viscosity", "wrong": ["Increase its sweetness", "Make it volatile", "Convert it to alcohol"]},
-  {"level": 2, "q": "Propylene glycol is immiscible with:", "correct": "Fixed oils", "wrong": ["Water", "Acetone", "Chloroform"]},
-  {"level": 2, "q": "Polyethylene glycol is miscible with:", "correct": "Water, acetone, alcohol and other glycols", "wrong": ["Only fixed oils", "Only chloroform", "Only hexane"]},
-  {"level": 2, "q": "Which water in the lecture diagram is NOT labelled \"for injection\"?", "correct": "Purified Water", "wrong": ["Sterile Water", "Pyrogen-free Water", "Bacteriostatic Water"]},
-  {"level": 2, "q": "Alcohol is used as a co-preservative with:", "correct": "Parabens", "wrong": ["Chloroform", "Glycerin only", "Hexane"]},
-  {"level": 2, "q": "Alcohol USP is used as a solvent for drugs that are:", "correct": "Insoluble in water, such as natural and synthetic organic substances", "wrong": ["Inorganic salts only", "Soluble in chloroform only", "Pyrogens that must be removed"]},
-  {"level": 3, "q": "An OTC syrup for a 4-year-old contains 3% alcohol. The correct judgement is:", "correct": "Unacceptable; limit is 0.5% so alcohol must be reduced (e.g. with glycols/glycerin)", "wrong": ["Acceptable; limit is 5%", "Acceptable; limit is 10%", "Unacceptable only for adults"]},
-  {"level": 3, "q": "To dissolve aspirin (water-insoluble) the best lecture solvent is:", "correct": "Polyethylene glycol", "wrong": ["Water", "Glycerin", "Isopropyl alcohol 70%"]},
-  {"level": 3, "q": "Which statement correctly distinguishes propylene glycol from glycerin?", "correct": "Propylene glycol is miscible with chloroform; glycerin is not", "wrong": ["Glycerin is miscible with chloroform; propylene glycol is not", "Both are immiscible with water", "Propylene glycol is immiscible with alcohol"]},
-  {"level": 3, "q": "Number of named processes from Tap Water (deionization route) to Bacteriostatic Water:", "correct": "Four (deionization, sterilization, removal of pyrogen, preservative addition)", "wrong": ["Two", "Three", "Five"]},
-  {"level": 3, "q": "A preparation with a water-soluble salt and an alcohol-soluble resin is best dissolved in:", "correct": "Diluted Alcohol NF", "wrong": ["Dehydrated Alcohol USP", "Chloroform", "Fixed oil"]},
-  {"level": 3, "q": "Why must chloroform be kept away from naked flames even though it is not flammable?", "correct": "Its vapor decomposes in the flame, producing harmful gases", "wrong": ["It is highly flammable and burns with a visible flame", "Its vapor reacts with water to form alcohol", "It becomes miscible with water when heated"]},
-  {"level": 3, "q": "A product containing 8% alcohol meets the recommended limit for:", "correct": "Children over 12 years and adults only", "wrong": ["Children under 6 only", "Children 6–12 only", "All age groups"]},
-  {"level": 3, "q": "Which statement is CORRECT?", "correct": "Glycerin may act as a stabilizer and an auxiliary solvent with water or alcohol", "wrong": ["Glycerin is miscible with chloroform", "Dehydrated alcohol is 49–50% ethanol", "Propylene glycol is miscible with fixed oils"]},
-  {"level": 3, "q": "Which comparison is correct?", "correct": "Alcohol USP is 94.9–96% whereas Dehydrated Alcohol is 99.5%", "wrong": ["Alcohol USP is 99.5% whereas Dehydrated Alcohol is 94.9–96%", "Both are 49–50%", "Dehydrated Alcohol is 70%"]},
-  {"level": 3, "q": "Which solvent is used as a modern replacement for glycerin and is immiscible with fixed oils?", "correct": "Propylene glycol", "wrong": ["Polyethylene glycol", "Chloroform", "Isopropyl alcohol 70%"]}
+  {"level": 1, "q": "According to the lecture, where are the solubilities of many medicinal agents in usual solvents stated?", "correct": "In the USP-NF and other reference books", "wrong": ["Only in laboratory manuals", "Only in cosmetic references", "Only in hospital formularies"]},
+  {"level": 1, "q": "Which of the following is a required property of pharmaceutical solvents?", "correct": "Stability", "wrong": ["Toxicity", "Volatility", "Reactivity"]},
+  {"level": 1, "q": "A pharmaceutical solvent should be non-toxic because it should:", "correct": "Have no harmful effect on the body", "wrong": ["Increase viscosity", "Dissolve only organic compounds", "Evaporate rapidly"]},
+  {"level": 1, "q": "A stable pharmaceutical solvent should NOT interact with:", "correct": "The active ingredient or added substances", "wrong": ["Water only", "Alcohol only", "Glycerin only"]},
+  {"level": 1, "q": "Water is described in the lecture as a good solvent for:", "correct": "Most inorganic salts and many organic compounds", "wrong": ["Only alkaloids", "Only fixed oils", "Only essential oils"]},
+  {"level": 1, "q": "The miscibility of water with alcohol and glycerin makes water useful as:", "correct": "A vehicle for many pharmaceutical preparations", "wrong": ["A preservative only", "A synthetic reagent only", "A dermatologic solvent only"]},
+  {"level": 1, "q": "Alcohol USP contains ethyl alcohol at approximately:", "correct": "94.9–96% by volume", "wrong": ["49–50% by volume", "70% by volume", "99.5% by volume"]},
+  {"level": 1, "q": "The chemical formula of ethyl alcohol given in the lecture is:", "correct": "C2H5OH", "wrong": ["C3H8O", "C6H5OH", "CHCl3"]},
+  {"level": 1, "q": "Alcohol USP is used as a solvent for certain drugs that are:", "correct": "Insoluble in water", "wrong": ["Insoluble in alcohol", "Always inorganic", "Only fixed oils"]},
+  {"level": 1, "q": "Alcohol USP can dissolve plant substances such as:", "correct": "Resins and volatile oils", "wrong": ["Only tannins", "Only boric acid", "Only acetyl salicylic acid"]},
+  {"level": 1, "q": "Alcohol may be used in liquid pharmaceutical products as:", "correct": "An antimicrobial preservative", "wrong": ["A viscosity-increasing agent only", "A source of inorganic salts", "A fixed oil"]},
+  {"level": 1, "q": "Alcohol can be used as a co-preservative with:", "correct": "Parabens", "wrong": ["Fixed oils", "Acetone only", "Benzene only"]},
+  {"level": 1, "q": "For OTC oral products intended for children under 6 years, the recommended alcohol limit is:", "correct": "0.5%", "wrong": ["5%", "10%", "49%"]},
+  {"level": 1, "q": "For products intended for children 6–12 years, the recommended alcohol limit is:", "correct": "5%", "wrong": ["0.5%", "10%", "20%"]},
+  {"level": 1, "q": "For products recommended for children over 12 years and adults, the recommended alcohol limit is:", "correct": "10%", "wrong": ["0.5%", "5%", "50%"]},
+  {"level": 1, "q": "Diluted Alcohol NF contains approximately:", "correct": "49–50% alcohol", "wrong": ["10% alcohol", "70% alcohol", "99.5% alcohol"]},
+  {"level": 1, "q": "Diluted Alcohol NF is prepared by mixing:", "correct": "Equal volumes of alcohol USP and purified water USP", "wrong": ["Equal volumes of glycerin and alcohol", "Alcohol USP with chloroform", "Water with polyethylene glycol"]},
+  {"level": 1, "q": "Diluted Alcohol NF is useful because it dissolves:", "correct": "Both alcohol-soluble and water-soluble substances", "wrong": ["Only alcohol-soluble substances", "Only water-soluble substances", "Only fixed oils"]},
+  {"level": 1, "q": "Dehydrated Alcohol USP contains:", "correct": "99.5% C2H5OH", "wrong": ["49–50% C2H5OH", "70% C2H5OH", "94.9–96% C2H5OH"]},
+  {"level": 1, "q": "The chief uses of dehydrated alcohol in pharmacy include:", "correct": "Research, analytic work, and preparation of synthetic organic medicinal substances", "wrong": ["Only cosmetic formulations", "Only internal preparations", "Only preservation"]},
+  {"level": 1, "q": "Isopropyl alcohol mentioned in the lecture is:", "correct": "70%", "wrong": ["50%", "94.9%", "99.5%"]},
+  {"level": 1, "q": "Isopropyl alcohol 70% is used in:", "correct": "Cosmetic and dermatologic formulations", "wrong": ["Research only", "Internal preparations only", "Preparation of synthetic medicinal substances only"]},
+  {"level": 1, "q": "Chloroform is a solvent for many:", "correct": "Alkaloids", "wrong": ["Tannins only", "Glycosides only", "Inorganic salts only"]},
+  {"level": 1, "q": "Glycerin is described as:", "correct": "A clear syrupy liquid with a sweet taste", "wrong": ["A volatile solid", "A fixed oil", "A colorless gas"]},
+  {"level": 1, "q": "Which solvent is used as a replacement for glycerin in modern pharmaceutical and cosmetic formulations?", "correct": "Propylene glycol", "wrong": ["Chloroform", "Dehydrated alcohol", "Water"]},
+  {"level": 2, "q": "A formulation requires a solvent that can dissolve both alcohol-soluble and water-soluble substances. Based strictly on the lecture, which is the most appropriate choice?", "correct": "Diluted Alcohol NF", "wrong": ["Chloroform", "Dehydrated Alcohol USP", "Isopropyl alcohol 70%"]},
+  {"level": 2, "q": "A pharmaceutical product contains an alcohol-soluble substance, but the formulator wants to reduce the amount of alcohol required. According to the lecture, alcohol may be combined with:", "correct": "Glycols and glycerin", "wrong": ["Chloroform and fixed oils", "Benzene and ether only", "Water only"]},
+  {"level": 2, "q": "Why does the lecture recommend limiting alcohol content in products intended for children?", "correct": "Alcohol has undesired pharmacologic and toxic effects when ingested, particularly by children", "wrong": ["Alcohol cannot dissolve organic substances", "Alcohol is immiscible with water", "Alcohol is unstable during storage"]},
+  {"level": 2, "q": "A product is intended for a 10-year-old child. Which alcohol limit from the lecture applies?", "correct": "5%", "wrong": ["0.5%", "10%", "49–50%"]},
+  {"level": 2, "q": "A pharmacist needs a solvent that is practically free from water and is intended for research and analytical work. Which solvent fits the description?", "correct": "Dehydrated Alcohol USP", "wrong": ["Alcohol USP", "Diluted Alcohol NF", "Water"]},
+  {"level": 2, "q": "Which combination correctly matches the solvent with its concentration?", "correct": "Diluted Alcohol NF — 49–50%", "wrong": ["Alcohol USP — 70%", "Isopropyl alcohol — 99.5%", "Dehydrated Alcohol USP — 49–50%"]},
+  {"level": 2, "q": "A substance needs a solvent that is miscible with water and alcohol but not with chloroform. Which solvent is indicated?", "correct": "Glycerin", "wrong": ["Propylene glycol", "Chloroform", "Polyethylene glycol"]},
+  {"level": 2, "q": "A pharmacist uses glycerin as a solvent but finds that dissolving the substance is difficult. According to the lecture, what should be done?", "correct": "Heat the glycerin to reduce its viscosity", "wrong": ["Cool the glycerin", "Add fixed oil", "Replace it with chloroform"]},
+  {"level": 2, "q": "Which statement best distinguishes glycerin from propylene glycol according to the lecture?", "correct": "Glycerin is not miscible with chloroform, while propylene glycol is miscible with chloroform", "wrong": ["Glycerin is immiscible with water, while propylene glycol is miscible with water", "Both are immiscible with water", "Neither can be used as a pharmaceutical solvent"]},
+  {"level": 2, "q": "A solvent must dissolve many essential oils but should not be miscible with fixed oils. Which solvent fits this description?", "correct": "Propylene glycol", "wrong": ["Glycerin", "Water", "Polyethylene glycol"]},
+  {"level": 2, "q": "Which statement correctly describes polyethylene glycol?", "correct": "It is miscible with water, acetone, alcohol, and other glycols", "wrong": ["It is immiscible with water and alcohol", "It dissolves only inorganic salts", "It is used only in dermatologic formulations"]},
+  {"level": 2, "q": "Which substance is specifically given as an example of a water-insoluble substance that polyethylene glycol can dissolve?", "correct": "Acetyl salicylic acid", "wrong": ["Tannin", "Boric acid", "Glycoside"]},
+  {"level": 2, "q": "Chloroform is described as miscible with all of the following EXCEPT:", "correct": "Water", "wrong": ["Alcohol", "Ether", "Benzene"]},
+  {"level": 2, "q": "Which statement about chloroform is correct according to the lecture?", "correct": "It is not flammable, but its vapor decomposes by naked flames producing harmful gases", "wrong": ["It is flammable and produces harmless vapors", "It is completely miscible with water", "It cannot dissolve alkaloids"]},
+  {"level": 2, "q": "Which sequence correctly matches the solvents with their stated uses?", "correct": "Isopropyl alcohol → cosmetic and dermatologic formulations; glycerin → many internal preparations; propylene glycol → replacement for glycerin", "wrong": ["Isopropyl alcohol → analytical work; glycerin → synthetic medicinal preparation; propylene glycol → only alkaloids", "Isopropyl alcohol → inorganic salts; glycerin → fixed oils; propylene glycol → research only", "Isopropyl alcohol → internal preparations; glycerin → benzene; propylene glycol → water purification"]},
+  {"level": 3, "q": "A formulation requires a solvent system capable of handling substances with different solubility characteristics. The lecture states that one hydroalcoholic solvent dissolves both alcohol-soluble and water-soluble substances. Which option correctly identifies the solvent and how it is prepared?", "correct": "Diluted Alcohol NF; equal volumes of Alcohol USP and Purified Water USP", "wrong": ["Alcohol USP; mixed with glycerin in equal volumes", "Dehydrated Alcohol USP; mixed with equal volumes of water", "Propylene glycol; mixed with equal volumes of alcohol"]},
+  {"level": 3, "q": "Consider the following requirements: the solvent should be useful for certain water-insoluble organic drugs, capable of dissolving resins, volatile oils, alkaloids and glycosides, and may serve as an antimicrobial preservative. Which solvent best satisfies all these descriptions?", "correct": "Alcohol USP", "wrong": ["Glycerin USP", "Polyethylene glycol", "Water"]},
+  {"level": 3, "q": "A lecturer asks students to distinguish between three alcohol preparations solely using the information in the lecture. Which sequence is correct?", "correct": "Alcohol USP 94.9–96%; Diluted Alcohol NF 49–50%; Dehydrated Alcohol USP 99.5%", "wrong": ["Alcohol USP 49–50%; Diluted Alcohol NF 99.5%; Dehydrated Alcohol USP 70%", "Alcohol USP 70%; Diluted Alcohol NF 94.9–96%; Dehydrated Alcohol USP 49–50%", "Alcohol USP 99.5%; Diluted Alcohol NF 70%; Dehydrated Alcohol USP 94.9–96%"]},
+  {"level": 3, "q": "A solvent is described as a clear syrupy liquid with a sweet taste, miscible with water and alcohol but not chloroform. It is also an excellent solvent for tannins, phenol and boric acid. Which solvent is being described?", "correct": "Glycerin USP", "wrong": ["Propylene glycol", "Polyethylene glycol", "Chloroform"]},
+  {"level": 3, "q": "A student states: “Because glycerin is already a liquid, heating it is unnecessary when it is used as a solvent.” Which part of the lecture directly contradicts this statement?", "correct": "Glycerin must be heated to reduce viscosity; otherwise dissolving substances in it is difficult", "wrong": ["Glycerin is miscible with alcohol", "Glycerin has preservative qualities", "Glycerin is used in internal preparations"]},
+  {"level": 3, "q": "Which comparison is completely consistent with the lecture?", "correct": "Propylene glycol dissolves many essential oils but is immiscible with fixed oils, whereas glycerin is not miscible with chloroform", "wrong": ["Propylene glycol is miscible with fixed oils, whereas glycerin is miscible with chloroform", "Both propylene glycol and glycerin are immiscible with water", "Both are used only as antimicrobial preservatives"]},
+  {"level": 3, "q": "A solvent is miscible with alcohol, ether, benzene, solvent hexane, and both fixed and volatile oils; it dissolves in 200 volumes of water and is a solvent for many alkaloids. Which solvent is described?", "correct": "Chloroform", "wrong": ["Glycerin", "Propylene glycol", "Polyethylene glycol"]},
+  {"level": 3, "q": "Which statement requires the student to correctly integrate the lecture’s information about polyethylene glycol?", "correct": "It is miscible with water, acetone, alcohol and other glycols, and can dissolve certain water-insoluble substances such as acetyl salicylic acid", "wrong": ["It dissolves only water-soluble inorganic salts", "It is immiscible with alcohol and dissolves only fixed oils", "It is primarily used as an antimicrobial preservative"]},
+  {"level": 3, "q": "A formulation intended for an age group older than 12 years and adults contains alcohol. Based on the lecture, which recommended limit should be considered, while remembering that alcohol may have undesired pharmacologic and toxic effects when ingested?", "correct": "10%", "wrong": ["0.5%", "5%", "49–50%"]},
+  {"level": 3, "q": "Which option correctly integrates the lecture’s information about solvent selection without introducing information from outside the lecture?", "correct": "Water is useful because of its miscibility with alcohol and glycerin; alcohol USP dissolves certain water-insoluble organic substances; propylene glycol can replace glycerin", "wrong": ["Water is mainly a solvent for fixed oils; alcohol USP is used only for inorganic salts; propylene glycol replaces chloroform", "Water is immiscible with alcohol; alcohol USP contains 70%; propylene glycol is miscible with fixed oils", "Water is used only for alkaloids; alcohol USP is practically free from water; propylene glycol is used only for research"]}
 ];
 
 const levelLabelsQ = {1:'Level 1 · Easy',2:'Level 2 · Medium',3:'Level 3 · Hard'};
